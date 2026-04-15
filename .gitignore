@@ -29,3 +29,6 @@ Results/water_availability_region*.gpkg
 
 # Test files
 figures/test_*.png
+
+# Manuscript figures — tracked (curated subset)
+!figures_manuscript/

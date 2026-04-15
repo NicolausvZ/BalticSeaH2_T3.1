@@ -9,12 +9,14 @@
 \usepackage{soul}
 \usepackage{pdflscape}   % landscape page for wide tables
 \usepackage{booktabs}    % \toprule, \midrule, \bottomrule
+\usepackage{graphicx}    % \includegraphics
 \linenumbers
 \draftfalse
 
 \journalname{Water Resources Research} % TODO: confirm target AGU journal
 
 \begin{document}
+\graphicspath{{../}{../figures_manuscript/}}
 
 \title{Water availability for hydrogen production in southern Finland}
 
@@ -31,17 +33,17 @@
 \correspondingauthor{=Name=}{=email=}
 
 \begin{keypoints}
-\item Seasonal low flows and ecological constraints can bound freshwater available for electrolysis even in water-rich regions
-\item A calibrated catchment-scale model enables consistent comparison across $\sim$20 basins under climate and urban-growth scenarios
-\item Siting decisions improve when hydrology is integrated with land cover, infrastructure, and sectoral water-use competition
+\item Summer and autumn low flows constrain freshwater availability in more than 58\% of southern Finland subcatchments under current conditions
+\item Climate change (SSP2-4.5) reduces summer Q10 by a regional median of 24\%, dominating over urban growth effects by approximately 57:1
+\item Siting decisions improve markedly when seasonal low-flow dynamics replace annual mean discharge as the water availability indicator
 \end{keypoints}
 
 \begin{abstract}
-Green hydrogen production via water electrolysis is expanding rapidly in Europe, including the Baltic Sea region, and requires reliable access to freshwater resources that are simultaneously subject to ecological constraints, legal permitting, and competing demands from municipalities, industry and agriculture. Here we assess the spatial and seasonal availability of freshwater resources for potential hydrogen production sites in southern Finland by combining (i) observed discharge records, (ii) catchment-scale hydrological modelling, and (iii) scenarios of climate change (SSP2-4.5) and urban growth to 2050. We calibrate a semi-distributed hydrological model (HYPE) against measured daily discharge at outlet stations for 27 river catchments across southern Finland and estimate the time-varying discharge available for withdrawal after accounting for environmental flow requirements and existing/prospective human water uses. We then translate hydrogen production targets into water-withdrawal requirements using technology-specific water demand assumptions, and overlay hydrological results with land-cover-based siting criteria developed within the BalticSeaH2 project. Results include (a) calibration skill statistics and hydrograph comparisons, (b) seasonal maps of minimum restricting discharges and available freshwater (m$^3$/s), and (c) scenario-driven changes in water availability for 2050. The analysis provides a transparent, reproducible basis for screening hydrogen production sites under uncertainty, and highlights where hydrologic extremes, policy thresholds, and social acceptance constraints (e.g., for managed aquifer recharge) may become binding.
+Green hydrogen production via water electrolysis is expanding rapidly in Europe, including the Baltic Sea region, and requires reliable access to freshwater resources that are simultaneously subject to ecological constraints, legal permitting, and competing demands from municipalities, industry and agriculture. Here we assess the spatial and seasonal availability of freshwater resources for potential hydrogen production sites in southern Finland by combining (i) observed discharge records, (ii) catchment-scale hydrological modelling, and (iii) scenarios of climate change (SSP2-4.5) and urban growth to 2040--2069. We calibrate a semi-distributed hydrological model (HYPE) against measured daily discharge at outlet stations for 27 river catchments (1,158 subcatchments) across southern Finland and derive seasonal discharge statistics, focusing on the Q10 low-flow indicator. Under baseline conditions, 58.5\% and 60.8\% of subcatchments fall below an indicative industrial abstraction threshold of 0.05\,m$^3$\,s$^{-1}$ in summer and autumn respectively, confirming that seasonal low flows are a binding constraint across much of the study domain even in this water-rich region. Under the SSP2-4.5 climate scenario, summer Q10 decreases by a regional median of 24.4\% (10th percentile: $-$82.6\%), with 98.7\% of subcatchments showing reduced summer low flows. Urban growth exerts a negligible regional signal (median $-$0.43\%), with climate change dominating over urban effects by approximately 57:1. Winter Q10 increases under climate change as warmer temperatures shift precipitation from snow to rain, creating an opposing seasonal trend that further argues for seasonal production profiles and storage strategies. The analysis identifies a clear west-to-east gradient in water availability, with small agricultural catchments in the southwest most severely constrained and large eastern catchments most suitable for surface water-based hydrogen production.
 \end{abstract}
 
 \section*{Plain Language Summary}
-Hydrogen made using renewable electricity can help reduce greenhouse-gas emissions in industry and transport. Producing hydrogen by splitting water (electrolysis) needs water that is clean enough for the equipment and available during the driest times of year. Even in Finland, where lakes and rivers are common, some areas face seasonal low flows and droughts, and water is already used by households, industry and agriculture. In this study we model 27 river catchments in southern Finland to estimate how much freshwater is available in different seasons today and in 2050 under climate and population growth scenarios. We combine this with estimates of how much water different electrolysers would need, and map where hydrogen production could be feasible while respecting environmental flow needs and existing water users.
+Hydrogen made using renewable electricity can help reduce greenhouse-gas emissions in industry and transport. Producing hydrogen by splitting water (electrolysis) needs water that is clean enough for the equipment and reliably available even during the driest times of year. Even in Finland, where lakes and rivers are common, our study shows that more than half of the river subcatchments in southern Finland cannot guarantee enough water for continuous industrial use during summer and autumn. We model 27 river catchments to map where water is available today and how this changes by 2050 under climate warming and urban growth. Climate change is by far the dominant threat to summer water availability — reducing low flows by roughly a quarter on average and by up to 80\% in the most vulnerable catchments — while urban growth has only a minor additional effect. Winter water availability actually improves under future climate as more precipitation falls as rain instead of snow. We identify the large eastern catchments as the most promising locations for water-based hydrogen production, while the small agricultural catchments in southwest Finland face the most severe constraints.
 
 \section{Introduction}
 \subsection{Hydrogen production and the freshwater constraint}
@@ -124,7 +126,7 @@ Daily precipitation and air temperature were retrieved automatically via the \te
 % TODO: specify gap-filling approach and period of record; add FMI citation
 
 \subsubsection{Land cover}
-The CORINE Land Cover 2018 (CLC2018) vector layer was used for land use parametrisation. The 44 CORINE Level-3 classes were aggregated into seven HYPE land use classes: urban area, other impermeable area, field or other low vegetation, bare soil, forest, swamp, and water. Across the study catchments, forest is the dominant land cover (mean 60\%, range 41–81\%), followed by agriculture (mean 33\%, range 12–55\%). Urban area accounts for a mean of 3\% but reaches 17\% in the Vantaanjoki catchment draining the Helsinki metropolitan area.
+The CORINE Land Cover 2018 (CLC2018) vector layer was used for land use parametrisation. The 44 CORINE Level-3 classes were aggregated into seven HYPE land use classes: urban area, other impermeable area, field or other low vegetation, bare soil, forest, swamp, and water. Across the study catchments, forest is the dominant land cover (mean 60\%, range 41--81\%), followed by agriculture (mean 33\%, range 12--55\%). Urban area accounts for a mean of 3\% but reaches 17\% in the Vantaanjoki catchment draining the Helsinki metropolitan area.
 % TODO: add EEA/SYKE citation for CLC2018
 
 \subsubsection{Soils and superficial deposits}
@@ -171,30 +173,29 @@ Model parameters were calibrated automatically using PEST (Parameter ESTimation;
 
 All 27 catchments were configured in a single aggregate PEST run, with a shared parameter set applied across all SLC classes. Of the 27 catchments, 15 had available discharge observations and contributed to the calibration objective function; the remaining 12 production-only catchments had their parameter files updated by PEST but contributed no observations. This approach enforces a regionally consistent parametrisation while making use of all available gauging data across southern Finland.
 
-The simulation record was divided into three non-overlapping periods assigned to PEST observation groups: a warm-up period (2019, weight $= 0$) for model state initialisation, a calibration period (2020–2022, weighted) from which PEST minimised residuals, and a validation period (2023, weight $= 0$) withheld entirely from the fitting process. Observations were weighted as a function of the median discharge at each station to account for differences in catchment size and flow magnitude, with a low-flow boost applied to observations at or below the 20th percentile at stations with median flow above 1\,m$^3$/s, reflecting the importance of minimum flow conditions for water availability assessment.
+The simulation record was divided into three non-overlapping periods assigned to PEST observation groups: a warm-up period (2019, weight $= 0$) for model state initialisation, a calibration period (2020--2022, weighted) from which PEST minimised residuals, and a validation period (2023, weight $= 0$) withheld entirely from the fitting process. Observations were weighted as a function of the median discharge at each station to account for differences in catchment size and flow magnitude, with a low-flow boost applied to observations at or below the 20th percentile at stations with median flow above 1\,m$^3$\,s$^{-1}$, reflecting the importance of minimum flow conditions for water availability assessment.
 
 Two parameter groups were defined in PEST: a relative perturbation group for parameters with strictly positive ranges, and an absolute perturbation group (step $= 0.05$) for parameters whose calibration range crosses zero — specifically the snow temperature threshold (\texttt{ttmp}) for bare soil and water land use classes — to avoid numerical errors in Jacobian computation at or near zero parameter values.
 
 PEST template and instruction files were generated programmatically for each catchment, and an aggregate control file was assembled linking all 27 catchment model instances, parameter files, and observation sets into a single estimation problem.
 
 \subsubsection{Model evaluation metrics}
-Calibration and validation performance were evaluated using five complementary metrics computed separately for the calibration (2020–2022) and validation (2023) periods:
+Calibration and validation performance were evaluated using five complementary metrics computed separately for the calibration (2020--2022) and validation (2023) periods:
 
 \begin{enumerate}
     \item Nash–Sutcliffe Efficiency (NSE), sensitive to high-flow performance;
-    \item log-transformed NSE (log-NSE), sensitive to low-flow performance;
+    \item log-transformed NSE (logNSE), sensitive to low-flow performance;
     \item Kling–Gupta Efficiency (KGE) and its component decomposition into correlation, bias ratio, and variability ratio;
     \item coefficient of determination ($R^2$); and
     \item percent bias (PBIAS) and root mean squared error (RMSE) for volumetric agreement.
 \end{enumerate}
 
-Flow duration curve (FDC) diagnostics were additionally examined with emphasis on low-flow quantiles (Q70–Q95) relevant to water withdrawal constraints.
-% TODO: specify acceptance criteria thresholds for publication
+Flow duration curve (FDC) diagnostics were additionally examined with emphasis on low-flow quantiles (Q70--Q95) relevant to water withdrawal constraints.
 
 \subsubsection{Discharge statistics and water availability assessment}
 Following calibration, HYPE was run with all 1,158 subcatchments configured as output locations. Simulated daily discharge time series were post-processed to derive seasonal and annual flow statistics for four seasons — winter (December–February), spring (March–May), summer (June–August), and autumn (September–November) — as well as for the full annual record. For each season and annually, the following metrics were calculated: minimum, 10th percentile (Q10), median, mean, and maximum discharge.
 
-The Q10 low-flow statistic is used as the primary indicator of reliably available water, representing the discharge exceeded 90\% of the time and characterising the near-guaranteed minimum supply relevant to continuous industrial water abstraction for hydrogen production. Environmental flow requirements and existing sectoral withdrawals (domestic, industrial, agricultural) are to be subtracted from simulated discharge to yield net available discharge for new hydrogen production facilities.
+The Q10 low-flow statistic is used as the primary indicator of reliably available water, representing the discharge exceeded 90\% of the time and characterising the near-guaranteed minimum supply relevant to continuous industrial water abstraction for hydrogen production. An indicative industrial abstraction threshold of 0.05\,m$^3$\,s$^{-1}$ is used to identify subcatchments where direct surface water supply for continuous hydrogen production would be critically constrained; this threshold is conservative for small installations ($<$1 tonne\,H$_2$\,day$^{-1}$) but may be binding for industrial-scale facilities. Environmental flow requirements and existing sectoral withdrawals (domestic, industrial, agricultural) are to be subtracted from simulated discharge to yield net available discharge for new hydrogen production facilities.
 % TODO: specify e-flow method, sectoral withdrawal data sources, and seasonal profiles
 
 Results for all subcatchments were stored as spatially referenced GeoPackage files retaining the original subcatchment geometries, enabling direct spatial comparison across candidate electrolyser sites. Results from all 27 catchments were merged into a single region-wide GeoPackage.
@@ -220,49 +221,197 @@ Hydrogen production scenarios were translated to water withdrawal requirements (
 % ---------------------------------------------------------------------------
 
 \subsection{Calibration and validation performance}
-% TODO: Insert catchment-by-catchment calibration table and summary statistics
-We present calibration results as hydrograph comparisons, flow duration curves, and performance metrics (NSE, KGE, PBIAS) for all calibrated catchments.
+
+Calibration performance across the 15 gauged catchments is summarised in Table~\ref{tab:gof} and illustrated by selected hydrograph comparisons in Figure~\ref{fig:hydrographs}. Overall performance is satisfactory to good for a regional multi-catchment model constrained by a single shared parameter set. The median NSE across all gauges is 0.62 (range: $-$0.67 to 0.87) and median KGE is 0.63 (range: 0.27 to 0.85) for the calibration period (2020--2022). Only 7 of 28 gauges achieve $|\mathrm{PBIAS}| < 10\%$, and 10 of 28 exceed 25\%, indicating systematic volume biases at a substantial fraction of stations that likely reflect limitations in precipitation station coverage rather than fundamental model structural errors.
+
+The strongest performance is in Vantaanjoki, where five gauges achieve NSE of 0.66--0.87 and KGE of 0.46--0.85, consistent with this being the largest and best-monitored catchment in the domain. The most problematic stations are Karjaanjoki 2300100 (NSE $= -0.67$, PBIAS $= +52\%$) and Karjaanjoki 2300340 (NSE $= -0.23$, PBIAS $= -43\%$), where systematic underestimation and overestimation respectively point to unrepresentative precipitation forcing in sub-basins with sparse station coverage. Sipoonjoki (station 2000110) has only two valid observations and is excluded from quantitative assessment; its Q10 estimates carry very high uncertainty.
+
+The logNSE metric — which weights low-flow periods most heavily and is therefore the most relevant performance indicator for this study — shows a more variable pattern than standard NSE. Several catchments with acceptable NSE display poor logNSE (notably Hounijoki 601000: logNSE $= -0.73$; Ilolanjoki: logNSE $= 0.02$), indicating that low-flow dynamics are less well reproduced than the general seasonal cycle. These stations should be treated with caution when interpreting Q10 estimates.
+
+In the validation period (2023), median NSE falls to 0.38 and median KGE to 0.53. Notably, the KGE decline is smaller than the NSE decline, suggesting that 2023 contained hydrological conditions outside the calibration envelope rather than representing model over-fitting. The widespread positive PBIAS in validation (Siuntionjoki: $+47\%$; Taasianjoki: $+42\%$; Summajoki: $+39\%$; Sirppujoki: $+38\%$) across independent catchments is consistent with anomalously high discharge in 2023 relative to the calibration period, likely reflecting inter-annual hydroclimatic variability rather than systematic model failure. Importantly, logNSE values in validation are better preserved than NSE in several catchments (e.g. Karjaanjoki 2300100: logNSE $= 0.40$ vs NSE $= 0.01$; Mustijoki 1900100: logNSE $= 0.76$ vs NSE $= 0.50$), providing reasonable confidence that Q10 estimates derived from the calibrated model are more reliable than the volumetric performance metrics alone might suggest.
+
+\begin{landscape}
+\begin{table}[p]
+\caption{Goodness-of-fit metrics for calibration (2020--2022) and validation (2023) periods at all gauged stations. NSE = Nash--Sutcliffe Efficiency; logNSE = log-transformed NSE; KGE = Kling--Gupta Efficiency; PBIAS = percent bias (\%); RMSE = root mean squared error (m$^3$\,s$^{-1}$). Stations with fewer than 10 valid observations (Sipoonjoki 2000110) are excluded.}
+\label{tab:gof}
+\small
+\begin{tabular}{llr rrrr r rrrr r}
+\toprule
+ & & \multicolumn{6}{c}{Calibration (2020--2022)} & \multicolumn{5}{c}{Validation (2023)} \\
+\cmidrule(lr){3-8} \cmidrule(lr){9-13}
+Catchment & Station & $n$ & NSE & logNSE & KGE & PBIAS & RMSE & $n$ & NSE & logNSE & KGE & PBIAS \\
+\midrule
+Aurajoki         & 2800300 & 1080 &  0.672 &  0.477 & 0.488 & $-$26.8 & 2.77 & 365 &  0.690 &  0.531 & 0.595 &  $-$0.8 \\
+Hounijoki        & 0601000 & 1096 &  0.349 & $-$0.730 & 0.518 & $+$24.5 & 1.35 & 365 &  0.277 &  0.538 & 0.517 &  $+$4.2 \\
+Hounijoki        & 0605800 & 1074 &  0.419 &  0.407 & 0.341 &  $-$8.5 & 1.21 & 336 &  0.402 &  0.275 & 0.344 & $-$13.1 \\
+Ilolanjoki       & 1700500 & 1030 &  0.633 &  0.023 & 0.428 & $-$30.5 & 1.95 & 360 &  0.649 &  0.348 & 0.551 & $-$17.9 \\
+Karjaanjoki      & 2300100 & 1059 & $-$0.673 & $-$1.093 & 0.272 & $+$52.5 & 5.01 & 360 &  0.006 &  0.399 & 0.459 & $+$41.1 \\
+Karjaanjoki      & 2300240 & 1096 &  0.509 &  0.472 & 0.601 & $+$37.3 & 3.90 & 356 &  0.241 &  0.564 & 0.542 & $+$38.7 \\
+Karjaanjoki      & 2300340 & 1064 & $-$0.234 &  0.283 & 0.397 & $-$42.8 & 0.24 & 356 &  0.538 &  0.612 & 0.682 &  $-$8.9 \\
+Karjaanjoki      & 2300402 & 1075 &  0.712 &  0.711 & 0.658 &  $+$1.9 & 1.41 & 355 &  0.223 &  0.602 & 0.369 &  $+$7.0 \\
+Karjaanjoki      & 2300560 & 1096 &  0.463 &  0.543 & 0.680 &  $-$5.0 & 3.91 & 365 & $-$0.593 &  0.292 & 0.423 & $-$11.9 \\
+Karjaanjoki      & 2300935 & 1096 &  0.454 &  0.527 & 0.573 & $+$16.6 & 9.75 & 365 &  0.047 &  0.155 & 0.493 &  $+$7.2 \\
+Koskenkylanjoki  & 1600110 & 1091 &  0.689 &  0.802 & 0.642 & $+$11.3 & 2.61 & 365 &  0.356 &  0.529 & 0.573 & $+$29.0 \\
+Koskenkylanjoki  & 1601100 & 1096 &  0.666 &  0.796 & 0.654 & $+$20.6 & 5.72 & 365 &  0.601 &  0.747 & 0.659 & $+$27.3 \\
+Mustijoki        & 1900100 & 1096 &  0.688 &  0.801 & 0.661 & $+$18.1 & 5.50 & 365 &  0.504 &  0.757 & 0.628 &  $+$1.9 \\
+Mustijoki        & 1900400 & 1071 &  0.605 &  0.545 & 0.478 &  $-$7.7 & 3.56 & 365 &  0.311 &  0.334 & 0.291 & $-$36.1 \\
+Porvoonjoki      & 1800500 & 1096 &  0.804 &  0.768 & 0.773 & $+$20.6 & 6.26 & 365 &  0.570 &  0.656 & 0.745 & $+$11.5 \\
+Sirppujoki       & 3200400 & 1082 &  0.333 &  0.677 & 0.371 & $+$35.2 & 3.78 & 365 &  0.252 &  0.578 & 0.323 & $+$38.2 \\
+Siuntionjoki     & 2200100 & 1096 &  0.539 &  0.656 & 0.666 & $+$30.9 & 0.35 & 365 & $-$0.211 &  0.434 & 0.319 & $+$47.1 \\
+Siuntionjoki     & 2200310 & 1096 &  0.765 &  0.697 & 0.811 &  $+$6.4 & 0.48 & 365 &  0.344 &  0.661 & 0.652 &  $+$6.3 \\
+Summajoki        & 1300101 & 1066 &  0.559 &  0.624 & 0.618 & $+$33.0 & 3.86 & 337 &  0.474 &  0.525 & 0.577 & $+$38.9 \\
+Taasianjoki      & 1500600 & 1096 &  0.661 &  0.627 & 0.688 & $+$17.3 & 4.88 & 365 &  0.464 &  0.348 & 0.524 & $+$42.4 \\
+Uskelanjoki      & 2500400 &  963 &  0.564 &  0.459 & 0.543 &  $+$2.2 & 6.06 & 312 &  0.477 &  0.523 & 0.521 & $+$10.2 \\
+Vantaanjoki      & 2101220 & 1096 &  0.867 &  0.842 & 0.851 & $+$13.8 & 5.88 & 365 &  0.608 &  0.764 & 0.773 &  $+$9.1 \\
+Vantaanjoki      & 2101310 & 1096 & $-$0.193 &  0.243 & 0.459 & $-$11.5 & 1.12 & 365 & $-$1.050 &  0.340 & 0.318 & $-$26.5 \\
+Vantaanjoki      & 2101500 & 1082 &  0.754 &  0.818 & 0.829 & $+$10.4 & 2.90 & 350 &  0.626 &  0.837 & 0.794 &  $+$6.6 \\
+Vantaanjoki      & 2101520 & 1096 &  0.804 &  0.797 & 0.827 & $+$13.7 & 1.79 & 365 &  0.544 &  0.725 & 0.770 &  $+$0.3 \\
+Vantaanjoki      & 2101700 & 1096 &  0.854 &  0.831 & 0.833 & $+$15.6 & 8.33 & 365 &  0.628 &  0.772 & 0.782 &  $+$9.2 \\
+Vantaanjoki      & 2104900 & 1086 &  0.657 &  0.777 & 0.827 &  $+$1.6 & 1.59 & 323 & $-$0.024 &  0.717 & 0.521 & $-$10.6 \\
+Vironjoki        & 1100500 & 1096 &  0.412 &  0.681 & 0.460 & $+$28.7 & 4.15 & 365 &  0.366 &  0.613 & 0.454 & $+$24.1 \\
+\midrule
+\multicolumn{2}{l}{Median} & & 0.62 & 0.60 & 0.63 & $+$14.7 & & & 0.38 & 0.54 & 0.53 & $+$9.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{landscape}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{figures_manuscript/fig01_hydrograph_compound}
+\caption{Observed (dark) and simulated (red) daily discharge for six representative gauges covering the full range of calibration performance: (a) Vantaanjoki 2101220 (NSE\,=\,0.87); (b) Porvoonjoki 1800500 (NSE\,=\,0.80); (c) Siuntionjoki 2200310 (NSE\,=\,0.77); (d) Koskenkylanjoki 1600110 (NSE\,=\,0.69); (e) Sirppujoki 3200400 (NSE\,=\,0.33); (f) Karjaanjoki 2300100 (NSE\,=\,$-$0.67). Green shading = calibration period (2020--2022); blue shading = validation period (2023). Metrics annotated for both periods.}
+\label{fig:hydrographs}
+\end{figure}
 
 \subsection{Seasonal freshwater availability}
-% TODO: Provide maps and tables
-Seasonal maps (winter, spring, summer, autumn) show the spatial distribution of available freshwater (m$^3$/s) and identify minimal restricting discharges during low-flow periods.
 
-\subsection{2050 climate change scenario effects}
-% TODO: Provide scenario comparison figures and quantify changes
-Under SSP2-4.5 forcing, changes in snow dynamics, evapotranspiration and precipitation seasonality alter low-flow characteristics and seasonal availability in a catchment-specific manner.
+Seasonal Q10 maps for the baseline period are presented in Figure~\ref{fig:seasonal_maps}. The spatial and seasonal patterns reveal strong heterogeneity across the study domain and a hydrological calendar in which summer and autumn low flows constitute the primary constraint on water availability for hydrogen production.
 
-\subsection{2050 urban growth scenario effects}
-% TODO: Provide scenario comparison figures and quantify changes
-Urbanisation affects runoff partitioning and water demand, leading to scenario-dependent shifts in both hydrologic supply and competing withdrawals.
+The regional median Q10 follows a pronounced seasonal cycle: spring (0.116\,m$^3$\,s$^{-1}$) $>$ winter (0.093\,m$^3$\,s$^{-1}$) $>$ annual (0.034\,m$^3$\,s$^{-1}$) $>$ summer (0.032\,m$^3$\,s$^{-1}$) $>$ autumn (0.028\,m$^3$\,s$^{-1}$). Autumn Q10 is the lowest of all seasons — a counterintuitive finding explained by the persistence of summer drought conditions into September before autumn recharge has propagated through the soil-groundwater-stream system. The proportion of subcatchments below the indicative 0.05\,m$^3$\,s$^{-1}$ threshold ranges from 28.5\% in spring to 60.8\% in autumn (Table~\ref{tab:q10_summary}).
 
-\subsection{Integrated siting assessment}
-% TODO: Insert overlay map and ranked candidate site table
-Combining water availability constraints with land-cover and infrastructure siting criteria yields candidate production zones and highlights catchments where water constraints may be binding.
+A clear west-to-east gradient characterises baseline summer Q10. Western catchments (Sirppujoki, Hirvijoki, Mynajoki, Aurajoki, Uskelanjoki) are dominated by low Q10 values, reflecting their small drainage areas, high agricultural land cover, clay-dominated soils with limited aquifer storage capacity, and absence of significant lake buffering. The P10--P90 range of summer Q10 across all subcatchments spans more than three orders of magnitude (0.000 to 0.525\,m$^3$\,s$^{-1}$), confirming that location-specific analysis is essential and regional averages are uninformative for site screening.
+
+Winter Q10 is notably higher than summer Q10 (32.6\% of subcatchments below threshold in winter vs 58.5\% in summer), demonstrating that groundwater-fed baseflow sustains winter low flows more reliably than the evapotranspiration-depleted summer baseflows. Peatland-dominated subcatchments in the western region show relatively high winter Q10 compared to their summer values, consistent with the known function of peatlands as hydrological buffers that release stored water slowly throughout the cold season.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.75\textwidth]{figures_manuscript/fig02_baseline_winter_q10}\\[4pt]
+\includegraphics[width=0.75\textwidth]{figures_manuscript/fig02_baseline_spring_q10}\\[4pt]
+\includegraphics[width=0.75\textwidth]{figures_manuscript/fig02_baseline_summer_q10}\\[4pt]
+\includegraphics[width=0.75\textwidth]{figures_manuscript/fig02_baseline_autumn_q10}
+\caption{Baseline seasonal Q10 discharge (m$^3$\,s$^{-1}$) across 1,158 subcatchments in southern Finland for (top to bottom) winter (December--February), spring (March--May), summer (June--August), and autumn (September--November). Colour scale uses quantile-based classification; light blue = low, dark blue = high discharge.}
+\label{fig:seasonal_maps}
+\end{figure}
+
+\begin{table}[htbp]
+\caption{Regional Q10 summary statistics by season for the baseline scenario across all 1,158 subcatchments. P10 and P90 are the 10th and 90th percentiles across subcatchments. N$_{<0.05}$ and \% $_{<0.05}$ indicate the number and proportion of subcatchments below the indicative industrial abstraction threshold of 0.05\,m$^3$\,s$^{-1}$.}
+\label{tab:q10_summary}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+Season & Median Q10 & P10 Q10 & P90 Q10 & N$_{<0.05}$ & \%$_{<0.05}$ \\
+ & (m$^3$\,s$^{-1}$) & (m$^3$\,s$^{-1}$) & (m$^3$\,s$^{-1}$) & & \\
+\midrule
+Winter (Dec--Feb) & 0.093 & 0.019 & 1.229 & 378 & 32.6 \\
+Spring (Mar--May) & 0.116 & 0.023 & 1.675 & 330 & 28.5 \\
+Summer (Jun--Aug) & 0.032 & 0.000 & 0.525 & 677 & 58.5 \\
+Autumn (Sep--Nov) & 0.028 & 0.001 & 0.500 & 704 & 60.8 \\
+Annual            & 0.034 & 0.001 & 0.620 & 667 & 57.6 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Climate change scenario effects}
+
+The SSP2-4.5 climate scenario produces opposing seasonal effects on Q10 that are critical for hydrogen production planning (Figures~\ref{fig:delta_summer} and~\ref{fig:delta_winter}). Summer and autumn Q10 decrease substantially and near-universally, while winter Q10 increases across much of the domain.
+
+For summer Q10, 98.7\% of subcatchments show a decrease under the climate scenario, with a regional median change of $-24.4\%$ (P10: $-82.6\%$, P90: $-10.0\%$). The mechanism is straightforward: temperature increases of $+2.3$ to $+3.2\,^\circ$C drive substantially higher evapotranspiration throughout the growing season, depleting soil moisture reserves that would otherwise recharge groundwater and sustain summer baseflows. The slight decrease in July precipitation ($-1\%$) amplifies this effect. The spatial pattern of summer Q10 decline is not uniform — the western catchments already experiencing the lowest baseline flows show the largest relative decreases, intensifying the existing spatial gradient. This ``droughts get drier'' dynamic means that the areas already most constrained under current conditions become increasingly infeasible for surface water-based hydrogen production under future climate.
+
+For winter Q10, the climate scenario produces widespread increases reflecting the shift from snowfall to rainfall under warmer winter temperatures. More precipitation falling directly as rain generates immediate runoff and groundwater recharge rather than accumulating in snowpack, increasing winter baseflows. This creates a seasonally opposing trend: future climate simultaneously relaxes the winter water constraint while tightening the summer constraint.
+
+\subsection{Urban growth scenario effects}
+
+The urban growth scenario exerts a negligible regional signal on summer Q10 relative to climate change (Table~\ref{tab:delta_summary}). The regional median change in summer Q10 is $-0.43\%$ (compared to $-24.4\%$ for climate), and only 53.8\% of subcatchments show any decrease (compared to 98.7\% for climate). Climate change outweighs urban growth as a driver of summer low-flow change by approximately 57:1 in terms of median regional impact.
+
+The modest decreases in urbanising subcatchments reflect reduced groundwater recharge from increased impervious cover, which reduces infiltration and therefore baseflow. The largest urban growth effects are concentrated in the Vantaanjoki catchment (Helsinki metropolitan area), where urban fractions increase most strongly under the Statistics Finland projections, but even here the absolute magnitude of the Q10 change is small relative to the climate signal.
+
+The combined scenario — applying both climate forcing changes and urban land cover modifications simultaneously — is nearly indistinguishable from the climate-only scenario in summer (median $-26.0\%$ vs $-24.4\%$). This confirms that at the regional scale, urban growth is a secondary modifier of the climate change signal rather than an independent driver of water scarcity for hydrogen production.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth]{figures_manuscript/fig03_climate_summer_q10_delta}\\[4pt]
+\includegraphics[width=0.80\textwidth]{figures_manuscript/fig03_urban_summer_q10_delta}\\[4pt]
+\includegraphics[width=0.80\textwidth]{figures_manuscript/fig03_combined_summer_q10_delta}
+\caption{Percentage change in summer Q10 from baseline for (top) climate change (SSP2-4.5, 2040--2069), (middle) urban growth (to 2040), and (bottom) combined scenarios. Blue = increase; red = decrease; white = no change; grey = undefined (baseline Q10 = 0). Note the contrasting magnitude of change between climate ($-$24.4\% median) and urban ($-$0.43\% median) scenarios.}
+\label{fig:delta_summer}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth]{figures_manuscript/fig04_climate_winter_q10_delta}
+\caption{Percentage change in winter Q10 from baseline under the climate change scenario (SSP2-4.5, 2040--2069). Widespread increases in winter Q10 reflect the shift from snowfall to rainfall under warmer winter temperatures, creating an opposing seasonal trend to the summer Q10 decrease shown in Figure~\ref{fig:delta_summer}.}
+\label{fig:delta_winter}
+\end{figure}
+
+\begin{table}[htbp]
+\caption{Summer Q10 percentage change from baseline by scenario. Statistics computed across subcatchments with non-zero baseline summer Q10. P10 and P90 are the 10th and 90th percentiles of the percentage change distribution. \%\,decrease = proportion of subcatchments showing any reduction in summer Q10.}
+\label{tab:delta_summary}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Scenario & Median change (\%) & P10 (\%) & P90 (\%) & \% decrease \\
+\midrule
+Climate change (SSP2-4.5) & $-$24.4 & $-$82.6 & $-$10.0 & 98.7 \\
+Urban growth              &  $-$0.4 &  $-$5.6 &   $+$0.0 & 53.8 \\
+Combined                  & $-$26.0 & $-$83.2 & $-$11.9 & 98.8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Based on the hydrological results, three broad tiers of water availability for surface water-based hydrogen production can be identified across the study domain:
+
+\textit{Most suitable — eastern catchments.} Koskenkylanjoki, Porvoonjoki, Taasianjoki, Vehkajoki, Urpalanjoki, and Juustilanjoki have the highest summer and annual Q10 values, the largest drainage areas providing hydrological buffering, and are less severely affected by the climate scenario. These catchments represent the strongest candidates for direct surface water abstraction for hydrogen production.
+
+\textit{Conditionally suitable — central catchments.} Vantaanjoki, Mustijoki, Siuntionjoki, Karjaanjoki, and Kiskonjoki show moderate water availability with significant subcatchment-scale heterogeneity. Vantaanjoki benefits from its large drainage area but faces the highest urban growth pressure and competes with the largest municipal water demand in Finland. Careful subcatchment-level siting combined with storage infrastructure would be required to ensure reliable supply.
+
+\textit{Most constrained — western catchments.} Sirppujoki, Hirvijoki, Mynajoki, Aurajoki, Uskelanjoki, Halikonjoki, and Paimionjoki have the lowest Q10 values in the study domain, the highest proportions of agricultural land cover, clay-dominated soils with limited aquifer capacity, and are projected to experience the largest relative summer Q10 decreases under climate change (20--80\%). Direct surface water abstraction for continuous hydrogen production is likely to be infeasible or severely restricted for most of the summer and autumn at these locations without large storage buffers or alternative water sources such as groundwater, MAR, or inter-basin transfer.
+
+% TODO: Insert overlay map combining water availability tiers with BalticSeaH2 siting criteria
+% TODO: Confirm siting tier boundaries with consultant land-cover analysis
 
 % ---------------------------------------------------------------------------
 \section{Discussion}
 % ---------------------------------------------------------------------------
 
 \subsection{Comparison to other water-availability assessment approaches}
-We compare our calibrated hydrologic-model-based approach to screening methods based on long-term mean flow, static water-balance ratios, and coarse-resolution global datasets, emphasising the importance of seasonal and low-flow dynamics for permitting and ecological constraints.
+We compare our calibrated hydrologic-model-based approach to screening methods based on long-term mean flow, static water-balance ratios, and coarse-resolution global datasets, emphasising the importance of seasonal and low-flow dynamics for permitting and ecological constraints. The results demonstrate that annual mean discharge substantially overestimates reliably available water: the regional median annual mean discharge is considerably higher than the annual Q10 (0.034\,m$^3$\,s$^{-1}$), and the ratio of mean to Q10 exceeds 5 in many western catchments. Screening based on mean annual discharge would therefore systematically overestimate water availability and misidentify the most seasonally constrained catchments as suitable for continuous abstraction.
 
 \subsection{Comparison to existing Finnish and Nordic studies}
 % TODO: insert explicit comparisons to SYKE/GTK/FMI and Nordic literature
 We discuss consistency and discrepancies between our results and published analyses of drought risk, seasonal water resources, and water-supply vulnerability in Finland and the Nordics.
 
 \subsection{Uncertainties, gaps and limitations}
-Key uncertainties include climate scenario spread, representation of groundwater–surface water interactions in small basins, limited data on industrial withdrawals, assumptions on environmental flows, and the treatment of cooling-water needs for electrolysis facilities.
+Key uncertainties include climate scenario spread (results shown for SSP2-4.5 only; higher-emission pathways would produce more severe summer Q10 reductions), representation of groundwater-surface water interactions in small basins (HYPE uses a conceptual groundwater store that may underestimate baseflow in coarse-material aquifers), limited data on existing industrial withdrawals, assumptions on environmental flow requirements (not yet subtracted from simulated Q10 in this analysis), and the treatment of cooling-water needs for electrolysis facilities. Calibration quality varies significantly across catchments, and stations with negative NSE or PBIAS $> 25\%$ — particularly Karjaanjoki 2300100, Sirppujoki, and Siuntionjoki 2200100 — carry elevated uncertainty in their Q10 estimates. The validation period covers only 2023, which appears to have been hydrologically anomalous; a longer validation record would provide more robust assessment of model transferability across diverse hydroclimatic conditions.
 
 \subsection{Policy implications for industrial water extraction}
-We discuss how Water Act permitting thresholds, cumulative-impact considerations, and groundwater protection constraints interact with hydrogen deployment timelines and infrastructure planning.
+The finding that climate change reduces summer Q10 by a median of 24\% across the region — with the most vulnerable catchments losing more than 80\% of their already-low summer baseflow — has direct implications for Water Act permitting timelines and investment decisions. Hydrogen production facilities with planned operational lifetimes of 20--30 years will be exposed to substantially different hydrological conditions from those prevailing at the time of permitting. We discuss how Water Act permitting thresholds, cumulative-impact considerations, and groundwater protection constraints interact with hydrogen deployment timelines and infrastructure planning.
 
 \subsection{Social dimensions and distributional impacts}
-We analyse potential social effects of freshwater withdrawals for hydrogen production, including perceptions of a zero-sum competition with municipal supply, agriculture, ecosystem needs, and public acceptance constraints for MAR and new water infrastructure.
+The opposing seasonal trends under climate change — winter improvement, summer-autumn deterioration — and the clear spatial gradient from constrained western to more available eastern catchments create distributional equity considerations. We analyse potential social effects of freshwater withdrawals for hydrogen production, including perceptions of a zero-sum competition with municipal supply, agriculture, ecosystem needs, and public acceptance constraints for MAR and new water infrastructure.
 
 % ---------------------------------------------------------------------------
 \section{Conclusions}
 % ---------------------------------------------------------------------------
-We conclude that catchment-scale, seasonally resolved hydrologic modelling provides critical information for hydrogen siting in southern Finland. The approach identifies where low-flow periods and policy/ecological constraints are likely to bound freshwater withdrawals, and where alternative water sources or infrastructure solutions may be necessary.
+
+Catchment-scale, seasonally resolved hydrological modelling reveals that water availability for hydrogen production in southern Finland is more constrained, more spatially variable, and more seasonally structured than annual mean discharge indicators would suggest. The key findings are:
+
+\begin{enumerate}
+    \item Under current conditions, 58.5\% of subcatchments fall below an indicative industrial abstraction threshold in summer and 60.8\% in autumn — the most constraining season — demonstrating that seasonal low flows are a binding constraint across the majority of the study domain even in a water-rich region.
+    \item Climate change (SSP2-4.5) reduces summer Q10 by a regional median of 24.4\%, with 98.7\% of subcatchments showing decreases and the most sensitive 10\% losing more than 80\% of their summer low flow. This tightening of the summer constraint is spatially concentrated in the small western catchments already experiencing the lowest baseline flows.
+    \item Urban growth exerts a negligible regional signal ($-0.43\%$ median change in summer Q10), with climate change dominating over urban effects by approximately 57:1. Combined scenario results are nearly identical to the climate-only scenario.
+    \item Winter Q10 increases under climate change as precipitation shifts from snow to rain, creating an opposing seasonal trend. Future hydrogen production planning should account for this seasonal asymmetry through production profiling, storage infrastructure, or alternative water sources to bridge the summer supply gap.
+    \item A clear west-to-east gradient in water availability identifies eastern catchments (Koskenkylanjoki, Porvoonjoki, Taasianjoki, Vehkajoki, Urpalanjoki, Juustilanjoki) as most suitable for surface water-based hydrogen production, and western catchments (Sirppujoki, Hirvijoki, Mynajoki, Aurajoki, Uskelanjoki) as most constrained, where alternative water sources will likely be necessary.
+\end{enumerate}
 
 \section*{Open Research Section}
 Data, model inputs, and scripts required to reproduce the results will be archived in =REPOSITORY= under an open license, including: (i) processed catchment and land-cover inputs, (ii) calibrated model parameter sets, (iii) scenario forcing datasets (or delta-change factors where redistribution is restricted), and (iv) derived discharge-availability indicators. Raw observational data are available from the original providers (SYKE, FMI, GTK, NLS, Copernicus/SYKE CORINE distribution). % TODO: replace with final archive DOI/URL
