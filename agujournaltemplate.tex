@@ -1,0 +1,294 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Water availability for hydrogen production in southern Finland
+% AGU manuscript draft (agujournal2019)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[draft]{agujournal2019}
+\usepackage{url}
+\usepackage{lineno}
+\usepackage[inline]{trackchanges}
+\usepackage{soul}
+\usepackage{pdflscape}   % landscape page for wide tables
+\usepackage{booktabs}    % \toprule, \midrule, \bottomrule
+\linenumbers
+\draftfalse
+
+\journalname{Water Resources Research} % TODO: confirm target AGU journal
+
+\begin{document}
+
+\title{Water availability for hydrogen production in southern Finland}
+
+\authors{
+=Author 1=\affil{1},
+=Author 2=\affil{2},
+=...=
+}
+
+\affiliation{1}{=Affiliation 1=}
+\affiliation{2}{=Affiliation 2=}
+% ...
+
+\correspondingauthor{=Name=}{=email=}
+
+\begin{keypoints}
+\item Seasonal low flows and ecological constraints can bound freshwater available for electrolysis even in water-rich regions
+\item A calibrated catchment-scale model enables consistent comparison across $\sim$20 basins under climate and urban-growth scenarios
+\item Siting decisions improve when hydrology is integrated with land cover, infrastructure, and sectoral water-use competition
+\end{keypoints}
+
+\begin{abstract}
+Green hydrogen production via water electrolysis is expanding rapidly in Europe, including the Baltic Sea region, and requires reliable access to freshwater resources that are simultaneously subject to ecological constraints, legal permitting, and competing demands from municipalities, industry and agriculture. Here we assess the spatial and seasonal availability of freshwater resources for potential hydrogen production sites in southern Finland by combining (i) observed discharge records, (ii) catchment-scale hydrological modelling, and (iii) scenarios of climate change (SSP2-4.5) and urban growth to 2050. We calibrate a semi-distributed hydrological model (HYPE) against measured daily discharge at outlet stations for 27 river catchments across southern Finland and estimate the time-varying discharge available for withdrawal after accounting for environmental flow requirements and existing/prospective human water uses. We then translate hydrogen production targets into water-withdrawal requirements using technology-specific water demand assumptions, and overlay hydrological results with land-cover-based siting criteria developed within the BalticSeaH2 project. Results include (a) calibration skill statistics and hydrograph comparisons, (b) seasonal maps of minimum restricting discharges and available freshwater (m$^3$/s), and (c) scenario-driven changes in water availability for 2050. The analysis provides a transparent, reproducible basis for screening hydrogen production sites under uncertainty, and highlights where hydrologic extremes, policy thresholds, and social acceptance constraints (e.g., for managed aquifer recharge) may become binding.
+\end{abstract}
+
+\section*{Plain Language Summary}
+Hydrogen made using renewable electricity can help reduce greenhouse-gas emissions in industry and transport. Producing hydrogen by splitting water (electrolysis) needs water that is clean enough for the equipment and available during the driest times of year. Even in Finland, where lakes and rivers are common, some areas face seasonal low flows and droughts, and water is already used by households, industry and agriculture. In this study we model 27 river catchments in southern Finland to estimate how much freshwater is available in different seasons today and in 2050 under climate and population growth scenarios. We combine this with estimates of how much water different electrolysers would need, and map where hydrogen production could be feasible while respecting environmental flow needs and existing water users.
+
+\section{Introduction}
+\subsection{Hydrogen production and the freshwater constraint}
+% TODO: tighten to water-focused hydrogen context
+Green hydrogen produced by electrolysis requires a dependable supply of feedwater with sufficiently low impurity levels to avoid degradation and fouling of electrochemical components. While the stoichiometric minimum water consumption is approximately 9~L per kg of H$_2$, practical water withdrawal can be higher when upstream purification losses and cooling-water configurations are included. These distinctions matter for site screening because regulatory thresholds and environmental-flow constraints are often defined in volumetric terms (e.g., m$^3$/day, m$^3$/s).
+
+\subsection{Water availability studies and hydrological information systems in Finland and the Nordics}
+Finland has extensive hydrological monitoring and open data infrastructures (e.g. observed discharge time series and national catchment delineations), enabling catchment-scale analysis of seasonal water availability. Similar approaches are used across Nordic countries to support water management, drought/flood forecasting, and environmental assessment. % TODO: add focused literature citations
+
+\subsection{Sectoral water use in southern Finland}
+Southern Finland concentrates population and industrial activity, increasing the relevance of competition between municipal water services, industrial withdrawals, and agriculture. A rigorous evaluation of water availability for hydrogen must therefore couple hydrologic supply with sectoral demand represented at compatible spatial scales (catchments/municipalities) and temporal scales (daily to seasonal).
+
+\subsection{Climate change and future hydrologic regimes}
+Climate change in Finland is projected to increase air temperature and precipitation overall, with strong seasonal contrasts that can shift snow storage and melt timing, evapotranspiration demand, and low-flow characteristics. These changes can affect the seasonal reliability of water available for withdrawal and the frequency of critical low-flow periods.
+
+\subsection{Policies and permitting for industrial water extraction and groundwater use}
+Water abstraction and other activities that alter surface water or groundwater conditions are regulated through the Water Act and related permitting processes. Industrial-scale water withdrawals may trigger permit requirements and can be constrained by minimum flows, groundwater protection, and cumulative impacts.
+
+\subsection{Managed aquifer recharge and social acceptance}
+Managed aquifer recharge (MAR, artificial groundwater) is widely used in Finland for water supply. However, some MAR projects have sparked public debate and controversy, illustrating that social acceptance and perceptions of risk can be binding constraints even when technical feasibility is demonstrated.
+
+\subsection{Urban growth to 2050 and implications for water demand}
+Population projections and municipal development patterns influence future domestic water demand and land-cover transitions (e.g., increasing impervious surfaces), which in turn influence runoff generation, groundwater recharge and stormwater flows. These changes must be included when projecting water availability for hydrogen to 2050.
+
+\subsection{BalticSeaH2 context and land-cover-based siting}
+This paper supports the BalticSeaH2 screening of suitable hydrogen production sites by providing a hydrologically grounded assessment of freshwater availability that can be combined with land-cover-based siting criteria, infrastructure proximity, and other environmental constraints. % TODO: link consultant siting layers and methodology
+
+\subsection{Alternative water sources for hydrogen production}
+Where freshwater availability is seasonally constrained, alternative sources may include groundwater, MAR-enabled withdrawals, seawater desalination (with associated energy and brine considerations), reclaimed water, and inter-basin/raw-water transfer infrastructure such as the Päijänne Tunnel system. The feasibility and acceptance of these alternatives depend on policy, economics, and local environmental conditions.
+
+\subsection{Objectives}
+The objectives of this study are to:
+\begin{enumerate}
+\item calibrate a catchment-scale hydrological model for 27 southern Finland catchments (1,158 subcatchments) using observed discharge,
+\item quantify seasonal and low-flow-limited freshwater availability (m$^3$/s) under present conditions,
+\item evaluate changes in water availability under 2050 climate (SSP2-4.5) and urban-growth scenarios, and
+\item integrate hydrologic constraints with land-cover-based siting to identify candidate hydrogen production areas.
+\end{enumerate}
+
+% ---------------------------------------------------------------------------
+\section{Materials and Methods}
+% ---------------------------------------------------------------------------
+
+\subsection{Materials}
+All input data used in this study are openly available and were obtained from Finnish national and European data repositories. The datasets and their key properties are summarised in Table~\ref{tab:datasets}.
+
+\begin{landscape}
+\begin{table}[p]
+\caption{Open datasets used for model parametrisation and forcing.}
+\label{tab:datasets}
+\small
+\begin{tabular}{p{4.2cm} p{3.2cm} p{3.0cm} p{3.8cm} p{4.0cm}}
+\toprule
+\textbf{Dataset} & \textbf{Provider} & \textbf{Type} & \textbf{Resolution / Format} & \textbf{Role in model} \\
+\midrule
+Catchment and subcatchment delineations & SYKE & Vector (polygon) & Hierarchical taso3/taso4; GeoPackage & Model unit boundaries and topology \\[3pt]
+River network (streams) & SYKE & Vector (polyline) & GeoPackage & Stream length computation and routing \\[3pt]
+Discharge stations and observations & SYKE open data API & Point / daily time series & Daily (m$^3$/s) & Model calibration and validation \\[3pt]
+Daily air temperature & FMI open data (WFS) & Point station time series & Daily ($^\circ$C) & Temperature forcing (\textit{Tobs}) \\[3pt]
+Daily precipitation & FMI open data (WFS) & Point station time series & Daily (mm) & Precipitation forcing (\textit{Pobs}) \\[3pt]
+Superficial deposits & GTK & Vector (polygon) & 1:200\,000; GeoPackage & Soil type parametrisation \\[3pt]
+Digital Elevation Model & NLS & Raster & 10\,m $\times$ 10\,m & Mean elevation and slope \\[3pt]
+CORINE Land Cover 2018 & EEA / SYKE & Vector & 25\,m equivalent; GeoPackage & Land use parametrisation \\[3pt]
+Municipal boundaries & NLS & Vector (polygon) & 1:10\,000; GeoPackage & Urban growth scenario spatial assignment \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{landscape}
+
+\subsubsection{Discharge observations}
+Daily discharge observations were retrieved from the Finnish Environment Institute (SYKE) open environmental data service and stored in a local database to avoid repeated downloads during iterative model runs. Of the 27 catchments in the study domain, 15 had available discharge observation records that contributed to model calibration and validation; the remaining 12 are production-only catchments without gauging data.
+% TODO: provide station IDs and periods of record; add formal citation
+
+\subsubsection{Catchment delineations and river network}
+Catchment boundaries and subcatchment topology were obtained from SYKE's national hierarchical river basin system (valuma-aluejako) at \textit{taso4} level. The topological connectivity of subcatchments — upstream–downstream relationships along the SYKE river network — was used to construct the routed drainage network within HYPE. Stream reach lengths within each subcatchment were calculated from the SYKE river network vector layer and used to parametrise flow routing.
+% TODO: add formal citation for SYKE valuma-aluejako
+
+\subsubsection{Meteorological forcing}
+Daily precipitation and air temperature were retrieved automatically via the \texttt{fmiopendata} Python library using the FMI WFS stored-query interface. For each subcatchment, the closest valid meteorological station with continuous records was selected using a nearest-station assignment.
+% TODO: specify gap-filling approach and period of record; add FMI citation
+
+\subsubsection{Land cover}
+The CORINE Land Cover 2018 (CLC2018) vector layer was used for land use parametrisation. The 44 CORINE Level-3 classes were aggregated into seven HYPE land use classes: urban area, other impermeable area, field or other low vegetation, bare soil, forest, swamp, and water. Across the study catchments, forest is the dominant land cover (mean 60\%, range 41–81\%), followed by agriculture (mean 33\%, range 12–55\%). Urban area accounts for a mean of 3\% but reaches 17\% in the Vantaanjoki catchment draining the Helsinki metropolitan area.
+% TODO: add EEA/SYKE citation for CLC2018
+
+\subsubsection{Soils and superficial deposits}
+Superficial deposit polygons from the Geological Survey of Finland (GTK; 1:200\,000 scale) were mapped to six HYPE soil classes: rock outcrop, clay, till, coarse materials, peat soil, and water. Peat soil is spatially variable, comprising a mean of 3\% of catchment area but up to 23\% in the most mire-dominated western catchments.
+% TODO: add GTK citation and clarify handling of unmapped units
+
+\subsubsection{Topography}
+Mean elevation and mean slope were computed from the NLS 10\,m $\times$ 10\,m digital elevation model using zonal statistics over subcatchment polygons. Mean elevation across the study area ranges from 25 to 83\,m above sea level.
+% TODO: confirm DEM version/timestamp; add NLS citation
+
+\subsubsection{Municipal boundaries}
+Municipal polygon boundaries from the NLS (1:10\,000) were used in the urban growth scenario to compute area-weighted urban fraction increases per subcatchment.
+% TODO: confirm NLS dataset year; add citation
+
+% ---------------------------------------------------------------------------
+\subsection{Methods}
+% ---------------------------------------------------------------------------
+
+\subsubsection{Overall modelling framework}
+Daily river discharge was simulated across 27 river catchments in southern Finland using the HYdrological Predictions for the Environment (HYPE) semi-distributed hydrological model \cite{Lindstrom2010}, developed at the Swedish Meteorological and Hydrological Institute (SMHI). The study area extends from Sirppujoki in the west to Juustilanjoki in the east, covering a total of 1,158 subcatchments with catchment areas ranging from 110 to 2,045\,km$^2$ (mean 610\,km$^2$). The full modelling pipeline — from raw data ingestion to calibrated discharge statistics and scenario outputs — was implemented as an automated Python workflow comprising four main stages: (1) spatial and temporal data preprocessing, (2) HYPE model setup and input file generation, (3) automatic parameter calibration with PEST \cite{Doherty2015}, and (4) post-processing of simulation results into seasonal discharge statistics and scenario comparisons.
+
+\subsubsection{Spatial preprocessing and catchment characterisation}
+Each catchment was decomposed into subcatchments using SYKE hierarchical delineations at \textit{taso4} level. The topological connectivity of subcatchments was established by identifying upstream–downstream relationships along the SYKE river network, enabling construction of a routed drainage network within HYPE. For each subcatchment the spatial attributes described in Section~2.1 (terrain, stream lengths, land use fractions, and soil type fractions) were derived using zonal statistics and polygon intersection with an R-tree spatial index for computational efficiency.
+
+Each unique combination of HYPE land use class and soil type occurring within the model domain was assigned a globally consistent soil–land use combination (SLC) index. This ensures that the same land use–soil combination carries the same parameter set across all catchments, enabling a single multi-catchment calibration. Discharge measurement stations were spatially located within subcatchments to link observational records to the correct model unit for calibration. A summary of catchment characteristics is provided in Table~2 (to be inserted).
+% TODO: insert Table 2 — catchment characteristics summary
+
+\subsubsection{HYPE model configuration}
+A separate but consistently structured HYPE model instance was assembled for each of the 27 catchments. HYPE represents snow accumulation and melt, evapotranspiration, soil moisture, groundwater storage, and routing through rivers and lakes at a daily timestep. The following input files were generated programmatically for each instance:
+
+\begin{itemize}
+    \item \textit{GeoData.txt} — subcatchment attributes including area, mean elevation and slope, stream length, SLC fractions, lake identifiers, and upstream–downstream linkages;
+    \item \textit{GeoClass.txt} — definitions of all SLC classes with their land use and soil type codes;
+    \item \textit{LakeData.txt} — lake routing parameters based on a power-law rating curve ($Q = \mathrm{gratk} \times (w - w_0)^{\mathrm{gratp}}$);
+    \item \textit{par.txt} — parameter values, updated iteratively by PEST during calibration;
+    \item \textit{Pobs.txt} / \textit{Tobs.txt} — daily areal precipitation and temperature forcing for each subcatchment, assigned from the nearest valid FMI weather station.
+\end{itemize}
+
+The simulation period ran from 2019-01-01 to 2023-12-31. The year 2019 served as a warm-up period to allow model state variables to reach dynamic equilibrium. Key process representations and their governing parameters are summarised in Table~3 (to be inserted).
+% TODO: insert Table 3 — key HYPE parameters and calibration ranges
+
+\subsubsection{Automatic parameter calibration with PEST}
+Model parameters were calibrated automatically using PEST (Parameter ESTimation; \citeNP{Doherty2015}), a model-independent parameter estimation tool based on the Gauss–Marquardt–Levenberg algorithm. PEST adjusts parameter values iteratively to minimise the sum of weighted squared residuals between simulated and observed daily discharges.
+
+All 27 catchments were configured in a single aggregate PEST run, with a shared parameter set applied across all SLC classes. Of the 27 catchments, 15 had available discharge observations and contributed to the calibration objective function; the remaining 12 production-only catchments had their parameter files updated by PEST but contributed no observations. This approach enforces a regionally consistent parametrisation while making use of all available gauging data across southern Finland.
+
+The simulation record was divided into three non-overlapping periods assigned to PEST observation groups: a warm-up period (2019, weight $= 0$) for model state initialisation, a calibration period (2020–2022, weighted) from which PEST minimised residuals, and a validation period (2023, weight $= 0$) withheld entirely from the fitting process. Observations were weighted as a function of the median discharge at each station to account for differences in catchment size and flow magnitude, with a low-flow boost applied to observations at or below the 20th percentile at stations with median flow above 1\,m$^3$/s, reflecting the importance of minimum flow conditions for water availability assessment.
+
+Two parameter groups were defined in PEST: a relative perturbation group for parameters with strictly positive ranges, and an absolute perturbation group (step $= 0.05$) for parameters whose calibration range crosses zero — specifically the snow temperature threshold (\texttt{ttmp}) for bare soil and water land use classes — to avoid numerical errors in Jacobian computation at or near zero parameter values.
+
+PEST template and instruction files were generated programmatically for each catchment, and an aggregate control file was assembled linking all 27 catchment model instances, parameter files, and observation sets into a single estimation problem.
+
+\subsubsection{Model evaluation metrics}
+Calibration and validation performance were evaluated using five complementary metrics computed separately for the calibration (2020–2022) and validation (2023) periods:
+
+\begin{enumerate}
+    \item Nash–Sutcliffe Efficiency (NSE), sensitive to high-flow performance;
+    \item log-transformed NSE (log-NSE), sensitive to low-flow performance;
+    \item Kling–Gupta Efficiency (KGE) and its component decomposition into correlation, bias ratio, and variability ratio;
+    \item coefficient of determination ($R^2$); and
+    \item percent bias (PBIAS) and root mean squared error (RMSE) for volumetric agreement.
+\end{enumerate}
+
+Flow duration curve (FDC) diagnostics were additionally examined with emphasis on low-flow quantiles (Q70–Q95) relevant to water withdrawal constraints.
+% TODO: specify acceptance criteria thresholds for publication
+
+\subsubsection{Discharge statistics and water availability assessment}
+Following calibration, HYPE was run with all 1,158 subcatchments configured as output locations. Simulated daily discharge time series were post-processed to derive seasonal and annual flow statistics for four seasons — winter (December–February), spring (March–May), summer (June–August), and autumn (September–November) — as well as for the full annual record. For each season and annually, the following metrics were calculated: minimum, 10th percentile (Q10), median, mean, and maximum discharge.
+
+The Q10 low-flow statistic is used as the primary indicator of reliably available water, representing the discharge exceeded 90\% of the time and characterising the near-guaranteed minimum supply relevant to continuous industrial water abstraction for hydrogen production. Environmental flow requirements and existing sectoral withdrawals (domestic, industrial, agricultural) are to be subtracted from simulated discharge to yield net available discharge for new hydrogen production facilities.
+% TODO: specify e-flow method, sectoral withdrawal data sources, and seasonal profiles
+
+Results for all subcatchments were stored as spatially referenced GeoPackage files retaining the original subcatchment geometries, enabling direct spatial comparison across candidate electrolyser sites. Results from all 27 catchments were merged into a single region-wide GeoPackage.
+
+\subsubsection{Scenario analysis}
+Three future scenarios were simulated alongside the calibrated baseline to assess how water availability may change under projected future conditions:
+
+\textit{Climate change scenario.} Monthly temperature and precipitation delta-change multipliers derived from FMI regional climate projections for the SSP2-4.5 pathway (2040–2069 relative to 1981–2010) were applied to the baseline meteorological forcing. Temperature adjustments were additive ($+2.3$ to $+3.2\,^\circ$C depending on month) and precipitation adjustments were multiplicative ($-1$\% to $+14$\% depending on month), with the largest increases in winter and spring and a slight decrease in July. The calibrated parameter set was held fixed, isolating the effect of changed forcing on simulated discharge.
+% TODO: add citation for specific FMI technical report providing SSP2-4.5 delta-change factors
+
+\textit{Urban growth scenario.} Projected population growth to 2040 was translated into changes in urban land use fractions within HYPE \textit{GeoData.txt} files. Municipal polygon boundaries from NLS were intersected with subcatchment polygons to compute area-weighted urban fraction increases for each subcatchment. Per-municipality urban fraction increases (expressed as percentage-point changes in HYPE urban SLC fractions) were derived from Statistics Finland 2021 population projections \cite{StatFin2021}, assuming that urban land area grows at approximately half the rate of population growth. Growth rates ranged from 0\% in rural municipalities to $+12$ percentage points in high-growth suburban municipalities in the Helsinki metropolitan fringe. SLC fractions were renormalised so that total land use fractions within each subcatchment sum to unity after adjustment.
+
+\textit{Combined scenario.} Climate forcing modifications and urban land use adjustments were applied simultaneously to produce a combined scenario representing concurrent climate change and urban development.
+
+All four scenarios — baseline, climate, urban, and combined — were processed through identical post-processing workflows to produce directly comparable seasonal discharge statistics at subcatchment level.
+
+\subsubsection{Hydrogen water demand and siting overlay}
+Hydrogen production scenarios were translated to water withdrawal requirements (L\,kg$^{-1}$\,H$_2$) by electrolyser technology and water-treatment assumptions. These were compared against available discharge and combined with land-cover-based siting outputs provided by the BalticSeaH2 project.
+% TODO: insert consultant data description and produce combined suitability map
+
+% ---------------------------------------------------------------------------
+\section{Results}
+% ---------------------------------------------------------------------------
+
+\subsection{Calibration and validation performance}
+% TODO: Insert catchment-by-catchment calibration table and summary statistics
+We present calibration results as hydrograph comparisons, flow duration curves, and performance metrics (NSE, KGE, PBIAS) for all calibrated catchments.
+
+\subsection{Seasonal freshwater availability}
+% TODO: Provide maps and tables
+Seasonal maps (winter, spring, summer, autumn) show the spatial distribution of available freshwater (m$^3$/s) and identify minimal restricting discharges during low-flow periods.
+
+\subsection{2050 climate change scenario effects}
+% TODO: Provide scenario comparison figures and quantify changes
+Under SSP2-4.5 forcing, changes in snow dynamics, evapotranspiration and precipitation seasonality alter low-flow characteristics and seasonal availability in a catchment-specific manner.
+
+\subsection{2050 urban growth scenario effects}
+% TODO: Provide scenario comparison figures and quantify changes
+Urbanisation affects runoff partitioning and water demand, leading to scenario-dependent shifts in both hydrologic supply and competing withdrawals.
+
+\subsection{Integrated siting assessment}
+% TODO: Insert overlay map and ranked candidate site table
+Combining water availability constraints with land-cover and infrastructure siting criteria yields candidate production zones and highlights catchments where water constraints may be binding.
+
+% ---------------------------------------------------------------------------
+\section{Discussion}
+% ---------------------------------------------------------------------------
+
+\subsection{Comparison to other water-availability assessment approaches}
+We compare our calibrated hydrologic-model-based approach to screening methods based on long-term mean flow, static water-balance ratios, and coarse-resolution global datasets, emphasising the importance of seasonal and low-flow dynamics for permitting and ecological constraints.
+
+\subsection{Comparison to existing Finnish and Nordic studies}
+% TODO: insert explicit comparisons to SYKE/GTK/FMI and Nordic literature
+We discuss consistency and discrepancies between our results and published analyses of drought risk, seasonal water resources, and water-supply vulnerability in Finland and the Nordics.
+
+\subsection{Uncertainties, gaps and limitations}
+Key uncertainties include climate scenario spread, representation of groundwater–surface water interactions in small basins, limited data on industrial withdrawals, assumptions on environmental flows, and the treatment of cooling-water needs for electrolysis facilities.
+
+\subsection{Policy implications for industrial water extraction}
+We discuss how Water Act permitting thresholds, cumulative-impact considerations, and groundwater protection constraints interact with hydrogen deployment timelines and infrastructure planning.
+
+\subsection{Social dimensions and distributional impacts}
+We analyse potential social effects of freshwater withdrawals for hydrogen production, including perceptions of a zero-sum competition with municipal supply, agriculture, ecosystem needs, and public acceptance constraints for MAR and new water infrastructure.
+
+% ---------------------------------------------------------------------------
+\section{Conclusions}
+% ---------------------------------------------------------------------------
+We conclude that catchment-scale, seasonally resolved hydrologic modelling provides critical information for hydrogen siting in southern Finland. The approach identifies where low-flow periods and policy/ecological constraints are likely to bound freshwater withdrawals, and where alternative water sources or infrastructure solutions may be necessary.
+
+\section*{Open Research Section}
+Data, model inputs, and scripts required to reproduce the results will be archived in =REPOSITORY= under an open license, including: (i) processed catchment and land-cover inputs, (ii) calibrated model parameter sets, (iii) scenario forcing datasets (or delta-change factors where redistribution is restricted), and (iv) derived discharge-availability indicators. Raw observational data are available from the original providers (SYKE, FMI, GTK, NLS, Copernicus/SYKE CORINE distribution). % TODO: replace with final archive DOI/URL
+
+\section*{As Applicable – Inclusion in Global Research Statement}
+% TODO: draft inclusion statement consistent with AGU policy
+
+\section*{Conflict of Interest declaration}
+The authors declare there are no conflicts of interest for this manuscript.
+% TODO: edit if needed
+
+\acknowledgments
+% TODO: acknowledge BalticSeaH2 funding, project partners, and data providers (SYKE, FMI, GTK, NLS, Copernicus)
+
+\bibliography{references}
+% NOTE: Provide references.bib in Overleaf project
+% Key references to add to references.bib:
+%   Lindstrom2010: Lindström et al. (2010) HYPE model description
+%   Doherty2015:   Doherty, J. (2015) PEST model-independent parameter estimation
+%   StatFin2021:   Statistics Finland population projection 2021–2040 (stat.fi)
+%   FMI_SSP245:    FMI technical report for SSP2-4.5 delta-change factors (confirm reference)
+
+\appendix
+\section{Supplementary methods and mapping tables}
+% TODO: provide land-cover and soil-to-HYPE mapping tables (CORINE Level-3 to 7 HYPE classes;
+%       GTK geological codes to 6 HYPE soil classes), parameter priors and bounds,
+%       and additional calibration plots
+
+\end{document}

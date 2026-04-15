@@ -1,0 +1,31 @@
+# R project files
+.Rhistory
+.RData
+.Rproj.user/
+
+# LaTeX build artifacts
+build/
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.chktex
+*.pdfxref
+*.stderr
+*.stdout
+
+# Large HYPE model outputs — not tracked, reproduced by running HYPE
+Results/model_setups/
+
+# Generated figures — reproduced by running scripts
+figures/
+
+# Region-wide GeoPackages — reproduced by Script 02
+Results/water_availability_region*.gpkg
+
+# Test files
+figures/test_*.png
