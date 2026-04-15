@@ -1,0 +1,406 @@
+---
+title: "BalticSeaH2 T3.1 — Results Review Notebook"
+subtitle: "Water availability for hydrogen production in southern Finland"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    theme: flatly
+    highlight: tango
+    number_sections: true
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo      = FALSE,
+  warning   = FALSE,
+  message   = FALSE,
+  fig.align = "center"
+)
+
+library(sf)
+library(knitr)
+
+repo        <- "C:/Users/KVZKARL/Source/Repos/BalticSeaH2_T3.1"
+results_dir <- file.path(repo, "Results")
+figures_dir <- file.path(repo, "figures")
+tables_dir  <- file.path(repo, "tables")
+
+metrics <- read.csv(file.path(tables_dir, "gof_metrics.csv"))
+```
+
+---
+
+> **Purpose of this notebook:** This document serves two purposes. First, it is a figure review tool — all key results are collected here so you can inspect design quality and flag what needs changing. Second, it is a learning document that explains in plain language what was done, how it works, and why, for collaborators who were not directly involved in the modelling.
+
+---
+
+# Hydrological Modelling — Background
+
+## What is HYPE and why was it used?
+
+HYPE (HYdrological Predictions for the Environment) is a semi-distributed hydrological model developed by the Swedish Meteorological and Hydrological Institute (SMHI). It is widely used across Scandinavia and the Baltic Sea region for water resource assessment, which makes it a natural choice for this study.
+
+**Semi-distributed** means that the study area is divided into subcatchments — spatial units defined by the drainage network — and each subcatchment gets its own simulation of water movement. This is a middle ground between:
+
+- **Lumped models** (treat the entire catchment as one unit — too coarse for spatial mapping)
+- **Fully distributed models** (simulate every grid cell — very data-hungry and slow)
+
+In this study, southern Finland was divided into **27 catchments** and **1,158 subcatchments**. Each subcatchment has its own area, land cover, soil type, elevation, and river network characteristics derived from national GIS datasets.
+
+## What does HYPE actually simulate?
+
+For each subcatchment, HYPE simulates the following processes on a daily timestep:
+
+- **Snow accumulation and melt** — critical in Finland where snow can store months of precipitation
+- **Evapotranspiration** — water lost from soil and vegetation to the atmosphere
+- **Soil moisture** — how much water the soil holds at any given time
+- **Groundwater recharge and discharge** — slow drainage from soil to groundwater and back to streams
+- **River routing** — how water moves downstream through the network
+
+The model takes daily **precipitation** and **air temperature** as inputs (from FMI weather stations) and produces daily **discharge** (m³/s) at each subcatchment outlet as output.
+
+## What are soil-land use combination (SLC) classes?
+
+HYPE uses a clever concept called SLC classes. Each unique combination of land use type (e.g. forest, agriculture, urban) and soil type (e.g. clay, till, peat) is assigned a single parameter set. This means:
+
+- Forest on clay soil in Vantaanjoki behaves the same as forest on clay soil in Karjaanjoki
+- This enforces **physical consistency** across the region
+- It also dramatically reduces the number of parameters that need to be calibrated
+
+In this study there are 7 land use classes and 6 soil types, giving a maximum of 42 SLC classes (though not all combinations occur in every catchment).
+
+## What are the four scenarios?
+
+| Scenario | What changes | Purpose |
+|---|---|---|
+| Baseline | Nothing — observed forcing 2019–2023 | Reference condition |
+| Climate (SSP2-4.5) | Temperature +2.3–3.2°C, precipitation ±14% by month | Future climate impacts |
+| Urban growth | Urban land cover fractions increased per Statistics Finland projections | Future land use impacts |
+| Combined | Both climate and urban changes applied simultaneously | Worst-case planning scenario |
+
+The **SSP2-4.5** pathway is a "middle of the road" climate scenario — not the most optimistic, not the most severe. It represents roughly 2.5°C of global warming by 2100.
+
+---
+
+# Calibration and Validation
+
+## Background — why do we calibrate?
+
+HYPE has many parameters that cannot be measured directly in the field — for example, the rate at which water drains from the upper to lower soil layer, or the snowmelt coefficient. These parameters are estimated by **calibration**: an automatic optimisation algorithm adjusts parameter values until the model output matches observed discharge as closely as possible.
+
+In this study, calibration was done using **PEST** (Parameter ESTimation), a widely used model-independent optimisation tool based on the Gauss-Marquardt-Levenberg algorithm. All 27 catchments were calibrated simultaneously in a single aggregate run, enforcing a regionally consistent parameter set.
+
+## How was performance split between calibration and validation?
+
+The observed discharge record was split into three periods:
+
+| Period | Dates | Role |
+|---|---|---|
+| Warm-up | 2019 | Allow model state variables to reach equilibrium — not used for metrics |
+| Calibration | 2020–2022 | PEST minimises residuals against these observations |
+| Validation | 2023 | Completely withheld from calibration — independent test of model skill |
+
+The validation period tests whether the model has learned genuine hydrological behaviour or has simply been over-fitted to the calibration data.
+
+## What do the performance metrics mean?
+
+**NSE (Nash-Sutcliffe Efficiency)**
+The most widely used metric in hydrology. Ranges from −∞ to 1, where 1 is a perfect fit and 0 means the model is no better than just using the mean observed flow. Negative values mean the model is worse than the mean — which can happen for poorly gauged or highly variable catchments.
+
+- NSE > 0.75 = good
+- NSE 0.50–0.75 = satisfactory
+- NSE < 0.50 = poor (but may still be acceptable for water availability assessment)
+
+**KGE (Kling-Gupta Efficiency)**
+A more balanced alternative to NSE that decomposes performance into three components: correlation, bias ratio, and variability ratio. Also ranges from −∞ to 1. KGE is less sensitive to peak flows than NSE, making it more informative for low-flow assessment.
+
+**PBIAS (Percent Bias)**
+The average tendency of the model to over- or under-estimate discharge, expressed as a percentage. Positive = model underestimates, negative = model overestimates.
+
+- |PBIAS| < 10% = very good
+- |PBIAS| 10–25% = good
+- |PBIAS| > 25% = poor
+
+**logNSE**
+NSE computed on log-transformed discharge values. This gives more weight to low flows relative to standard NSE, making it particularly relevant for water availability assessment where low flows are the binding constraint.
+
+## Performance metrics table
+
+```{r metrics-table}
+cal <- metrics[metrics$period == "calibration", 
+               c("catchment", "station_id", "n_obs", "NSE", "logNSE", "KGE", "PBIAS", "RMSE")]
+val <- metrics[metrics$period == "validation",
+               c("catchment", "station_id", "n_obs", "NSE", "logNSE", "KGE", "PBIAS", "RMSE")]
+
+kable(cal,
+      caption = "Table 1. Calibration performance (2020-2022)",
+      digits  = 3,
+      row.names = FALSE)
+```
+
+```{r metrics-table-val}
+kable(val,
+      caption = "Table 2. Validation performance (2023)",
+      digits  = 3,
+      row.names = FALSE)
+```
+
+```{r metrics-summary}
+# Summary statistics
+cat("--- Calibration summary ---\n")
+cat(sprintf("Median NSE:  %.2f  (range: %.2f to %.2f)\n",
+            median(cal$NSE, na.rm=TRUE), min(cal$NSE, na.rm=TRUE), max(cal$NSE, na.rm=TRUE)))
+cat(sprintf("Median KGE:  %.2f  (range: %.2f to %.2f)\n",
+            median(cal$KGE, na.rm=TRUE), min(cal$KGE, na.rm=TRUE), max(cal$KGE, na.rm=TRUE)))
+cat(sprintf("|PBIAS| < 10%%: %d / %d gauges\n",
+            sum(abs(cal$PBIAS) < 10, na.rm=TRUE), sum(!is.na(cal$NSE))))
+
+cat("\n--- Validation summary ---\n")
+cat(sprintf("Median NSE:  %.2f  (range: %.2f to %.2f)\n",
+            median(val$NSE, na.rm=TRUE), min(val$NSE, na.rm=TRUE), max(val$NSE, na.rm=TRUE)))
+cat(sprintf("Median KGE:  %.2f  (range: %.2f to %.2f)\n",
+            median(val$KGE, na.rm=TRUE), min(val$KGE, na.rm=TRUE), max(val$KGE, na.rm=TRUE)))
+cat(sprintf("|PBIAS| < 10%%: %d / %d gauges\n",
+            sum(abs(val$PBIAS) < 10, na.rm=TRUE), sum(!is.na(val$NSE))))
+```
+
+**What to look for:** NSE and KGE values above 0.5 indicate the model captures the general seasonal dynamics well. Low logNSE values flag catchments where low-flow simulation is poor — these are the most important to scrutinise since Q10 is our primary water availability indicator. High PBIAS values (>25%) suggest a systematic forcing or parameter problem.
+
+## Compound hydrograph figure
+
+The figure below shows 6 representative gauges covering the full range of calibration performance, from best (Vantaanjoki, NSE=0.87) to worst (Karjaanjoki station 2300100, NSE=-0.67).
+
+**Green shading** = calibration period (2020–2022)  
+**Blue shading** = validation period (2023)  
+**Dark line** = observed discharge  
+**Red line** = simulated discharge  
+
+```{r compound-hydrograph, fig.width=12, fig.height=7}
+knitr::include_graphics(file.path(figures_dir, "hydrograph_compound.png"))
+```
+
+**What to look for:** Does the model capture the timing of peaks (spring snowmelt, autumn rainfall events)? Does it reproduce low-flow recession in summer correctly? Are there systematic offsets between observed and simulated (visible as one line consistently above the other)?
+
+---
+
+# Baseline Water Availability
+
+## Background — what is Q10 and why does it matter?
+
+For hydrogen production site screening, the most important flow statistic is not the average or the maximum — it is the **reliable minimum**. An electrolyser running continuously needs water to be available even during the driest periods of the year.
+
+**Q10** is the discharge exceeded 90% of the time. In practical terms, if you plan a water abstraction based on Q10, you can expect that flow to be available 329 days out of 365. This is the primary indicator used in this study.
+
+Other statistics are also computed for completeness:
+- **Minimum** — the single lowest daily flow recorded (useful for worst-case planning but highly sensitive to individual drought events)
+- **Median** — the middle value, useful for understanding typical conditions
+- **Mean** — the average, pulled upward by high flows (less useful for low-flow assessment)
+- **Maximum** — peak flows (relevant for infrastructure sizing but not for water availability)
+
+## Summer Q10 — the critical season
+
+Summer (June–August) is the most constraining season for water availability in southern Finland. Snowmelt has finished, evapotranspiration demand is at its peak, and precipitation is lower and more variable than in autumn or winter.
+
+```{r summer-q10, fig.width=10, fig.height=5}
+knitr::include_graphics(
+  file.path(figures_dir, "maps", "baseline_summer_q10.png"))
+```
+
+**What to look for:** Which catchments have very low summer Q10 (light colours)? These are the areas where water availability is most likely to constrain hydrogen production. The western catchments (Sirppujoki, Hirvijoki, Mynajoki) tend to be smaller and more agricultural — are they systematically lower?
+
+## Winter Q10
+
+Winter (December–February) in Finland is dominated by snow storage. Precipitation falls as snow and is locked up until spring melt. River flows in winter are sustained primarily by groundwater discharge, leading to low but relatively stable flows.
+
+```{r winter-q10, fig.width=10, fig.height=5}
+knitr::include_graphics(
+  file.path(figures_dir, "maps", "baseline_winter_q10.png"))
+```
+
+## Spring Q10
+
+Spring (March–May) is the highest-flow season due to snowmelt. Large volumes of water are released rapidly as temperatures rise above zero. This creates the highest Q10 values of the year but also the most variable flows.
+
+```{r spring-q10, fig.width=10, fig.height=5}
+knitr::include_graphics(
+  file.path(figures_dir, "maps", "baseline_spring_q10.png"))
+```
+
+## Autumn Q10
+
+Autumn (September–November) is a transitional season. Evapotranspiration demand drops as temperatures fall, and rainfall events begin to recharge soil moisture and groundwater. Flows typically recover from summer lows during this period.
+
+```{r autumn-q10, fig.width=10, fig.height=5}
+knitr::include_graphics(
+  file.path(figures_dir, "maps", "baseline_autumn_q10.png"))
+```
+
+## Annual Q10
+
+The annual Q10 integrates across all seasons and represents the overall low-flow constraint on a year-round abstraction.
+
+```{r annual-q10, fig.width=10, fig.height=5}
+knitr::include_graphics(
+  file.path(figures_dir, "maps", "baseline_annual_q10.png"))
+```
+
+## Annual median — typical conditions
+
+```{r annual-median, fig.width=10, fig.height=5}
+knitr::include_graphics(
+  file.path(figures_dir, "maps", "baseline_annual_median.png"))
+```
+
+---
+
+# Scenario Effects
+
+## Background — how were scenarios implemented?
+
+It is important to understand that **the scenarios do not rerun the HYPE calibration**. The calibrated parameter set stays fixed. What changes is the **forcing** (inputs to the model):
+
+**Climate scenario:** Monthly delta-change factors derived from FMI regional climate projections for SSP2-4.5 were applied to the baseline meteorological forcing. Temperature was increased by +2.3 to +3.2°C depending on month, and precipitation was adjusted by -1% to +14% depending on month. The largest precipitation increases are in winter and spring; July shows a slight decrease.
+
+**Urban growth scenario:** The urban land cover fraction in each subcatchment was increased according to Statistics Finland 2021 population projections to 2040. Urban areas are more impervious — they generate more runoff during rainfall events but reduce groundwater recharge and baseflow between events. Growth rates ranged from 0% in rural municipalities to +12 percentage points in the Helsinki metropolitan fringe.
+
+**Combined scenario:** Both changes applied simultaneously. This is the most policy-relevant scenario as it represents what is actually expected to happen by 2040–2069.
+
+## How to read the delta maps
+
+The delta maps show **percentage change from baseline**:
+- **Blue** = more water available than baseline (increase)
+- **Red** = less water available than baseline (decrease)
+- **White** = no change
+- **Grey** = undefined (baseline flow was zero, so % change cannot be computed)
+
+## Summer Q10 — climate scenario
+
+```{r summer-q10-climate-delta, fig.width=10, fig.height=5}
+knitr::include_graphics(
+  file.path(figures_dir, "maps_delta", "climate_summer_q10_delta.png"))
+```
+
+**What to look for:** Does the climate scenario increase or decrease summer Q10? The SSP2-4.5 scenario projects slightly drier summers in southern Finland, so we might expect modest decreases. Are some catchments more sensitive than others?
+
+## Summer Q10 — urban growth scenario
+
+```{r summer-q10-urban-delta, fig.width=10, fig.height=5}
+knitr::include_graphics(
+  file.path(figures_dir, "maps_delta", "urban_summer_q10_delta.png"))
+```
+
+**What to look for:** Urban growth increases impervious surfaces, which tends to increase peak flows but reduce baseflow (and therefore Q10). The effect should be most visible in the Vantaanjoki catchment which has the highest urban growth rates.
+
+## Summer Q10 — combined scenario
+
+```{r summer-q10-combined-delta, fig.width=10, fig.height=5}
+knitr::include_graphics(
+  file.path(figures_dir, "maps_delta", "combined_summer_q10_delta.png"))
+```
+
+## Winter Q10 — all three scenarios
+
+```{r winter-q10-deltas, fig.width=10, fig.height=5}
+knitr::include_graphics(
+  file.path(figures_dir, "maps_delta", "climate_winter_q10_delta.png"))
+knitr::include_graphics(
+  file.path(figures_dir, "maps_delta", "urban_winter_q10_delta.png"))
+knitr::include_graphics(
+  file.path(figures_dir, "maps_delta", "combined_winter_q10_delta.png"))
+```
+
+**What to look for:** The climate scenario projects warmer winters with more precipitation falling as rain rather than snow. This should increase winter Q10 (more rainfall directly to rivers) — a blue signal in winter is expected and physically meaningful.
+
+## Annual Q10 — combined scenario
+
+```{r annual-q10-combined-delta, fig.width=10, fig.height=5}
+knitr::include_graphics(
+  file.path(figures_dir, "maps_delta", "combined_annual_q10_delta.png"))
+```
+
+---
+
+# Key Numbers Summary
+
+```{r key-numbers}
+# Load baseline region GeoPackage
+wa <- st_read(file.path(results_dir, "water_availability_region.gpkg"),
+              quiet = TRUE)
+wa_cl <- st_read(file.path(results_dir, "water_availability_region_climate.gpkg"),
+                 quiet = TRUE)
+wa_ur <- st_read(file.path(results_dir, "water_availability_region_urban.gpkg"),
+                 quiet = TRUE)
+wa_co <- st_read(file.path(results_dir, "water_availability_region_combined.gpkg"),
+                 quiet = TRUE)
+
+# Regional Q10 summary by season
+seasons    <- c("winter", "spring", "summer", "autumn", "annual")
+q10_summary <- do.call(rbind, lapply(seasons, function(s) {
+  col <- paste0(s, "_q10")
+  data.frame(
+    Season         = s,
+    Median_Q10     = round(median(wa[[col]], na.rm = TRUE), 4),
+    P10_Q10        = round(quantile(wa[[col]], 0.10, na.rm = TRUE), 4),
+    P90_Q10        = round(quantile(wa[[col]], 0.90, na.rm = TRUE), 4),
+    N_below_0.05   = sum(wa[[col]] < 0.05, na.rm = TRUE),
+    Pct_below_0.05 = round(mean(wa[[col]] < 0.05, na.rm = TRUE) * 100, 1)
+  )
+}))
+
+kable(q10_summary,
+      caption = "Table 3. Regional Q10 summary by season (baseline). N_below_0.05 = subcatchments with Q10 < 0.05 m³/s (critically low for industrial abstraction).",
+      row.names = FALSE)
+```
+
+```{r scenario-deltas-summary}
+# % change in summer Q10 under each scenario
+summer_base <- wa$summer_q10
+summer_cl   <- wa_cl$summer_q10
+summer_ur   <- wa_ur$summer_q10
+summer_co   <- wa_co$summer_q10
+
+valid <- summer_base > 0
+
+delta_cl <- (summer_cl[valid] - summer_base[valid]) / summer_base[valid] * 100
+delta_ur <- (summer_ur[valid] - summer_base[valid]) / summer_base[valid] * 100
+delta_co <- (summer_co[valid] - summer_base[valid]) / summer_base[valid] * 100
+
+delta_summary <- data.frame(
+  Scenario = c("Climate (SSP2-4.5)", "Urban growth", "Combined"),
+  Median_delta_pct = round(c(median(delta_cl, na.rm=TRUE),
+                              median(delta_ur, na.rm=TRUE),
+                              median(delta_co, na.rm=TRUE)), 2),
+  P10_delta_pct    = round(c(quantile(delta_cl, 0.10, na.rm=TRUE),
+                              quantile(delta_ur, 0.10, na.rm=TRUE),
+                              quantile(delta_co, 0.10, na.rm=TRUE)), 2),
+  P90_delta_pct    = round(c(quantile(delta_cl, 0.90, na.rm=TRUE),
+                              quantile(delta_ur, 0.90, na.rm=TRUE),
+                              quantile(delta_co, 0.90, na.rm=TRUE)), 2),
+  Pct_decrease     = round(c(mean(delta_cl < 0, na.rm=TRUE) * 100,
+                              mean(delta_ur < 0, na.rm=TRUE) * 100,
+                              mean(delta_co < 0, na.rm=TRUE) * 100), 1)
+)
+
+kable(delta_summary,
+      caption = "Table 4. Summer Q10 percentage change from baseline by scenario. Pct_decrease = % of subcatchments showing reduced summer Q10.",
+      row.names = FALSE)
+```
+
+---
+
+# Notes and Feedback
+
+*Use this section to record observations, flags, and feedback on figures as you review them.*
+
+- [ ] Check colour scale on summer Q10 maps — does the range make physical sense?
+- [ ] Check compound hydrograph figure — are panel labels readable at journal size?
+- [ ] Check delta maps — are the diverging colours distinguishable for colour-blind readers?
+- [ ] Flag any catchments with unexpected behaviour in the scenario maps
+
+---
+
+*Generated by `results_notebook.Rmd` on `r format(Sys.time(), "%d %B %Y at %H:%M")`*
