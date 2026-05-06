@@ -16,7 +16,7 @@
 #   source("run_all.R")
 #
 # To force rerun of all scripts regardless of timestamps:
-#   source("run_all.R")  # after setting FORCE_RERUN <- TRUE below
+#   source("run_all.R")  # after setting FORCE_RERUN <- FALSE below
 # =============================================================================
 
 FORCE_RERUN <- FALSE  # set TRUE to rerun everything regardless of timestamps
