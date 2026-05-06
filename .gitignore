@@ -35,3 +35,21 @@ figures/test_*.png
 
 # Deliverables — not tracked (partner content)
 deliverables/
+
+# Archive — exclude large GIS and model files
+Results/_archive/**/grid_gen_input/
+Results/_archive/**/*.jac
+Results/_archive/**/*.jco
+Results/_archive/**/*.drf
+Results/_archive/**/*.jst
+Results/_archive/**/*.mtt
+Results/_archive/**/*.rst
+Results/_archive/**/hype_data/
+Results/_archive/**/hype_data_climate/
+Results/_archive/**/hype_data_urban/
+Results/_archive/**/hype_data_combined/
+Results/_archive/**/hype_data_subcatchments/
+Results/_archive/**/*.gpkg
+
+# New model setups — large files not tracked
+Results/model_setups/
