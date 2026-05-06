@@ -32,3 +32,6 @@ figures/test_*.png
 
 # Manuscript figures — tracked (curated subset)
 !figures_manuscript/
+
+# Deliverables — not tracked (partner content)
+deliverables/
