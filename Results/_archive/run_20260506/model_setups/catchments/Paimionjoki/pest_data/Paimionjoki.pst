@@ -1,0 +1,170 @@
+pcf
+* control data
+restart estimation
+146 0 2 0 3
+1 0 double point 1 0 0
+10.0 5.0 0.5 0.005 20
+5.0 5.0 0.005 0
+0.01
+50 0.01 8 8 0.01 8
+1 1 1
+* parameter groups
+paramGroup1 relative 0.01 0.001 switch 2.0 parabolic
+paramGroup2 absolute 0.05 0.001 switch 2.0 parabolic
+* parameter data
+ttpi none relative 1.0 0.0 2.0 paramGroup1 1.0000 0.0000 1
+lp none relative 0.9 0.8 1.0 paramGroup1 1.0000 0.0000 1
+cevpam fixed relative 0.5 0.5 0.5 paramGroup1 1.0000 0.0000 1
+cevpph fixed relative 45 45 45 paramGroup1 1.0000 0.0000 1
+rrcs3 fixed relative 0.0002 0.0002 0.0002 paramGroup1 1.0000 0.0000 1
+damp none relative 0.255 0.01 0.95 paramGroup1 1.0000 0.0000 1
+rivvel none relative 0.75 0.3 1 paramGroup1 1.0000 0.0000 1
+tcalt fixed relative 0.6 0.6 0.6 paramGroup1 1.0000 0.0000 1
+qmean fixed relative 25 25 25 paramGroup1 1.0000 0.0000 1
+epotdist fixed relative 3 3 3 paramGroup1 1.0000 0.0000 1
+gldepi none relative 3.0 1.0 10.0 paramGroup1 1.0000 0.0000 1
+gratp none relative 2.25 2 2.5 paramGroup1 1.0000 0.0000 1
+gratk none relative 1.0 0.05 2.0 paramGroup1 1.0000 0.0000 1
+sdnsnew fixed relative 0.145 0.1 0.19 paramGroup1 1.0000 0.0000 1
+snowdensdt fixed relative 0.0014 0.0014 0.0014 paramGroup1 1.0000 0.0000 1
+ttmp_10 fixed relative 1.0 0.0 2.0 paramGroup1 1.0000 0.0000 1
+ttmp_11 none relative 1.0 0.0 2.0 paramGroup1 1.0000 0.0000 1
+ttmp_12 fixed relative 1.0 0.0 2.0 paramGroup1 1.0000 0.0000 1
+ttmp_13 none relative 1.0 0.0 2.0 paramGroup1 1.0000 0.0000 1
+ttmp_14 none relative 1.0 -1.0 2.0 paramGroup2 1.0000 0.0000 1
+ttmp_15 none relative 1.0 0.0 2.0 paramGroup1 1.0000 0.0000 1
+ttmp_16 none relative 1.0 0.0 2.0 paramGroup1 1.0000 0.0000 1
+ttmp_17 none relative 1.0 -2.0 2.0 paramGroup2 1.0000 0.0000 1
+cmlt_10 fixed relative 2.6 0.2 5.0 paramGroup1 1.0000 0.0000 1
+cmlt_11 none relative 2.6 0.2 8.0 paramGroup1 1.0000 0.0000 1
+cmlt_12 fixed relative 2.6 0.2 5.0 paramGroup1 1.0000 0.0000 1
+cmlt_13 none relative 2.6 0.2 5.0 paramGroup1 1.0000 0.0000 1
+cmlt_14 none relative 2.6 0.2 5.0 paramGroup1 1.0000 0.0000 1
+cmlt_15 none relative 2.6 0.2 5.0 paramGroup1 1.0000 0.0000 1
+cmlt_16 none relative 2.6 0.2 5.0 paramGroup1 1.0000 0.0000 1
+cmlt_17 none relative 2.6 0.2 8.0 paramGroup1 1.0000 0.0000 1
+cevp_10 fixed relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+cevp_11 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+cevp_12 fixed relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+cevp_13 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+cevp_14 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+cevp_15 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+cevp_16 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+cevp_17 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrcs_10 fixed relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrcs_11 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrcs_12 fixed relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrcs_13 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrcs_14 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrcs_15 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrcs_16 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrcs_17 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+frost_10 fixed relative 2.0 2.0 2.0 paramGroup1 1.0000 0.0000 1
+frost_11 fixed relative 2.0 2.0 2.0 paramGroup1 1.0000 0.0000 1
+frost_12 fixed relative 2.0 2.0 2.0 paramGroup1 1.0000 0.0000 1
+frost_13 fixed relative 2.0 2.0 2.0 paramGroup1 1.0000 0.0000 1
+frost_14 fixed relative 2.0 2.0 2.0 paramGroup1 1.0000 0.0000 1
+frost_15 fixed relative 2.0 2.0 2.0 paramGroup1 1.0000 0.0000 1
+frost_16 fixed relative 2.0 2.0 2.0 paramGroup1 1.0000 0.0000 1
+frost_17 fixed relative 2.0 2.0 2.0 paramGroup1 1.0000 0.0000 1
+rrcs1_100 fixed relative 0.375 0.05 0.7 paramGroup1 1.0000 0.0000 1
+rrcs1_101 none relative 0.375 0.05 0.7 paramGroup1 1.0000 0.0000 1
+rrcs1_102 none relative 0.375 0.05 0.7 paramGroup1 1.0000 0.0000 1
+rrcs1_103 none relative 0.375 0.05 0.7 paramGroup1 1.0000 0.0000 1
+rrcs1_104 none relative 0.375 0.05 0.7 paramGroup1 1.0000 0.0000 1
+rrcs1_105 none relative 0.375 0.05 1.0 paramGroup1 1.0000 0.0000 1
+rrcs1_106 none relative 0.375 0.05 0.7 paramGroup1 1.0000 0.0000 1
+rrcs2_100 fixed relative 0.0255 0.001 0.05 paramGroup1 1.0000 0.0000 1
+rrcs2_101 none relative 0.0255 0.001 0.05 paramGroup1 1.0000 0.0000 1
+rrcs2_102 none relative 0.0255 0.001 0.05 paramGroup1 1.0000 0.0000 1
+rrcs2_103 none relative 0.0255 0.001 0.05 paramGroup1 1.0000 0.0000 1
+rrcs2_104 none relative 0.0255 0.001 0.05 paramGroup1 1.0000 0.0000 1
+rrcs2_105 none relative 0.0255 0.001 0.05 paramGroup1 1.0000 0.0000 1
+rrcs2_106 none relative 0.0255 0.001 0.05 paramGroup1 1.0000 0.0000 1
+trrcs_100 fixed relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+trrcs_101 fixed relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+trrcs_102 fixed relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+trrcs_103 fixed relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+trrcs_104 fixed relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+trrcs_105 fixed relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+trrcs_106 fixed relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+mperc1_100 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc1_101 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc1_102 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc1_103 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc1_104 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc1_105 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc1_106 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc2_100 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc2_101 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc2_102 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc2_103 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc2_104 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc2_105 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+mperc2_106 fixed relative 65 30 100 paramGroup1 1.0000 0.0000 1
+sfrost_100 fixed relative 1.0 1.0 1.0 paramGroup1 1.0000 0.0000 1
+sfrost_101 fixed relative 1.0 1.0 1.0 paramGroup1 1.0000 0.0000 1
+sfrost_102 fixed relative 1.0 1.0 1.0 paramGroup1 1.0000 0.0000 1
+sfrost_103 fixed relative 1.0 1.0 1.0 paramGroup1 1.0000 0.0000 1
+sfrost_104 fixed relative 1.0 1.0 1.0 paramGroup1 1.0000 0.0000 1
+sfrost_105 fixed relative 1.0 1.0 1.0 paramGroup1 1.0000 0.0000 1
+sfrost_106 fixed relative 1.0 1.0 1.0 paramGroup1 1.0000 0.0000 1
+macrate_100 fixed relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+macrate_101 none relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+macrate_102 none relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+macrate_103 none relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+macrate_104 none relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+macrate_105 none relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+macrate_106 none relative 0.2 0.1 0.3 paramGroup1 1.0000 0.0000 1
+mactrinf_100 fixed relative 30 10 50 paramGroup1 1.0000 0.0000 1
+mactrinf_101 none relative 30 10 50 paramGroup1 1.0000 0.0000 1
+mactrinf_102 none relative 30 10 50 paramGroup1 1.0000 0.0000 1
+mactrinf_103 none relative 30 10 50 paramGroup1 1.0000 0.0000 1
+mactrinf_104 none relative 30 10 50 paramGroup1 1.0000 0.0000 1
+mactrinf_105 none relative 30 10 50 paramGroup1 1.0000 0.0000 1
+mactrinf_106 none relative 30 10 50 paramGroup1 1.0000 0.0000 1
+mactrsm_100 fixed relative 0.675 0.5 0.85 paramGroup1 1.0000 0.0000 1
+mactrsm_101 fixed relative 0.675 0.5 0.85 paramGroup1 1.0000 0.0000 1
+mactrsm_102 fixed relative 0.675 0.5 0.85 paramGroup1 1.0000 0.0000 1
+mactrsm_103 fixed relative 0.675 0.5 0.85 paramGroup1 1.0000 0.0000 1
+mactrsm_104 fixed relative 0.675 0.5 0.85 paramGroup1 1.0000 0.0000 1
+mactrsm_105 fixed relative 0.675 0.5 0.85 paramGroup1 1.0000 0.0000 1
+mactrsm_106 fixed relative 0.675 0.5 0.85 paramGroup1 1.0000 0.0000 1
+srrate_100 fixed relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrate_101 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrate_102 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrate_103 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrate_104 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrate_105 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+srrate_106 none relative 0.15 0.1 0.2 paramGroup1 1.0000 0.0000 1
+wcwp_100 fixed relative 0.07 0.04 0.1 paramGroup1 1.0000 0.0000 1
+wcwp_101 none relative 0.07 0.04 0.1 paramGroup1 1.0000 0.0000 1
+wcwp_102 none relative 0.07 0.04 0.1 paramGroup1 1.0000 0.0000 1
+wcwp_103 none relative 0.07 0.04 0.1 paramGroup1 1.0000 0.0000 1
+wcwp_104 none relative 0.07 0.04 0.1 paramGroup1 1.0000 0.0000 1
+wcwp_105 none relative 0.07 0.04 0.1 paramGroup1 1.0000 0.0000 1
+wcwp_106 none relative 0.07 0.04 0.1 paramGroup1 1.0000 0.0000 1
+wcfc_100 fixed relative 0.25 0.1 0.4 paramGroup1 1.0000 0.0000 1
+wcfc_101 none relative 0.25 0.1 0.4 paramGroup1 1.0000 0.0000 1
+wcfc_102 none relative 0.25 0.1 0.5 paramGroup1 1.0000 0.0000 1
+wcfc_103 none relative 0.25 0.1 0.4 paramGroup1 1.0000 0.0000 1
+wcfc_104 none relative 0.25 0.1 0.4 paramGroup1 1.0000 0.0000 1
+wcfc_105 none relative 0.25 0.1 0.4 paramGroup1 1.0000 0.0000 1
+wcfc_106 none relative 0.25 0.1 0.4 paramGroup1 1.0000 0.0000 1
+wcep_100 fixed relative 0.055 0.01 0.1 paramGroup1 1.0000 0.0000 1
+wcep_101 none relative 0.055 0.01 0.1 paramGroup1 1.0000 0.0000 1
+wcep_102 none relative 0.055 0.01 0.1 paramGroup1 1.0000 0.0000 1
+wcep_103 none relative 0.055 0.01 0.1 paramGroup1 1.0000 0.0000 1
+wcep_104 none relative 0.055 0.01 0.35 paramGroup1 1.0000 0.0000 1
+wcep_105 none relative 0.055 0.01 0.35 paramGroup1 1.0000 0.0000 1
+wcep_106 none relative 0.055 0.01 0.1 paramGroup1 1.0000 0.0000 1
+* observation groups
+warmup_obs
+calib_obs
+valid_obs
+* observation data
+* model command line
+/home/lwlassi/development/hype-code/hype /home/lwlassi/projects/BalticSeaH2/model_setups/catchments/Paimionjoki/hype_data/
+* model input/output
+/home/lwlassi/projects/BalticSeaH2/model_setups/catchments/Paimionjoki/pest_data/par.tpl /home/lwlassi/projects/BalticSeaH2/model_setups/catchments/Paimionjoki/hype_data/par.txt
+* prior information
