@@ -1,8 +1,13 @@
 # =============================================================================
 # 03_plot_hydrographs.R
 # Plot observed vs simulated hydrographs for all gauged catchments.
-# Calibration (2020-2022) and validation (2023) periods marked with shaded
-# backgrounds. One PNG per gauge saved to figures/hydrographs/.
+# Calibration (2020-2022) and validation (2023-2025) periods marked with
+# shaded backgrounds. One PNG per gauge saved to figures/hydrographs/.
+#
+# REVISED 2026-08-25 (see REVIEWS.md item R1): validation window extended
+# from 2023-only to 2023-2025 to use the full HYPE simulation record
+# (bdate/edate = 2016-01-01 to 2025-12-31), which had previously been
+# truncated in post-processing.
 #
 # Input:
 #   catch_data/calib_disch_data_results.csv  (per catchment)
@@ -30,11 +35,12 @@ catchment_dirs <- list.dirs(
 # Load GOF metrics for annotation
 metrics <- read.csv(file.path(repo, "tables", "gof_metrics.csv"))
 
-# Period date boundaries
-calib_start <- as.Date("2020-01-01")
+# Period date boundaries (corrected 2026-08-25 — see REVIEWS.md item R5:
+# calibration verified against pest_data/*.pst to be 2017-2022, not 2020-2022)
+calib_start <- as.Date("2017-01-01")
 calib_end   <- as.Date("2022-12-31")
 valid_start <- as.Date("2023-01-01")
-valid_end   <- as.Date("2023-12-31")
+valid_end   <- as.Date("2025-12-31")
 
 # -----------------------------------------------------------------------------
 # Colour palette
@@ -57,8 +63,8 @@ fmt_metric <- function(x) {
 plot_gauge <- function(dates, obs, sim, catchment_name, station_id,
                        subcatchment_id, metrics_df) {
 
-  # Filter to plot window: 2019-01-01 to 2023-12-31
-  mask <- dates >= as.Date("2019-01-01") & dates <= as.Date("2023-12-31")
+  # Filter to plot window: 2016-01-01 to 2025-12-31 (full HYPE record)
+  mask <- dates >= as.Date("2016-01-01") & dates <= as.Date("2025-12-31")
   dates <- dates[mask]
   obs   <- obs[mask]
   sim   <- sim[mask]
@@ -127,16 +133,16 @@ plot_gauge <- function(dates, obs, sim, catchment_name, station_id,
   lines(dates, obs, col = col_obs, lwd = 1.4)
 
   # X axis with year ticks
-  year_starts <- seq(as.Date("2019-01-01"), as.Date("2024-01-01"), by = "year")
+  year_starts <- seq(as.Date("2016-01-01"), as.Date("2026-01-01"), by = "year")
   axis(1, at = year_starts, labels = format(year_starts, "%Y"),
        cex.axis = 0.85)
 
   # Period labels at top of shaded regions
-  mtext("Warm-up", side = 3, at = as.Date("2019-07-01"),
+  mtext("Warm-up", side = 3, at = as.Date("2016-07-01"),
         cex = 0.7, col = "grey40", line = 0.2)
-  mtext("Calibration", side = 3, at = as.Date("2021-07-01"),
+  mtext("Calibration", side = 3, at = as.Date("2019-07-01"),
         cex = 0.7, col = "grey40", line = 0.2)
-  mtext("Validation", side = 3, at = as.Date("2023-07-01"),
+  mtext("Validation", side = 3, at = as.Date("2024-07-01"),
         cex = 0.7, col = "grey40", line = 0.2)
 
   # Metrics annotation box (bottom right)

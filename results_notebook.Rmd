@@ -77,7 +77,7 @@ In this study there are **7 land use classes** (urban, other impermeable, agricu
 
 | Scenario | What changes | Purpose |
 |---|---|---|
-| Baseline | Nothing — observed forcing 2019–2023 | Reference condition representing current hydrology |
+| Baseline | Nothing — calibrated model, HYPE run 2016–2025. Q10 statistics confirmed (2026-08-25) to use the full 10-year record — see REVIEWS.md item R3 | Reference condition representing current hydrology |
 | Climate (SSP2-4.5) | Temperature +2.3–3.2°C, precipitation ±14% by month | Isolates the effect of projected climate change |
 | Urban growth | Urban SLC fractions increased per Statistics Finland 2021 projections | Isolates the effect of land use change |
 | Combined | Both climate and urban changes applied simultaneously | Most policy-relevant — what will actually happen |
@@ -104,13 +104,13 @@ A key design decision was to calibrate all 27 catchments in a **single aggregate
 
 ## How was performance split between calibration and validation?
 
-The observed discharge record was split into three periods:
+The observed discharge record was split into three periods (revised 2026-08-25 — see [REVIEWS.md](REVIEWS.md) items R1 and R5):
 
 | Period | Dates | Role |
 |---|---|---|
-| Warm-up | 2019 | Allow model state variables (soil moisture, groundwater) to reach dynamic equilibrium — excluded from all metrics |
-| Calibration | 2020–2022 | PEST minimises residuals against these observations — 3 years, ~1,096 daily observations per gauge |
-| Validation | 2023 | Completely withheld from calibration — independent test of whether the model generalises |
+| Warm-up | 2016 | Allow model state variables (soil moisture, groundwater) to reach dynamic equilibrium — excluded from all metrics. HYPE was run continuously from 2016-01-01 to 2025-12-31 |
+| Calibration | 2017–2022 | PEST minimises residuals against these observations — 6 years, ~2,190 daily observations per gauge. **Corrected from an initially assumed 2020–2022** after directly checking the PEST control files (`pest_data/*.pst`): the observation weight switches from 0 to 0.78125 exactly at 2017-01-01 and back to 0 exactly at 2023-01-01 for every gauge |
+| Validation | 2023–2025 | Completely withheld from calibration — independent test of whether the model generalises. **Extended from 2023-only** after an audit found HYPE had already been run through 2025-12-31 and observed discharge was available and complete for this period at nearly all 15 gauged catchments but had not previously been used |
 
 The validation period is a genuine out-of-sample test. If model performance drops substantially from calibration to validation, it suggests the model has been over-fitted — it has memorised the calibration data rather than learning transferable hydrological behaviour. A modest drop is normal and expected; a collapse in performance would be a red flag.
 
@@ -149,13 +149,13 @@ Positive PBIAS = model underestimates total discharge (water is missing — poss
 - |PBIAS| 10–25% = good
 - |PBIAS| > 25% = poor — a systematic forcing or parameter problem likely
 
-## Performance metrics — calibration (2020–2022)
+## Performance metrics — calibration (2017–2022)
 
 ```{r metrics-table-cal}
 cal <- metrics[metrics$period == "calibration",
                c("catchment", "station_id", "n_obs", "NSE", "logNSE", "KGE", "PBIAS", "RMSE")]
 kable(cal,
-      caption = "Table 1. Calibration performance (2020-2022). Highlighted values: NSE > 0.75 = good; logNSE < 0.3 = poor low-flow simulation; |PBIAS| > 25% = systematic bias.",
+      caption = "Table 1. Calibration performance (2017-2022). Highlighted values: NSE > 0.75 = good; logNSE < 0.3 = poor low-flow simulation; |PBIAS| > 25% = systematic bias.",
       digits  = 3,
       row.names = FALSE)
 ```
@@ -178,24 +178,25 @@ cat(sprintf("NSE < 0.0:         %d / %d gauges\n",
             sum(cal$NSE < 0, na.rm=TRUE), sum(!is.na(cal$NSE))))
 ```
 
-**Interpretation — calibration:**
-Overall calibration performance is satisfactory to good for a regional multi-catchment model. The median NSE of 0.62 and median KGE of 0.63 indicate that the model captures seasonal flow dynamics adequately across the region. However, performance is highly variable across catchments, which reflects genuine differences in data quality, catchment complexity, and the challenge of applying a single regional parameter set.
+**Interpretation — calibration:** (updated 2026-08-25 — see [REVIEWS.md](REVIEWS.md) item R5: this section previously described the calibration period as 2020–2022; it is actually 2017–2022, verified directly against the PEST control files)
 
-The strongest performance is in **Vantaanjoki**, where five gauges achieve NSE of 0.66–0.87 and KGE of 0.46–0.85. This is the largest, best-monitored catchment in the study domain (draining the Helsinki metropolitan area), with dense gauging networks and well-characterised land cover. It also has the most observations contributing to the calibration objective function, giving PEST more leverage to optimise parameters relevant to this catchment type.
+Overall calibration performance is satisfactory to good for a regional multi-catchment model. The median NSE of 0.63 and median KGE of 0.67 indicate that the model captures seasonal flow dynamics adequately across the region. However, performance is highly variable across catchments, which reflects genuine differences in data quality, catchment complexity, and the challenge of applying a single regional parameter set.
 
-The most problematic catchments are **Karjaanjoki** (stations 2300100 and 2300340, NSE = -0.67 and -0.23 respectively) and **Vantaanjoki station 2101310** (NSE = -0.19). Negative NSE values indicate systematic model failure at these gauges. For Karjaanjoki 2300100, the PBIAS of +52% reveals severe underestimation of total discharge — the model is generating roughly half the observed flow volume. This is likely a forcing problem: the nearest FMI precipitation station may be unrepresentative of orographic or convective precipitation patterns in this sub-basin. For station 2300340, PBIAS of -43% indicates the opposite — substantial overestimation at a very small headwater subcatchment (RMSE = 0.24 m³/s suggests very small absolute flows), where parameter uncertainty is highest.
+The strongest performance is in **Vantaanjoki**, where five gauges achieve NSE of 0.62–0.88 and KGE of 0.80–0.89. This is the largest, best-monitored catchment in the study domain (draining the Helsinki metropolitan area), with dense gauging networks and well-characterised land cover. It also has the most observations contributing to the calibration objective function, giving PEST more leverage to optimise parameters relevant to this catchment type.
 
-The **logNSE values** — the metric most relevant to this study — tell a more nuanced story. Several catchments with acceptable NSE have poor logNSE (e.g. Hounijoki station 601000: NSE = 0.35, logNSE = -0.73; Ilolanjoki: NSE = 0.63, logNSE = 0.02). This means the model captures general seasonal patterns but systematically misrepresents low-flow dynamics — exactly the regime most critical for water availability assessment. These catchments should be treated with extra caution when interpreting Q10 results.
+The most problematic catchments are **Karjaanjoki** (stations 2300340 and 2300100, NSE = -0.76 and +0.17 respectively) and **Vantaanjoki station 2101310** (NSE = -0.14). Negative NSE values indicate systematic model failure at these gauges. For Karjaanjoki 2300340, PBIAS of -71% reveals severe overestimation at a very small headwater subcatchment (RMSE = 0.26 m³/s suggests very small absolute flows), where parameter uncertainty is highest. For Karjaanjoki 2300100, the PBIAS of +45% still reveals a substantial underestimation of total discharge, though — once assessed over the correct 6-year window — its NSE is no longer negative. This is likely a forcing problem: the nearest FMI precipitation station may be unrepresentative of orographic or convective precipitation patterns in these sub-basins.
 
-Only **7 of 28 gauges** achieve |PBIAS| < 10%, and **10 of 28** exceed the 25% threshold. The systematic positive bias in many catchments (model underestimates flow) suggests that either precipitation inputs are underestimated (possible in areas with sparse station coverage) or evapotranspiration is overestimated in the model parametrisation.
+The **logNSE values** — the metric most relevant to this study — tell a more nuanced story. Several catchments with acceptable NSE have poor logNSE (e.g. Hounijoki station 601000: NSE = 0.35, logNSE = -0.73; Ilolanjoki: NSE = 0.70, logNSE = 0.17). This means the model captures general seasonal patterns but systematically misrepresents low-flow dynamics — exactly the regime most critical for water availability assessment. These catchments should be treated with extra caution when interpreting Q10 results.
 
-## Performance metrics — validation (2023)
+Only **10 of 28 gauges** achieve |PBIAS| < 10%, and **7 of 28** exceed the 25% threshold. The systematic positive bias in many catchments (model underestimates flow) suggests that either precipitation inputs are underestimated (possible in areas with sparse station coverage) or evapotranspiration is overestimated in the model parametrisation.
+
+## Performance metrics — validation (2023–2025)
 
 ```{r metrics-table-val}
 val <- metrics[metrics$period == "validation",
                c("catchment", "station_id", "n_obs", "NSE", "logNSE", "KGE", "PBIAS", "RMSE")]
 kable(val,
-      caption = "Table 2. Validation performance (2023).",
+      caption = "Table 2. Validation performance (2023-2025).",
       digits  = 3,
       row.names = FALSE)
 ```
@@ -214,37 +215,39 @@ cat(sprintf("|PBIAS| > 25%%:     %d / %d gauges\n",
             sum(abs(val$PBIAS) > 25, na.rm=TRUE), sum(!is.na(val$NSE))))
 ```
 
-**Interpretation — validation:**
-The drop from calibration to validation is notable but not alarming. Median NSE falls from 0.62 to 0.38, and median KGE from 0.63 to 0.53. The KGE drop is smaller than the NSE drop, which is informative: KGE is more robust to extreme events, suggesting that 2023 may have contained hydrological conditions (e.g. an unusually dry summer or an anomalous flood event) that pushed the model outside its calibrated range.
+**Interpretation — validation:** (updated 2026-08-25 — see [REVIEWS.md](REVIEWS.md) items R1, R5: validation now spans 2023–2025, not 2023 alone, and calibration is correctly 2017–2022)
 
-The PBIAS pattern in 2023 is striking — many catchments show large positive bias, meaning the model **underestimates** discharge in 2023. This is a consistent signal across multiple independent catchments (Siuntionjoki: +47%, Taasianjoki: +42%, Koskenkylanjoki: +29%, Summajoki: +39%, Sirppujoki: +38%, Karjaanjoki 2300100: +41%). Such widespread underestimation in the validation year almost certainly reflects a **climatological anomaly in 2023** — either unusually high precipitation or lower evapotranspiration than the calibration period average. This is not a model failure per se; it reflects the challenge of extrapolating a model calibrated on 2020–2022 to a year with different hydroclimatic conditions.
+The drop from calibration to validation is notable but not alarming. Median NSE falls from 0.63 to 0.42, and median KGE from 0.67 to 0.56. The KGE drop is smaller than the NSE drop, which is informative: KGE is more robust to extreme events, suggesting that the 2023–2025 period contains hydrological conditions somewhat outside the calibrated range rather than the model having been over-fitted.
 
-The **logNSE values in validation** improve for several catchments relative to NSE (e.g. Karjaanjoki 2300100: NSE = 0.01, logNSE = 0.40; Hounijoki 601000: NSE = 0.28, logNSE = 0.54). This indicates that while the model struggles with the magnitude of peaks in 2023, it retains reasonable skill at simulating low-flow dynamics — which is the regime most relevant to water availability assessment and Q10 computation. This provides some reassurance that Q10 estimates derived from the model are more reliable than the NSE values alone might suggest.
+The PBIAS pattern in validation is striking — many catchments show large positive bias, meaning the model **underestimates** discharge. This is a consistent signal across multiple independent catchments (Siuntionjoki 2200100: +47%, Taasianjoki: +39%, Koskenkylanjoki 1600110: +28%, Summajoki: +41%, Sirppujoki: +40%, Karjaanjoki 2300100: +52%). Crucially, because validation now spans three separate years (2023, 2024, 2025) rather than one, we can check whether this bias is a one-off "anomalous year" effect or something more persistent — and the hydrograph plots (e.g. Karjaanjoki 2300100, Siuntionjoki 2200310) show the positive bias holding up consistently across **all three** validation years, not just one. This points to a **systematic post-calibration bias** — for example drift in precipitation station coverage/quality or in discharge gauge rating curves after the 2017–2022 calibration window — rather than a single anomalous year's hydroclimatology. This is not necessarily a wholesale model failure, but it is a more concerning and more investigable finding than "2023 was an unusual year," and it is flagged as an open follow-up item (see REVIEWS.md item R2).
 
-**Sipoonjoki** has only 2 calibration observations and 0 validation observations and should be excluded from any quantitative assessment. It is retained in the spatial maps as a production-only catchment but its Q10 estimates carry very high uncertainty.
+The **logNSE values in validation** improve for several catchments relative to NSE (e.g. Vantaanjoki 2104900: NSE = 0.19, logNSE = 0.73; Mustijoki 1900100: NSE = 0.61, logNSE = 0.75). This indicates that while the model struggles with the magnitude of peaks in validation, it retains reasonable skill at simulating low-flow dynamics — which is the regime most relevant to water availability assessment and Q10 computation. This provides some reassurance that Q10 estimates derived from the model are more reliable than the NSE values alone might suggest.
+
+**Sipoonjoki** has only 2 observations in the entire 2016–2025 record and none in either the calibration or validation windows, so it should be excluded from any quantitative assessment. It is retained in the spatial maps as a production-only catchment but its Q10 estimates carry very high uncertainty. **Urpalanjoki** (station 0912000) is a newly-recovered data point (see REVIEWS.md item R4): its simulated discharge had been erroneously blank due to a subbasin output configuration error in `hype_data/info.txt`, now repaired using existing output from `hype_data_subcatchments/`. It has observations only from 2024 onward, so it contributes to validation (NSE = 0.16, KGE = 0.50) but not calibration.
 
 ## Compound hydrograph figure
 
 The figure below shows 6 representative gauges covering the full range of calibration performance.
 
-**Green shading** = calibration period (2020–2022) | **Blue shading** = validation period (2023) | **Dark line** = observed | **Red line** = simulated
+**Green shading** = calibration period (2017–2022) | **Blue shading** = validation period (2023–2025) | **Dark line** = observed | **Red line** = simulated
 
 ```{r compound-hydrograph, fig.width=12, fig.height=7}
 knitr::include_graphics(file.path(figures_dir, "hydrograph_compound.png"))
 ```
 
-**Interpretation:**
-Panel (a) — Vantaanjoki 2101220 (NSE=0.87): The model reproduces the seasonal cycle very well — spring snowmelt peaks in April, summer recession, autumn recharge, and winter baseflow are all captured with high fidelity. The main discrepancy is a slight underestimation of the largest spring peaks, which is typical of NSE-calibrated models that must balance peak and low-flow performance.
+**Interpretation** (updated 2026-08-25 — calibration period corrected to 2017–2022 and panel (f) swapped from Karjaanjoki 2300100 to Karjaanjoki 2300340; see [REVIEWS.md](REVIEWS.md) item R5):
 
-Panel (b) — Porvoonjoki 1800500 (NSE=0.80): Good overall performance with the seasonal pattern well reproduced. The positive PBIAS of 20.6% in calibration (model underestimates volume) is visible as the observed line sitting consistently above simulated during autumn and winter recession periods.
+Panel (a) — Vantaanjoki 2101220 (NSE=0.88): The model reproduces the seasonal cycle very well — spring snowmelt peaks in April, summer recession, autumn recharge, and winter baseflow are all captured with high fidelity. The main discrepancy is a slight underestimation of the largest spring peaks, which is typical of NSE-calibrated models that must balance peak and low-flow performance.
 
-Panel (c) — Siuntionjoki 2200310 (NSE=0.77): Strong calibration but the 2023 validation shows the model underestimating flows — consistent with the widespread positive PBIAS in validation discussed above. This is one of the cleaner examples of the 2023 anomaly effect.
+Panel (b) — Porvoonjoki 1800500 (NSE=0.82): Good overall performance with the seasonal pattern well reproduced. The positive PBIAS of 19.1% in calibration (model underestimates volume) is visible as the observed line sitting consistently above simulated during autumn and winter recession periods.
 
-Panel (d) — Koskenkylanjoki 1600110 (NSE=0.69): Satisfactory performance. The logNSE of 0.80 is notably higher than the NSE, confirming that low-flow simulation is actually better than peak-flow simulation at this gauge.
+Panel (c) — Siuntionjoki 2200310 (NSE=0.78): Strong calibration but validation shows the model underestimating flows in all three years (2023–2025) — consistent with the widespread positive PBIAS in validation discussed above. Because this pattern persists across three separate years rather than a single year, it points to a systematic post-calibration bias at this gauge rather than one anomalous year.
 
-Panel (e) — Sirppujoki 3200400 (NSE=0.33): The model captures the general seasonal pattern but systematically underestimates flow volume (PBIAS = +35%). Sirppujoki is one of the westernmost and most agricultural catchments, with characteristically flashy behaviour — rapid peaks and very low baseflows — that the regional parameter set struggles to reproduce.
+Panel (d) — Koskenkylanjoki 1600110 (NSE=0.75): Satisfactory performance. The logNSE of 0.79 is notably higher than the NSE, confirming that low-flow simulation is actually better than peak-flow simulation at this gauge.
 
-Panel (f) — Karjaanjoki 2300100 (NSE=-0.67): The clearest calibration failure. The simulated discharge is consistently lower than observed by approximately a factor of two, visible as the red line tracking far below the dark line throughout the record. The PBIAS of +52% confirms severe underestimation. Q10 estimates for subcatchments draining to this gauge should be treated as lower bounds only.
+Panel (e) — Sirppujoki 3200400 (NSE=0.42): The model captures the general seasonal pattern but systematically underestimates flow volume (PBIAS = +37%). Sirppujoki is one of the westernmost and most agricultural catchments, with characteristically flashy behaviour — rapid peaks and very low baseflows — that the regional parameter set struggles to reproduce.
+
+Panel (f) — Karjaanjoki 2300340 (NSE=-0.76): The clearest calibration failure, and — with the corrected 2017–2022 calibration window — the true worst-performing gauge in the network (previously this panel showed Karjaanjoki 2300100, whose calibration NSE improves to +0.17 once the correct 6-year window is used, so it no longer represents the worst case). The simulated discharge repeatedly overshoots observed peak flows (PBIAS = $-$71%, i.e. net overestimation), visible as the red line spiking well above the dark line at multiple points in the record. Q10 estimates for subcatchments draining to this gauge should be treated with substantial caution.
 
 ---
 
@@ -516,9 +519,9 @@ The opposing seasonal trends under climate change — winter improvement, summer
 
 The following uncertainties are important to acknowledge when interpreting these results:
 
-1. **Calibration quality varies significantly** — catchments with negative NSE or high PBIAS (particularly Karjaanjoki 2300100, Sirppujoki, and Siuntionjoki 2200100) have uncertain Q10 estimates. Results from these catchments should be treated with caution.
+1. **Calibration quality varies significantly** — catchments with negative NSE or high PBIAS (particularly Karjaanjoki 2300340, Karjaanjoki 2300100, Sirppujoki, and Siuntionjoki 2200100) have uncertain Q10 estimates. Results from these catchments should be treated with caution.
 
-2. **Single validation year** — the validation period covers only 2023, which appears to have been a hydrologically anomalous year (widespread positive PBIAS). A longer validation record would provide more robust assessment of model transferability.
+2. **Persistent post-calibration bias at several gauges** — the validation period was extended from a single year (2023 only) to three years (2023–2025) on 2026-08-25 after discovering that HYPE had already been run through 2025-12-31 and matching observed discharge existed but was unused (see [REVIEWS.md](REVIEWS.md) item R1). With three years of independent data, the positive PBIAS previously attributed to "2023 being an anomalous year" is now shown to persist consistently across 2023, 2024, and 2025 at several stations (e.g. Siuntionjoki, Taasianjoki, Summajoki, Sirppujoki) — indicating a systematic bias (e.g. precipitation forcing drift or gauge rating curve changes) rather than a one-off anomalous year. This is a more robust validation than before, but the cause of the persistent bias is not yet identified and should be investigated further.
 
 3. **Environmental flow requirements not yet subtracted** — the Q10 values presented here represent total simulated discharge. Net available discharge for abstraction must subtract environmental flow requirements and existing sectoral withdrawals (municipal, industrial, agricultural), which will reduce available water further.
 
@@ -537,7 +540,11 @@ The following uncertainties are important to acknowledge when interpreting these
 - [ ] Consider colour-blind safe palette for delta maps (current red-white-blue may be problematic for deuteranopia)
 - [ ] Confirm Sipoonjoki should be excluded from quantitative results or retained with a caveat
 - [ ] Discuss with co-authors: should environmental flow requirements be incorporated before next revision?
-- [ ] Check whether the 2023 PBIAS anomaly warrants a note in the manuscript about the validation year hydroclimatology
+- [x] Check whether the 2023 PBIAS anomaly warrants a note in the manuscript about the validation year hydroclimatology — **RESOLVED 2026-08-25**: validation period extended to 2023–2025 (see REVIEWS.md item R1); the bias persists across all three years, so it is now described as a systematic post-calibration bias rather than a single-year anomaly
+- [ ] Follow up: identify the cause of the systematic post-calibration positive PBIAS at Siuntionjoki, Taasianjoki, Summajoki, and Sirppujoki (see REVIEWS.md item R2) — still open, root cause not yet identified
+- [x] Follow up: verify with the external Python post-processing pipeline which sub-period of the 2016–2025 HYPE run was used to compute the `water_availability*.gpkg` Q10 statistics that underpin the main results (see REVIEWS.md item R3) — **FULLY RESOLVED 2026-08-25**: since the Python source is not available in this repository, built an independent empirical verification (`scripts/00_verify_q10_period.R`) that recomputes Q10 statistics directly from raw HYPE output over several candidate periods and compares against the recorded `water_availability.gpkg` values. Result: the full 2016–2025 record reproduces every recorded value tested (45/45 subcatchments across 15 gauged catchments, <0.001 m³/s tolerance), with zero matches for any shorter candidate period. No regeneration of `water_availability*.gpkg` was needed — the statistics were already computed correctly; only the "2019–2023" wording in this notebook and `RESULTS_STRUCTURE.md` was wrong and has been corrected.
+- [x] Follow up: investigate why Urpalanjoki (0912000) has 2024–2025 observed discharge but an entirely empty simulated column, and why Sipoonjoki (2000110) has almost no observed discharge at all (see REVIEWS.md item R4) — **RESOLVED 2026-08-25 for Urpalanjoki**: root cause was an empty `basinoutput subbasin` line in `hype_data/info.txt`; repaired by copying real HYPE output from `hype_data_subcatchments/0001012.txt`. Sipoonjoki genuinely has almost no gauge record (2 observations in 10 years) and remains excluded — this looks like a data availability limitation, not a pipeline bug.
+- [ ] Follow up: the same archived `run_pipeline.sh` audit (R3/R4) also revealed the true PEST-weighted calibration period is 2017–2022, not 2020–2022 as an earlier draft of this manuscript stated — **RESOLVED 2026-08-25, see REVIEWS.md item R5**. Worth double-checking whether any other hardcoded dates elsewhere in the codebase still assume the old (incorrect) 2020–2022 window.
 
 ---
 

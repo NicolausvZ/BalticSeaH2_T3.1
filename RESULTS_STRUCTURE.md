@@ -1,7 +1,7 @@
 # Results Folder Structure and Documentation
 
 **Project:** BalticSeaH2 T3.1 — Water availability for hydrogen production in southern Finland  
-**Last updated:** April 2026  
+**Last updated:** August 2026 (validation period corrected — see [REVIEWS.md](REVIEWS.md))  
 
 ---
 
@@ -88,7 +88,7 @@ catch_data/
 ├── water_availability_climate.gpkg   ← Climate scenario: seasonal discharge statistics
 ├── water_availability_urban.gpkg     ← Urban growth scenario: seasonal discharge statistics
 ├── water_availability_combined.gpkg  ← Combined scenario: seasonal discharge statistics
-├── calib_disch_data.csv              ← Observed daily discharge (all gauges, 2016–2023)
+├── calib_disch_data.csv              ← Observed daily discharge (all gauges, 2016–2025)
 ├── calib_disch_data_results.csv      ← Observed + simulated daily discharge (all gauges)
 ├── catchment.gpkg                    ← Catchment boundary polygon
 ├── subcatchments.gpkg                ← Subcatchment boundary polygons
@@ -128,17 +128,21 @@ Each of the four `water_availability*.gpkg` files contains a single layer (`wate
 | `annual_*` | Annual equivalents of above |
 | `geom` | Subcatchment polygon geometry (MULTIPOLYGON) |
 
-The **Q10 statistic** (discharge exceeded 90% of the time) is the primary indicator of reliably available water for hydrogen production assessment.
+The **Q10 statistic** (discharge exceeded 90% of the time) is the primary indicator of reliably available water for hydrogen production assessment. It is computed over the full 2016–2025 HYPE record (confirmed empirically — see `scripts/00_verify_q10_period.R` and [REVIEWS.md](REVIEWS.md) item R3), not a sub-period.
 
 ### calib_disch_data_results.csv
 
-Paired observed and simulated daily discharge for all gauged subcatchments, covering the full model period (2016–2023). Columns alternate between observed (`X{station_id}`) and simulated (`simulated_{subcatchment_id}`) for each gauge pair.
+Paired observed and simulated daily discharge for all gauged subcatchments, covering the full HYPE model period (2016–2025; `bdate`/`edate` in `hype_data/info.txt`). Columns alternate between observed (`X{station_id}`) and simulated (`simulated_{subcatchment_id}`) for each gauge pair.
+
+**Periods used for goodness-of-fit assessment (revised 2026-08-25 — see [REVIEWS.md](REVIEWS.md) items R1 and R5):**
 
 | Period | Dates | Role |
 |---|---|---|
-| Warm-up | 2019 | Model state initialisation — excluded from metrics |
-| Calibration | 2020–2022 | Used in PEST objective function |
-| Validation | 2023 | Withheld from calibration — independent performance check |
+| Warm-up | 2016 | Model state initialisation — excluded from metrics |
+| Calibration | 2017–2022 | Used in PEST objective function (corrected 2026-08-25 from an initially assumed 2020–2022 — see [REVIEWS.md](REVIEWS.md) item R5) |
+| Validation | 2023–2025 | Withheld from calibration — independent performance check (extended from 2023-only; see REVIEWS.md item R1) |
+
+Note: some gauges (e.g. Hounijoki) have no observations before 2020, so they contribute fewer than the full ~2,190 calibration-period observations, but this does not affect the 2017-01-01 calibration start date itself, which was verified directly against the PEST control file observation-group weights (identical across all gauges).
 
 ---
 
@@ -166,7 +170,7 @@ The same file structure is replicated in `hype_data_climate/`, `hype_data_urban/
 
 | Folder | Scenario | Description |
 |---|---|---|
-| `hype_data_subcatchments/` | **Baseline** | Calibrated model, observed forcing 2019–2023 |
+| `hype_data_subcatchments/` | **Baseline** | Calibrated model, HYPE run 2016–2025 (`bdate`/`edate` in `info.txt`). The `water_availability*.gpkg` Q10 statistics are computed by an external Python post-processing pipeline not included in this repository, so its source could not be read directly — but a 2026-08-25 audit (`scripts/00_verify_q10_period.R`) empirically **confirmed** they use the full 2016–2025 record: recomputing Q10 directly from the raw HYPE output (`hype_data_subcatchments/000XXXX.txt`) over the full 10-year period exactly reproduces the recorded values (to <0.001 m³/s) for all 45 test subcatchments sampled across 15 gauged catchments, with zero mismatches against any shorter candidate period. See [REVIEWS.md](REVIEWS.md) item R3. |
 | `hype_data_climate/` | **Climate change** | SSP2-4.5 delta-change factors applied to temperature (+2.3 to +3.2°C) and precipitation (−1% to +14% by month); 2040–2069 horizon |
 | `hype_data_urban/` | **Urban growth** | Urban SLC fractions increased per Statistics Finland 2021 population projections to 2040; growth 0–12 percentage points depending on municipality |
 | `hype_data_combined/` | **Combined** | Climate forcing and urban land use changes applied simultaneously |

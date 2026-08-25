@@ -5,11 +5,26 @@
 # catch_data folder, computes NSE, KGE, R2, PBIAS and RMSE per gauge per
 # period, and writes a single summary table to tables/.
 #
-# Periods:
-#   Warm-up     : 2019        (excluded)
-#   Calibration : 2020-2022   (metrics computed)
-#   Validation  : 2023        (metrics computed)
-#   Other       : 2016-2018, 2024-2025 (excluded)
+# Periods (REVISED 2026-08-25 — see REVIEWS.md items R1 and R5):
+#   Warm-up     : 2016       (excluded — HYPE bdate/edate = 2016-01-01 to
+#                             2025-12-31 per hype_data/info.txt)
+#   Calibration : 2017-2022  (PEST objective function, weight = 0.78125.
+#                             CORRECTED 2026-08-25 item R5: verified directly
+#                             against the PEST control file
+#                             pest_data/{Catchment}.pst — the weight
+#                             transitions from 0 to 0.78125 exactly at
+#                             2017-01-01 and back to 0 exactly at 2023-01-01.
+#                             This also matches date_calib_start=2017-01-01
+#                             in the archived pipeline's catchment_tools.ini.
+#                             The manuscript and this script had previously
+#                             (incorrectly) assumed 2020-2022.)
+#   Validation  : 2023-2025  (metrics computed — EXTENDED from 2023-only in
+#                             item R1. HYPE was already run through
+#                             2025-12-31 and observed discharge is available
+#                             and complete for 2023-2025 at nearly all 15
+#                             gauged stations; this data was previously
+#                             discarded/unused. Confirmed to match
+#                             date_valid_start/end in catchment_tools.ini.)
 #
 # Output:
 #   tables/gof_metrics.csv
@@ -107,8 +122,8 @@ compute_catchment_metrics <- function(catch_dir) {
   }
 
   # Period masks
-  calib_mask <- df$Date >= as.Date("2020-01-01") & df$Date <= as.Date("2022-12-31")
-  valid_mask <- df$Date >= as.Date("2023-01-01") & df$Date <= as.Date("2023-12-31")
+  calib_mask <- df$Date >= as.Date("2017-01-01") & df$Date <= as.Date("2022-12-31")
+  valid_mask <- df$Date >= as.Date("2023-01-01") & df$Date <= as.Date("2025-12-31")
 
   # Compute metrics per gauge pair per period
   results <- lapply(seq_along(obs_cols), function(i) {

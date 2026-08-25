@@ -444,8 +444,8 @@ server <- function(input, output, session) {
     obs <- df[[obs_cols[1]]]
     sim <- df[[sim_cols[1]]]
 
-    # Filter to 2019-2023
-    mask  <- df$Date >= as.Date("2019-01-01") & df$Date <= as.Date("2023-12-31")
+    # Filter to 2016-2025 (REVISED 2026-08-25, see REVIEWS.md items R1, R5)
+    mask  <- df$Date >= as.Date("2016-01-01") & df$Date <= as.Date("2025-12-31")
     dates <- df$Date[mask]
     obs   <- obs[mask]
     sim   <- sim[mask]
@@ -459,17 +459,17 @@ server <- function(input, output, session) {
          cex.axis = 0.80, cex.lab = 0.85, las = 1)
 
     # Shaded periods
-    rect(as.Date("2020-01-01"), -1, as.Date("2022-12-31"), y_max * 10,
+    rect(as.Date("2017-01-01"), -1, as.Date("2022-12-31"), y_max * 10,
          col = "#d5e8d4", border = NA)
-    rect(as.Date("2023-01-01"), -1, as.Date("2023-12-31"), y_max * 10,
+    rect(as.Date("2023-01-01"), -1, as.Date("2025-12-31"), y_max * 10,
          col = "#dae8fc", border = NA)
 
     lines(dates, sim, col = "#e74c3c", lwd = 1.1)
     lines(dates, obs, col = "#2c3e50", lwd = 1.3)
 
     # X axis years
-    axis(1, at = seq(as.Date("2019-01-01"), as.Date("2024-01-01"), by = "year"),
-         labels = 2019:2024, cex.axis = 0.80)
+    axis(1, at = seq(as.Date("2016-01-01"), as.Date("2026-01-01"), by = "year"),
+         labels = 2016:2026, cex.axis = 0.80)
 
     legend("topright",
            legend = c("Observed", "Simulated"),

@@ -3,13 +3,21 @@
 # Compound figure showing 6 representative gauges in a 3x2 grid, covering
 # the range of calibration performance from best to worst.
 #
-# Panel selection (by NSE calibration):
-#   A - Vantaanjoki    2101220  NSE=0.87  (best)
-#   B - Porvoonjoki    1800500  NSE=0.80  (good)
-#   C - Siuntionjoki   2200310  NSE=0.77  (good-medium)
-#   D - Koskenkylanjoki 1600110 NSE=0.69  (medium)
-#   E - Sirppujoki     3200400  NSE=0.33  (poor)
-#   F - Karjaanjoki    2300100  NSE=-0.67 (worst)
+# REVISED 2026-08-25 (see REVIEWS.md items R1 and R5): validation window
+# extended to 2023-2025, calibration window corrected to 2017-2022 (verified
+# against pest_data/*.pst), and panel (f) swapped from Karjaanjoki 2300100
+# to Karjaanjoki 2300340 because the corrected 6-year calibration window
+# changes the ranking — 2300100's calibration NSE improves from -0.67 to
+# +0.17 (no longer the worst), while 2300340 becomes the true worst
+# performer (NSE = -0.76).
+#
+# Panel selection (by NSE calibration, corrected 2017-2022 window):
+#   A - Vantaanjoki    2101220  NSE=0.88  (best)
+#   B - Porvoonjoki    1800500  NSE=0.82  (good)
+#   C - Siuntionjoki   2200310  NSE=0.78  (good-medium)
+#   D - Koskenkylanjoki 1600110 NSE=0.75  (medium)
+#   E - Sirppujoki     3200400  NSE=0.42  (poor)
+#   F - Karjaanjoki    2300340  NSE=-0.76 (worst)
 #
 # Output:
 #   figures/hydrograph_compound.png
@@ -35,18 +43,18 @@ panels <- list(
   list(catchment = "Siuntionjoki",    station = "2200310", subcatch = "1016"),
   list(catchment = "Koskenkylanjoki", station = "1600110", subcatch = "1023"),
   list(catchment = "Sirppujoki",      station = "3200400", subcatch = "1019"),
-  list(catchment = "Karjaanjoki",     station = "2300100", subcatch = "1063")
+  list(catchment = "Karjaanjoki",     station = "2300340", subcatch = "1025")
 )
 
 panel_labels <- c("(a)", "(b)", "(c)", "(d)", "(e)", "(f)")
 
-# Period boundaries
-calib_start <- as.Date("2020-01-01")
+# Period boundaries (corrected 2026-08-25 — see REVIEWS.md item R5)
+calib_start <- as.Date("2017-01-01")
 calib_end   <- as.Date("2022-12-31")
 valid_start <- as.Date("2023-01-01")
-valid_end   <- as.Date("2023-12-31")
-plot_start  <- as.Date("2019-01-01")
-plot_end    <- as.Date("2023-12-31")
+valid_end   <- as.Date("2025-12-31")
+plot_start  <- as.Date("2016-01-01")
+plot_end    <- as.Date("2025-12-31")
 
 # Colours
 col_obs   <- "#2c3e50"
@@ -140,16 +148,16 @@ for (i in seq_along(panels)) {
   lines(data$dates, data$obs, col = col_obs, lwd = 1.3)
 
   # X axis
-  year_starts <- seq(as.Date("2019-01-01"), as.Date("2024-01-01"), by = "year")
+  year_starts <- seq(as.Date("2016-01-01"), as.Date("2026-01-01"), by = "year")
   axis(1, at = year_starts, labels = format(year_starts, "%Y"),
        cex.axis = 0.78)
 
   # Period labels
-  mtext("Warm-up",     side = 3, at = as.Date("2019-07-01"),
+  mtext("Warm-up",     side = 3, at = as.Date("2016-07-01"),
         cex = 0.58, col = "grey45", line = 0.15)
-  mtext("Calibration", side = 3, at = as.Date("2021-04-01"),
+  mtext("Calibration", side = 3, at = as.Date("2019-07-01"),
         cex = 0.58, col = "grey45", line = 0.15)
-  mtext("Val.",        side = 3, at = as.Date("2023-04-01"),
+  mtext("Val.",        side = 3, at = as.Date("2024-04-01"),
         cex = 0.58, col = "grey45", line = 0.15)
 
   # Metrics annotation — calibration and validation
