@@ -53,3 +53,8 @@ Results/_archive/**/*.gpkg
 
 # New model setups — large files not tracked
 Results/model_setups/
+
+# Reference PDFs — copyrighted third-party journal articles, not for
+# redistribution in a public repo. Kept locally only; see references.bib
+# for the corresponding citation metadata.
+Biblio/
