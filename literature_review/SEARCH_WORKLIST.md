@@ -1,6 +1,6 @@
 # Search worklist for literature review expansion
 
-Current reference count: 44 entries in `references.bib` (was 19 at the start of this workflow, then 21 after batch 1, now 44 after batch 2 covering items 1.1, 1.4, 2.1, 2.2, 2.3 below). Target: 30-40, now exceeded. This document lists concrete gaps in the manuscript's citation coverage, organised by section and priority. Each item gives search terms to run and, where a specific paper has already been checked against Crossref and confirmed to exist with correct metadata, that paper is named directly as a starting point.
+Current reference count: 50 entries in `references.bib` (was 19 at the start of this workflow, then 21 after batch 1, 44 after batch 2, and 50 after batch 3: +7 new entries for items 2.4 and 2.3, -1 for the removal of `Baghel2018` on reference-quality grounds, see Priority 0 below). Target: 30-40, now exceeded. This document lists concrete gaps in the manuscript's citation coverage, organised by section and priority. Each item gives search terms to run and, where a specific paper has already been checked against Crossref and confirmed to exist with correct metadata, that paper is named directly as a starting point.
 
 Workflow: pick an item, search it, download the PDF, and drop it in `Biblio/`. Tell me which item number you found something for (or just tell me the filename) and I will read it, decide where it fits, write the citation into the manuscript, add the BibTeX entry, and log it in `LITERATURE_REVIEW_LOG.md`.
 
@@ -27,6 +27,24 @@ Note: This is a handbook: River flow forecasting through conceptual models, I : 
 **STATUS: still open.** Not yet resolved as of this batch. Nash & Sutcliffe (1970) itself remains inaccessible as a PDF. Alternative sources to try: a textbook or review chapter that defines and cites NSE (e.g. Krause et al. 2005, already added, discusses NSE alongside logNSE and could partially cover this citation need), or a widely available secondary source that formally restates the NSE definition with its own citation to Nash & Sutcliffe 1970. Will revisit once you find something.
 
 
+Updated notes: I collected some papers on the topic:
+
+1) Landslide risk assessment using hydrological model in the Upper Yom River Basin, Thailand
+2) Exploring the exceptional performance of a deep learning stream temperature model and the value of streamflow data
+3) Flood mitigation function of rain gardens for management of urban storm runoff in Japan
+4) Uncertainty in Rating-Curves Due to Manning Roughness Coefficient
+5) Climate change impacts on surface water resources in arid and semi-arid regions: a case study in northern Jordan
+6) Application of hydrologic and hydraulic methods to calculate the environmental flow requirements of the Chaliyar river
+
+**STATUS: none of these fit.** All 6 papers were read. None of them define, discuss, or cite the origin of the Nash-Sutcliffe Efficiency metric itself; they are general hydrology/hydraulics application papers that surfaced because they use NSE as one of several evaluation metrics, not because they discuss where it comes from. Paper 6 (Chaliyar river) was topically a much better fit for item 2.3 (environmental flow methods) and was moved there instead (see `LITERATURE_REVIEW_LOG.md` entry 35). None of the other 5 have been used anywhere.
+
+The problem is that generic searches for "Nash-Sutcliffe" or "NSE evaluation" return the thousands of papers that use the metric, not the 1970 paper that defines it. More targeted search strategies to try next:
+- Search specifically for the paper by its exact title in quotes: `"River flow forecasting through conceptual models"` (with quotes, in Google Scholar or your library's discovery search, not a general web search)
+- Try your university library's own catalogue/discovery layer directly rather than a search engine; a 1970 Journal of Hydrology paper is a standard holding at most university libraries with an Elsevier subscription, including via older bound-volume digitisation
+- Try searching by author name only, restricted to 1970: `Nash Sutcliffe 1970 Journal of Hydrology` — sometimes filenames or repository listings use only the author/year, not the full title, as the discoverable text
+- Check ResearchGate or Academia.edu for a version uploaded by a citing author (not the publisher), which is sometimes available even for very old papers when the publisher copy is paywalled
+- As a fallback, a hydrology methods textbook that formally re-derives and cites the NSE formula (e.g. a chapter in *Applied Hydrology* by Chow, Maidment & Mays, or a similar standard textbook you may already have institutional access to) can stand in for the primary source, since textbook citations are normal practice for foundational, universally known formulas
+
 **1.3 GOF performance threshold classification** (verified via Crossref)
 - Moriasi, D. N., Arnold, J. G., Van Liew, M. W., Bingner, R. L., Harmel, R. D., & Veith, T. L. (2007). Model evaluation guidelines for systematic quantification of accuracy in watershed simulations. *Transactions of the ASABE*, 50(3), 885-900. https://doi.org/10.13031/2013.23153
 - This is the standard reference for the NSE/PBIAS/RSR performance classification thresholds used in Section 3.1 (satisfactory/good/poor). Extremely widely cited (over 10,000 citations), a reviewer will expect to see it.
@@ -34,6 +52,20 @@ Note: This is a handbook: River flow forecasting through conceptual models, I : 
 Note: cannot get this paper, look for other ones 
 
 **STATUS: still open.** Moriasi et al. (2007) not yet found. This is the standard NSE/PBIAS/RSR threshold reference and worth continuing to search for; if it stays inaccessible, an alternative is the follow-up Moriasi et al. (2015) update ("Hydrologic and water quality models: Performance measures and evaluation criteria", *Transactions of the ASABE*, 58(6), 1763-1785), which restates the same threshold tables and may be easier to obtain.
+
+Updated notes: I collected some papers on the topic:
+
+1) Assessment of Sediment Transport Functions with the Modified SWAT-Twn Model for a Taiwanese Small Mountainous Watershed
+2) Remotely Sensed Soil Moisture Assimilation in the Distributed Hydrological Model Based on the Error Subspace Transform Kalman Filter
+3) Hydrological impacts of climate change on a data-scarce Greek catchment
+
+**STATUS: none of these fit.** All 3 papers were read. None discuss goodness-of-fit performance thresholds; they are general SWAT/hydrological-modelling application papers that report NSE values without defining classification bands, for the same reason as the 1.2 batch above: NSE is used as one evaluation metric among several, but the threshold classification itself is not the topic. None have been used anywhere.
+
+More targeted search strategies for the actual Moriasi et al. (2007) paper:
+- Search the exact title in quotes: `"Model evaluation guidelines for systematic quantification of accuracy in watershed simulations"`
+- Try the ASABE (American Society of Agricultural and Biological Engineers) journal website directly (`elibrary.asabe.org`), since Transactions of the ASABE is their own journal and older articles are sometimes accessible through the society's own portal even without a personal subscription
+- Try searching for the newer, easier-to-access update instead of the original: `Moriasi 2015 "Hydrologic and water quality models" performance measures evaluation criteria Transactions ASABE` (DOI 10.13031/trans.58.10715) — this restates the same NSE/PBIAS/RSR threshold tables and may resolve this item even if the 2007 original stays inaccessible
+- A widely cited SWAT-specific methods paper that also restates similar thresholds and is often open access via ResearchGate: Gassman, P. W., Reyes, M. R., Green, C. H., & Arnold, J. G. (2007). "The soil and water assessment tool: historical development, applications, and future research directions." *Transactions of the ASABE*, 50(4), 1211-1250
 
 **1.4 logNSE / log-transformed efficiency for low-flow evaluation**
 - Search terms: `log-transformed Nash-Sutcliffe efficiency low flow evaluation hydrological model`, `Krause Boyle Base weighted efficiency criteria hydrology 2005`
@@ -68,7 +100,9 @@ Papers found (titles placres here for you runderstanding:)
 
 
 
-**STATUS: integrated, item complete.** All 8 papers added to `references.bib` and cited in two new paragraphs in Section 4.2 (`agujournaltemplate.tex`). See `LITERATURE_REVIEW_LOG.md` entries 6-13.**2.2 Water-energy nexus / siting studies for hydrogen production specifically (not just general hydrogen demand)**
+**STATUS: integrated, item complete.** All 8 papers added to `references.bib` and cited in two new paragraphs in Section 4.2 (`agujournaltemplate.tex`). See `LITERATURE_REVIEW_LOG.md` entries 6-13.
+
+**2.2 Water-energy nexus / siting studies for hydrogen production specifically (not just general hydrogen demand)**
 The Introduction cites Terlouw (2024) and Ellersdorfer (2025) for global water-hydrogen constraints, but the Discussion has no international comparison for how other regions have approached hydrogen siting relative to water. This would strengthen Section 4.1 ("Comparison to other water-availability assessment approaches").
 - Search terms: `green hydrogen siting water availability regional assessment`, `water footprint electrolysis site selection GIS`, `hydrogen production water stress index mapping`
 
@@ -110,9 +144,45 @@ Papers found (titles placres here for you runderstanding:)
 Section 4.3 states HYPE's conceptual groundwater store "may underestimate baseflow in coarse-material aquifers" without a supporting citation.
 - Search terms: `conceptual hydrological model groundwater baseflow representation limitation`, `semi-distributed model aquifer storage low flow simulation uncertainty`
 
+
+Note: Papers added
+
+1) A multi-storage groundwater concept for the SWAT model to emphasize nonlinear groundwater dynamics in lowland catchments
+2) Understanding groundwater storage and drainage dynamics of a high mountain catchment with complex geology using a semi-distributed process-based modelling approach
+3) Tran Quoc, Q., P. Willems, and M. Huysmans. "Development of an integrated modelling approach for improved groundwater and low flow simulation." (2019).
+4) Assessing water availability in a semi-arid watershed of southern India using a semi-distributed model
+5) HYDROGEIOS: a semi-distributed GIS-based hydrological model for modified river basins
+6) Assessing Parameter Uncertainty of a Semi-Distributed Hydrology Model for a Shallow Aquifer Dominated Environmental System
+7) Coupling catchment runoff models to groundwater flow models in a multi-model ensemble approach for improved prediction of groundwater recharge, hydraulic heads and river discharge
+8) Modelling the hydrology of a catchment using a distributed and a semi-distributed model
+9) Impact of model structure on flow simulation and hydrological realism: from a lumped to a semi-distributed approach
+10) Parameter uncertainty and identifiability of a conceptual semi-distributed model to simulate hydrological processes in a small headwater catchment in Northwest China
+
+
+
+**STATUS: integrated, item complete.** 6 of the 10 papers were used (items 1, 2, 3/7 [same author, journal version used], 5, 6, 9), cited in a new paragraph in Section 4.3 immediately after the "Key uncertainties" paragraph. The other 4 were read but excluded to avoid over-citing a single limitation paragraph: item 8 (El-Nasr et al. 2005) makes a similar point to item 9 (Garavaglia et al. 2017) already used; item 4 (Perrin et al. 2012) is a weaker topical fit (general water availability rather than groundwater store structure); item 3's PhD thesis is superseded by its own published journal version (item 7); item 10 (Ouyang et al.) makes a similar point to item 6 (Samadi et al.) already used. See `LITERATURE_REVIEW_LOG.md` entries 29-34 for full detail and rationale on each inclusion/exclusion.
+
 **2.5 Social acceptance of energy or water infrastructure beyond MAR specifically**
 Section 4.5 ("Social dimensions and distributional impacts") currently relies only on one Finnish MAR-specific paper (Laukka et al. 2021). Broader energy-infrastructure siting and public acceptance literature would strengthen this section, since the topic here is industrial hydrogen siting, not MAR.
 - Search terms: `public acceptance renewable energy infrastructure siting review`, `social license industrial water abstraction community`, `NIMBY green hydrogen infrastructure siting Finland OR Nordic`
+
+---
+
+## Priority 0: Reference quality audit (added after user feedback)
+
+The user flagged that some references added so far come from low-quality or "garbage" journals and asked for a stricter standard. The policy now applied to all new citations (see `LITERATURE_REVIEW_LOG.md` for the full statement) is: prefer established specialty hydrology/water-resources/energy journals or official technical reports; treat MDPI journals as requiring extra scrutiny rather than automatic exclusion; treat low-circulation regional journals as candidates for replacement, especially where the claim is redundant with a stronger source; prefer a peer-reviewed journal paper over a PhD thesis when both exist; check that a paper's actual finding, not just its title, supports the claim it is attached to.
+
+**Action already taken:** `Baghel2018` (*Journal of The Institution of Engineers (India): Series A*, a low-circulation regional engineering journal) was removed from `references.bib` and the manuscript; the claim it supported is fully covered by `Gopal2013` alone.
+
+**Open items needing your input:**
+
+**0.1 Replace or supplement `veijalainen2019severe`** (Veijalainen et al. 2019, "Severe drought in Finland", published in *Sustainability*, MDPI). This is a pre-existing citation (added before this literature review process started) used in two places: the Introduction (Water Act/permit context) and Section 4.2 (geographic pattern of Finnish drought vulnerability, east-west lake-storage contrast). *Sustainability* is one of the MDPI titles most frequently criticised for volume-driven, low-selectivity publishing.
+- Search terms: `Finland drought vulnerability water supply catchment SYKE`, `Finland hydrological drought 2018 OR 2021 impact assessment`, `Nordic drought risk water security catchment review`, `Ahopelto Marttunen Finland drought` (co-authors of the existing paper, in case a companion paper from the same research group exists in a stronger journal)
+- Also worth checking SYKE's own technical reports directly (syke.fi), since Veijalainen and co-authors are SYKE researchers and the underlying study may also exist as a citable SYKE report rather than only the MDPI journal article.
+
+**0.2 Reconsider `HernandezHerraez2025`** (*Applied Sciences*, MDPI), added in the previous batch as the sole citation for the "80% GIS share" systematic review statistic opening the Section 4.1 hydrogen-siting paragraph.
+- Search terms: `hydrogen value chain GIS geospatial systematic review`, `green hydrogen siting methods review geospatial techniques`, `electrolyser siting spatial analysis review 2024 OR 2025`
+- Alternative if no better source is found: rewrite the opening sentence to lead with one of the non-MDPI national siting studies (Köhl et al. 2026 or Herrera et al. 2026) instead of the systematic review statistic, and keep Hernández-Herráez et al. as a secondary, non-anchoring citation.
 
 ---
 

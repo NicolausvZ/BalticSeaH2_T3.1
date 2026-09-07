@@ -271,15 +271,15 @@ The entries below were added after the user completed literature searches follow
 - **Where cited:** Section 4.3, environmental flow paragraph
 - **Why this paper:** directly supports the recommendation that a Finland- or Baltic-specific EFR method would be preferable to a generic global rule for the catchments studied here. The DOI (10.1088/1748-9326/ad1cb5) was verified against Crossref after an initial transcription error was caught before committing. Worklist item 2.3.
 
-### 24. Baghel, Gaur, Karthik & Dohare (2018) — Global Trends in Environmental Flow Assessment: An Overview
+### 24. Baghel, Gaur, Karthik & Dohare (2018) — Global Trends in Environmental Flow Assessment: An Overview (removed, see reference quality policy below)
 
 - **File:** `Biblio/s40030-018-0332-5.pdf`
 - **Full citation:** Baghel, D. S., Gaur, A., Karthik, M., & Dohare, D. (2018). Global Trends in Environmental Flow Assessment: An Overview. *Journal of The Institution of Engineers (India): Series A*. https://doi.org/10.1007/s40030-018-0332-5
-- **BibTeX key:** `Baghel2018`
+- **BibTeX key:** `Baghel2018` (removed from `references.bib` and `agujournaltemplate.tex` this batch; entry kept here for audit continuity)
 - **Source page(s):** p. 1 (abstract, review conclusion that no single method is universally best)
 - **Claim used:** reviews of environmental flow methodology consistently find that no single method performs best across all criteria
-- **Where cited:** Section 4.3, environmental flow paragraph (cited jointly with Gopal 2013)
-- **Why this paper:** corroborates the same no-single-best-method conclusion from an independent review, strengthening the claim beyond a single source. Worklist item 2.3.
+- **Where cited:** was cited jointly with Gopal 2013 in Section 4.3; no longer cited as of this batch
+- **Why this paper was removed:** a low-circulation, narrow-scope regional engineering journal duplicating a claim already fully supported by `Gopal2013`. See "Reference quality policy" below.
 
 ### 25. Gopal (2013) — Methodologies for the assessment of environmental flows
 
@@ -287,9 +287,9 @@ The entries below were added after the user completed literature searches follow
 - **Full citation:** Gopal, B. (2013). Methodologies for the assessment of environmental flows. In B. Gopal (Ed.), *Environmental Flows: An Introduction for Water Resources Managers* (pp. 129-182). National Institute of Ecology, New Delhi.
 - **BibTeX key:** `Gopal2013`
 - **Source page(s):** pp. 129-134 (introductory overview of methodology diversity and lack of consensus)
-- **Claim used:** same no-single-best-method conclusion as Baghel et al. 2018, cited jointly
+- **Claim used:** no single method performs best across all criteria (now the sole citation for this claim, following removal of Baghel2018)
 - **Where cited:** Section 4.3, environmental flow paragraph
-- **Why this paper:** a book chapter (rather than journal article) giving a manager-facing synthesis of the same methodological diversity, cited alongside Baghel 2018 to show the conclusion holds across source types. Worklist item 2.3.
+- **Why this paper:** a book chapter (rather than journal article) giving a manager-facing synthesis of methodological diversity. Worklist item 2.3.
 
 ### 26. Pastor, Ludwig, Biemans, Hoff & Kabat (2014) — Accounting for environmental flow requirements in global water assessments
 
@@ -320,3 +320,105 @@ The entries below were added after the user completed literature searches follow
 - **Claim used:** a comparison of six desktop hydrological methods applied to three Canadian rivers found that method choice materially changes the resulting trade-off between water availability for abstraction and protection of ecosystem health
 - **Where cited:** Section 4.3, environmental flow paragraph
 - **Why this paper:** a concrete case study demonstrating that EFR method choice is not a neutral technical detail but changes the substantive result, reinforcing the caution raised via Messager 2024 about method sensitivity. Worklist item 2.3.
+
+---
+
+## Reference quality policy (added after user feedback, this batch)
+
+The user flagged that some references added so far come from low-quality or "garbage" journals and asked for a stricter standard going forward. Applying this retroactively to the full bibliography turned up two issues, addressed below, and the policy now applied to all new additions is:
+
+- Prefer specialty hydrology, water-resources, or energy journals from established publishers (Elsevier, Wiley, Springer Nature, Copernicus/EGU, IOP, Taylor & Francis, AGU/Wiley) or official government/agency technical reports.
+- Treat MDPI journals (e.g. *Water*, *Remote Sensing*, *Sustainability*, *Applied Sciences*) as a flag requiring extra scrutiny, not an automatic exclusion. MDPI's rapid turnaround and volume-driven business model has drawn sustained criticism in the hydrology community (some MDPI titles were removed from Norway's national quality-assured journal list in 2020). An MDPI-published paper is only used if (a) no non-MDPI source makes the same claim, and (b) the specific claim is checkable and consistent with other evidence.
+- Treat regional/national-scope engineering journals with low citation counts and narrow readership as candidates for replacement, especially when a claim is duplicated by a stronger source anyway.
+- A PhD thesis is used only if no peer-reviewed journal version of the same work exists; where both exist, the peer-reviewed version is used and the thesis is not separately cited.
+- Do not cite a paper purely because it contains the search keyword; check that the paper's actual finding, not just its title, supports the claim it is attached to.
+
+**Action taken this batch:**
+
+- **Removed `Baghel2018`** (Baghel, D. S., Gaur, A., Karthik, M., & Dohare, D. (2018). Global Trends in Environmental Flow Assessment: An Overview. *Journal of The Institution of Engineers (India): Series A*). This is a low-circulation, narrow-scope regional engineering journal and the specific claim it supported ("no single environmental flow method performs best across all criteria") is already fully supported by `Gopal2013`, a purpose-built book chapter on the same topic. Removing it loses no content and tightens reference quality. File remains in `Biblio/` but is no longer cited.
+- **Flagged but not removed: `veijalainen2019severe`** (Veijalainen et al. (2019). Severe drought in Finland. *Sustainability*, 11(8), 2450, MDPI). This citation predates this literature review workflow entirely (added in commit `44ea4bb`, before the review process began) and is used in two important places: the Introduction (Water Act permitting context) and Section 4.2 (geographic pattern of Finnish drought vulnerability). *Sustainability* is one of the MDPI titles most frequently singled out for volume/rigor concerns. No replacement has been found yet; see `SEARCH_WORKLIST.md` new item 1.5 for suggested search terms to find a non-MDPI source that makes the same or a similar claim, either to replace or to supplement this citation.
+- **Flagged but not removed: `HernandezHerraez2025`** (Applied Sciences, MDPI), added in the previous batch. This is currently the sole citation for the opening sentence of the Section 4.1 hydrogen-siting paragraph (the "80% GIS share" systematic review statistic). No non-MDPI alternative for this specific claim has been found. Recommend the user decide whether to keep it, seek a supplementary non-MDPI source, or rewrite the opening sentence to rely on the (non-MDPI) national siting studies that follow instead.
+
+---
+
+## Batch 3: Worklist item 2.4 (groundwater-surface water interaction limitation) and one item reassigned to 2.3
+
+10 papers were supplied for worklist item 2.4 (representation of groundwater-surface water interaction in conceptual/semi-distributed models). Of these, 6 were integrated (the most directly on-topic and best-fitting journals); the other 4 were read but excluded as either redundant with the 6 used or a weaker topical fit, to avoid citation-stuffing a single limitation paragraph. One additional paper, supplied while searching for a substitute for worklist item 1.3 (Moriasi et al. 2007, still not found), was off-topic for 1.3 but was a good fit for the existing environmental flow paragraph (item 2.3) and was added there instead.
+
+### 29. Pfannerstill, Guse & Fohrer (2014) — A multi-storage groundwater concept for the SWAT model
+
+- **File:** `Biblio/Hydrological Processes - 2013 - Pfannerstill - A multi‐storage groundwater concept for the SWAT model to emphasize.pdf` (filename says 2013; the paper's formal publication year, verified via Crossref, is 2014 — it appeared online first in 2013)
+- **Full citation:** Pfannerstill, M., Guse, B., & Fohrer, N. (2014). A multi-storage groundwater concept for the SWAT model to emphasize nonlinear groundwater dynamics in lowland catchments. *Hydrological Processes*, 28(22), 5599-5612. https://doi.org/10.1002/hyp.10062
+- **BibTeX key:** `Pfannerstill2014`
+- **Source page(s):** p. 1 (abstract: percent bias reduction from splitting the groundwater store)
+- **Claim used:** splitting SWAT's two-storage groundwater module into fast- and slow-contributing aquifers reduced percent bias in the low segment of the flow duration curve from 46.8% to 14.8%
+- **Where cited:** Section 4.3, new paragraph on groundwater representation limitations, immediately after the "Key uncertainties" paragraph
+- **Why this paper:** the most directly quantitative demonstration that a lumped groundwater store (the same simplification HYPE uses) causes measurable low-flow bias, and that resolving fast/slow flow paths separately fixes it. Worklist item 2.4.
+
+### 30. Samadi, Tufford & Carbone (2017) — Assessing Parameter Uncertainty of a Semi-Distributed Hydrology Model for a Shallow Aquifer Dominated Environmental System
+
+- **File:** `Biblio/J American Water Resour Assoc - 2017 - Samadi - Assessing Parameter Uncertainty of a Semi‐Distributed Hydrology Model for a.pdf`
+- **Full citation:** Samadi, S., Tufford, D. L., & Carbone, G. J. (2017). Assessing Parameter Uncertainty of a Semi-Distributed Hydrology Model for a Shallow Aquifer Dominated Environmental System. *Journal of the American Water Resources Association*, 53(6), 1368-1389. https://doi.org/10.1111/1752-1688.12596
+- **BibTeX key:** `Samadi2017`
+- **Source page(s):** p. 1 (abstract, sensitivity of parameter uncertainty to calibration algorithm and channel roughness)
+- **Claim used:** parameter uncertainty in a semi-distributed model (SWAT) applied to a shallow, aquifer-dominated coastal watershed was sensitive to the choice of calibration algorithm and to channel roughness assumptions
+- **Where cited:** Section 4.3, groundwater representation paragraph
+- **Why this paper:** directly parallels HYPE's own situation (a semi-distributed model in a shallow-aquifer-influenced setting), supporting the point that such catchments carry structural uncertainty beyond a single calibrated parameter set. Note: an initial DOI transcription for this paper (10.1111/1752-1688.12522) was wrong and resolved to an unrelated snowmelt paper; corrected to 10.1111/1752-1688.12596 after a targeted Crossref bibliographic search, before the error reached the manuscript. Worklist item 2.4.
+
+### 31. Efstratiadis, Nalbantis, Koukouvinos, Rozos & Koutsoyiannis (2008) — HYDROGEIOS: a semi-distributed GIS-based hydrological model for modified river basins
+
+- **File:** `Biblio/hess-12-989-2008.pdf`
+- **Full citation:** Efstratiadis, A., Nalbantis, I., Koukouvinos, A., Rozos, E., & Koutsoyiannis, D. (2008). HYDROGEIOS: a semi-distributed GIS-based hydrological model for modified river basins. *Hydrology and Earth System Sciences*, 12, 989-1006. https://doi.org/10.5194/hess-12-989-2008
+- **BibTeX key:** `Efstratiadis2008`
+- **Source page(s):** p. 1 (abstract, semi-distributed structure with explicit groundwater/surface-water allocation)
+- **Claim used:** HYDROGEIOS couples a semi-distributed hydrological model to an explicit groundwater and surface-water allocation scheme for heavily modified river basins
+- **Where cited:** Section 4.3, groundwater representation paragraph
+- **Why this paper:** shows a concrete alternative model design that resolves the groundwater-surface water coupling HYPE simplifies, at a clearly stated cost in complexity, giving a fair point of comparison rather than an unqualified criticism. Worklist item 2.4.
+
+### 32. Garavaglia, Le Lay, Gottardi, Garçon, Gailhard, Paquet & Mathevet (2017) — Impact of model structure on flow simulation and hydrological realism
+
+- **File:** `Biblio/hess-21-3937-2017.pdf`
+- **Full citation:** Garavaglia, F., Le Lay, M., Gottardi, F., Garçon, R., Gailhard, J., Paquet, E., & Mathevet, T. (2017). Impact of model structure on flow simulation and hydrological realism: from a lumped to a semi-distributed approach. *Hydrology and Earth System Sciences*, 21, 3937-3952. https://doi.org/10.5194/hess-21-3937-2017
+- **BibTeX key:** `Garavaglia2017`
+- **Source page(s):** p. 1 (abstract, 50-catchment comparison of lumped vs. semi-distributed structure)
+- **Claim used:** comparing lumped and semi-distributed versions of the same model across 50 French mountain catchments found that spatial discretisation materially changed low-flow and snowpack representation
+- **Where cited:** Section 4.3, groundwater representation paragraph, closing point about the 12 production-only catchments
+- **Why this paper:** extends the limitation discussion beyond groundwater storage alone to spatial discretisation generally, directly relevant to this study's own production-only catchments that lack discharge observations. Worklist item 2.4.
+
+### 33. Chen, Lucianetti & Hartmann (2023) — Understanding groundwater storage and drainage dynamics of a high mountain catchment with complex geology
+
+- **File:** `Biblio/1-s2.0-S0022169423010090-main.pdf`
+- **Full citation:** Chen, Z., Lucianetti, G., & Hartmann, A. (2023). Understanding groundwater storage and drainage dynamics of a high mountain catchment with complex geology using a semi-distributed process-based modelling approach. *Journal of Hydrology*, 625, 130067. https://doi.org/10.1016/j.jhydrol.2023.130067
+- **BibTeX key:** `Chen2023`
+- **Source page(s):** p. 1 (abstract, dual aquifer conceptualisation: fractured bedrock vs. unconsolidated slope deposits)
+- **Claim used:** separating a fractured bedrock aquifer from an unconsolidated, coarse-material slope aquifer in a semi-distributed model produced markedly different drainage dynamics between the two
+- **Where cited:** Section 4.3, groundwater representation paragraph
+- **Why this paper:** the closest topical match to the manuscript's own wording ("coarse-material aquifers"); demonstrates concretely why a single lumped store cannot represent this distinction. Worklist item 2.4.
+
+### 34. Tran, Willems & Huysmans (2019) — Coupling catchment runoff models to groundwater flow models in a multi-model ensemble approach
+
+- **File:** `Biblio/s10040-019-02018-8.pdf` (the same author's 2019 KU Leuven PhD dissertation, `PhDmanuscript_TranQuocQuan.pdf`, covers overlapping material; the peer-reviewed journal version was used and the thesis was not separately cited, per the reference-quality policy above)
+- **Full citation:** Tran, Q. Q., Willems, P., & Huysmans, M. (2019). Coupling catchment runoff models to groundwater flow models in a multi-model ensemble approach for improved prediction of groundwater recharge, hydraulic heads and river discharge. *Hydrogeology Journal*, 27, 3043-3061. https://doi.org/10.1007/s10040-019-02018-8
+- **BibTeX key:** `Tran2019`
+- **Source page(s):** p. 1 (abstract, trade-off between fully distributed and conceptual recharge models)
+- **Claim used:** fully distributed, physically based recharge models are more reliable for impact studies extrapolating beyond the calibration range, but introduce equifinality challenges that simpler conceptual models avoid
+- **Where cited:** Section 4.3, closing sentence of the groundwater representation paragraph
+- **Why this paper:** frames the limitation as a genuine trade-off rather than a simple deficiency, consistent with the paragraph's overall tone. An initial page-range guess (2905-2921) was wrong and was corrected to 3043-3061 after Crossref verification, before the error reached the manuscript. Worklist item 2.4.
+
+### 35. Sachin Ramesh & Thampi (2023) — Application of hydrologic and hydraulic methods to calculate the environmental flow requirements of the Chaliyar river
+
+- **File:** `Biblio/s12665-023-10850-1.pdf`
+- **Full citation:** Sachin Ramesh, V. V., & Thampi, S. G. (2023). Application of hydrologic and hydraulic methods to calculate the environmental flow requirements of the Chaliyar river. *Environmental Earth Sciences*, 82, 166. https://doi.org/10.1007/s12665-023-10850-1
+- **BibTeX key:** `SachinRameshThampi2023`
+- **Source page(s):** p. 1 (abstract, IHA and wetted-perimeter methods compared for three sub-basins)
+- **Claim used:** applying hydrologic (IHA) and hydraulic (wetted perimeter) methods to the same river sub-basins gave different critical minimum flow estimates
+- **Where cited:** Section 4.3, environmental flow paragraph, inserted as a catchment-scale example of the method-dependent divergence Messager et al. (2024) document at the global scale
+- **Why this paper:** this paper surfaced while searching for a Moriasi et al. (2007) substitute (worklist item 1.3) and was off-topic for that need, but it directly strengthens the existing EFR discussion with a concrete case study, so it was reassigned here rather than discarded. *Environmental Earth Sciences* (Springer) is a legitimate, Scopus/Web of Science-indexed journal, though of more modest standing than the field's top specialty titles; used here as one supporting example among several stronger sources rather than as a sole citation.
+
+### Papers read but not cited (this batch)
+
+The following papers, supplied for worklist items 1.2, 1.3, and 2.4, were read and judged not to fit any current claim in the manuscript, or to be redundant with a stronger source already cited. They remain in `Biblio/` in case a future revision finds a use for them, but are not in `references.bib`.
+
+- **For item 1.2 (NSE origin substitute):** none of the 6 papers found (landslide risk in Thailand, deep-learning stream temperature modelling, urban rain garden flood mitigation in Japan, Manning roughness rating-curve uncertainty, Jordan climate change impacts, Chaliyar river EFR methods) actually define or discuss the origin of the Nash-Sutcliffe Efficiency metric; they surfaced as general hydrology search results rather than answers to this specific citation need. The Chaliyar river paper was reassigned to item 2.3 (see entry 35). The rating-curve uncertainty paper (Vatanchi & Maghrebi 2019, *Water Resources Management*) is topically closest to a discharge-measurement-uncertainty argument but is narrowly scoped to one specific roughness-estimation method (isovel-contour rating curves tested on two rivers) and was judged too tangential to include without a stronger connecting claim.
+- **For item 1.3 (Moriasi threshold substitute):** none of the 3 papers found (SWAT sediment transport in Taiwan, Kalman-filter soil moisture assimilation, Greek data-scarce catchment climate impacts) discuss goodness-of-fit performance thresholds; they are general SWAT/hydrological-modelling application papers that happen to report NSE values without defining classification bands.
+- **For item 2.4 (groundwater representation, papers read but excluded):** El-Nasr et al. (2005, *Hydrological Processes*, distributed vs. semi-distributed model comparison) makes a similar point to Garavaglia et al. (2017) already cited and was judged redundant; Perrin et al. (2012, *Journal of Hydrology*, semi-arid Indian watershed water availability) is a weaker topical fit, being about general water availability assessment rather than groundwater store structure specifically; the Tran Quoc Quan PhD thesis (2019, KU Leuven) is superseded by the peer-reviewed journal paper from the same author already cited (`Tran2019`); Ouyang et al. (*Ecological Processes*, parameter uncertainty in a small headwater catchment in Northwest China) makes a similar parameter-uncertainty point to Samadi et al. (2017) already cited and was judged redundant.
