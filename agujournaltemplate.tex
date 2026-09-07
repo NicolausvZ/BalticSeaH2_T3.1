@@ -442,4 +442,57 @@ The authors declare there are no conflicts of interest for this manuscript.
 %       GTK geological codes to 6 HYPE soil classes), parameter priors and bounds,
 %       and additional calibration plots
 
+\section{Kymijoki catchment --- simulated water availability}
+\label{app:kymijoki}
+
+The Kymijoki catchment (drainage area approximately 37,070\,km$^2$, computed from the delivered subcatchment polygons) is the largest river system in southern Finland and is included here for spatial completeness. Unlike the 27 primary study catchments, Kymijoki is heavily regulated by a cascade of hydropower plants along the main stem, meaning that observed discharge at gauging stations reflects operational decisions rather than natural hydrological conditions. For this reason, Kymijoki was excluded from the PEST multi-catchment parameter calibration (Section~2.2.4) and no observed discharge data was used to constrain the model for this catchment.
+
+The simulated discharge statistics presented here were produced by applying the regionally calibrated parameter set --- optimised across the 27 southern Finnish catchments --- to the Kymijoki subcatchment delineations (2,118 subcatchments; 2,073 with valid discharge and land-cover attributes after excluding 45 degenerate polygons). This gives a first-order estimate of the natural (unregulated) water availability that would exist under the prevailing climate and land cover conditions, and may be useful as a reference for assessing theoretical resource potential. However, the results should be interpreted with caution: actual water availability for abstraction will depend on the operational release schedules of the regulating reservoirs, minimum ecological flow requirements, and existing abstraction licences, none of which are represented in the model.
+
+\subsection{Baseline water availability}
+
+Table~\ref{tab:kymijoki_q10} summarises baseline seasonal Q10 statistics across the 2,073 valid Kymijoki subcatchments. As in the 27 primary study catchments (Table~\ref{tab:q10_summary}), summer and autumn are the most constraining seasons and spring the least constraining, though the specific proportions differ: 59.3\% and 68.5\% of Kymijoki subcatchments fall below the indicative 0.05\,m$^3$\,s$^{-1}$ threshold in summer and autumn respectively (cf.\ 58.5\% and 60.8\% in the primary domain), while winter is comparatively more constrained in Kymijoki (41.4\% vs 32.6\%) and spring comparatively less constrained (23.9\% vs 28.5\%). This qualitative similarity in seasonal ordering, despite Kymijoki's parameters being transferred rather than independently calibrated, is broadly consistent with --- though does not by itself demonstrate --- the regional applicability of the calibrated parameter set; the quantitative differences may reflect genuine hydrological differences between the two domains (Kymijoki is more than an order of magnitude larger in area than any of the 27 primary catchments and contains substantially more lake storage) as much as parameter transfer error.
+
+\begin{table}[htbp]
+\caption{Baseline Q10 summary statistics by season for the Kymijoki catchment (2,073 valid subcatchments). P10 and P90 are the 10th and 90th percentiles across subcatchments. N$_{<0.05}$ and \%$_{<0.05}$ indicate the number and proportion of subcatchments below the indicative industrial abstraction threshold of 0.05\,m$^3$\,s$^{-1}$. Cf.\ Table~\ref{tab:q10_summary} for the equivalent primary-domain statistics.}
+\label{tab:kymijoki_q10}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+Season & Median Q10 & P10 Q10 & P90 Q10 & N$_{<0.05}$ & \%$_{<0.05}$ \\
+ & (m$^3$\,s$^{-1}$) & (m$^3$\,s$^{-1}$) & (m$^3$\,s$^{-1}$) & & \\
+\midrule
+Winter (Dec--Feb) & 0.063 & 0.013 & 6.042 & 859 & 41.4 \\
+Spring (Mar--May) & 0.114 & 0.027 & 8.294 & 496 & 23.9 \\
+Summer (Jun--Aug) & 0.027 & 0.000 & 2.514 & 1230 & 59.3 \\
+Autumn (Sep--Nov) & 0.015 & 0.000 & 1.726 & 1419 & 68.5 \\
+Annual            & 0.022 & 0.000 & 2.421 & 1266 & 61.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figure~\ref{fig:kymijoki_baseline} maps baseline summer Q10 across the catchment. As in the primary study domain, the lowest Q10 values are concentrated in small headwater tributaries, while the largest values are associated with the regulated main stem and major lake outlets (the darkest blue polygons), which retain substantial discharge through the low-flow season owing to lake and reservoir storage.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.55\textwidth]{figures_manuscript/figB1_kymijoki_baseline_summer_q10}
+\caption{Kymijoki catchment: baseline summer (June--August) Q10 discharge (m$^3$\,s$^{-1}$) across 2,073 subcatchments, using the regionally calibrated parameter set transferred from the 27 primary study catchments (Kymijoki was not itself part of the calibration domain; see \ref{app:kymijoki}). Colour scale uses quantile-based classification, as in Figure~\ref{fig:seasonal_maps}; light blue = low, dark blue = high discharge; grey = no data (excluded degenerate polygons).}
+\label{fig:kymijoki_baseline}
+\end{figure}
+
+\subsection{Climate change scenario}
+
+Under the SSP2-4.5 climate scenario, summer Q10 in Kymijoki decreases by a regional median of 37.4\% (P10: $-$76.6\%, P90: $-$13.2\%), with 98.3\% of subcatchments showing a decrease --- consistent in direction with, but larger in magnitude than, the 24.4\% median decrease found across the 27 primary catchments (Section~3.3). Winter Q10 increases by a median of 38.5\%, with 79.2\% of subcatchments showing an increase, mirroring the snow-to-rain shift identified in the primary analysis. The urban growth scenario has a negligible effect in Kymijoki (median summer Q10 change of 0\%, with only 17.1\% of subcatchments showing any decrease and none showing an increase), consistent with the catchment's predominantly forested and rural land cover; the combined scenario is accordingly almost identical to the climate-only scenario (median summer Q10 change $-$37.4\%).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.55\textwidth]{figures_manuscript/figB2_kymijoki_climate_summer_q10_delta}
+\caption{Kymijoki catchment: percentage change in summer Q10 from baseline under the climate change scenario (SSP2-4.5, 2040--2069), using the transferred regional parameter set (see \ref{app:kymijoki}). Red = decrease; blue = increase; white = no change; grey = undefined (baseline Q10 = 0) or excluded degenerate polygon. Note the near-universal decrease, more pronounced than in the primary 27-catchment domain (cf.\ Figure~\ref{fig:delta_summer}).}
+\label{fig:kymijoki_delta_summer}
+\end{figure}
+
+\subsection{Caveats specific to Kymijoki}
+
+Because Kymijoki was not part of the calibration domain, these results carry additional uncertainty beyond that already discussed for the 27 primary catchments (Section~4.6). In particular: (i) the transferred parameter set may not adequately represent the very large lakes and reservoirs that dominate storage and routing in this basin, several of which are substantially larger than any lake in the 27 primary catchments; (ii) the ``natural'' flows reported here will differ, in places substantially, from what is actually observed at any point on the regulated main stem, where hydropower operators control releases according to energy demand, flood management, and minimum flow commitments rather than natural hydrological variability; and (iii) subcatchment-level detail away from the main stem --- on tributaries that are not themselves regulated --- is more likely to reflect genuine natural flow conditions and may be of more direct practical relevance for siting purposes than main-stem values. For these reasons, the Kymijoki results presented here should be treated as an indicative, first-order estimate of natural water availability rather than a validated assessment, and are reported separately from the primary study's regional statistics (Section~3) for this reason.
+
 \end{document}

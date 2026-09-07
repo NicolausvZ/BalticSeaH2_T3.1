@@ -1,0 +1,7 @@
+"season","scenario","n","median_pct","p10_pct","p90_pct","pct_decreasing","pct_increasing"
+"summer","climate",1509,-37.4,-76.6,-13.2,98.3,0
+"summer","urban",1509,0,0,0,17.1,0
+"summer","combined",1509,-37.4,-76.6,-13.2,98.3,0
+"winter","climate",2042,38.5,-19.4,107.2,20.8,79.2
+"winter","urban",2042,0,0,0,19.3,1.2
+"winter","combined",2042,38.3,-19.4,107.2,20.8,79.2
