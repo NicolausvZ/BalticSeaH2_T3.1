@@ -1,6 +1,6 @@
 # Search worklist for literature review expansion
 
-Current reference count: 19 entries in `references.bib`. Target: 30-40. This document lists concrete gaps in the manuscript's citation coverage, organised by section and priority. Each item gives search terms to run and, where a specific paper has already been checked against Crossref and confirmed to exist with correct metadata, that paper is named directly as a starting point.
+Current reference count: 44 entries in `references.bib` (was 19 at the start of this workflow, then 21 after batch 1, now 44 after batch 2 covering items 1.1, 1.4, 2.1, 2.2, 2.3 below). Target: 30-40, now exceeded. This document lists concrete gaps in the manuscript's citation coverage, organised by section and priority. Each item gives search terms to run and, where a specific paper has already been checked against Crossref and confirmed to exist with correct metadata, that paper is named directly as a starting point.
 
 Workflow: pick an item, search it, download the PDF, and drop it in `Biblio/`. Tell me which item number you found something for (or just tell me the filename) and I will read it, decide where it fits, write the citation into the manuscript, add the BibTeX entry, and log it in `LITERATURE_REVIEW_LOG.md`.
 
@@ -14,18 +14,35 @@ These are the most urgent gap. The manuscript uses NSE and KGE as primary goodne
 - Gupta, H. V., Kling, H., Yilmaz, K. K., & Martinez, G. F. (2009). Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological modelling. *Journal of Hydrology*, 377(1-2), 80-91. https://doi.org/10.1016/j.jhydrol.2009.08.003
 - Needed to cite the origin of the KGE metric itself (correlation, bias ratio, variability ratio decomposition), used in Section 2.2.5 and throughout Results.
 
+Note: Done
+
+**STATUS: integrated.** Added as `Gupta2009` in `references.bib`, cited in Section 2.2.5. See `LITERATURE_REVIEW_LOG.md` entry 4.
+
 **1.2 NSE origin paper** (not re-verified due to a rate limit on this search session, but this is one of the most cited papers in hydrology and the title/journal/year below are standard knowledge; confirm exact page numbers when you find it)
 - Nash, J. E., & Sutcliffe, J. V. (1970). River flow forecasting through conceptual models part I: A discussion of principles. *Journal of Hydrology*, 10(3), 282-290.
 - Search terms if the above does not resolve directly: `"Nash-Sutcliffe" 1970 "river flow forecasting through conceptual models"`
+
+Note: This is a handbook: River flow forecasting through conceptual models, I : A discussion of principles, I do not have a pdf version o fthis. Lets look for other papers we can use
+
+**STATUS: still open.** Not yet resolved as of this batch. Nash & Sutcliffe (1970) itself remains inaccessible as a PDF. Alternative sources to try: a textbook or review chapter that defines and cites NSE (e.g. Krause et al. 2005, already added, discusses NSE alongside logNSE and could partially cover this citation need), or a widely available secondary source that formally restates the NSE definition with its own citation to Nash & Sutcliffe 1970. Will revisit once you find something.
+
 
 **1.3 GOF performance threshold classification** (verified via Crossref)
 - Moriasi, D. N., Arnold, J. G., Van Liew, M. W., Bingner, R. L., Harmel, R. D., & Veith, T. L. (2007). Model evaluation guidelines for systematic quantification of accuracy in watershed simulations. *Transactions of the ASABE*, 50(3), 885-900. https://doi.org/10.13031/2013.23153
 - This is the standard reference for the NSE/PBIAS/RSR performance classification thresholds used in Section 3.1 (satisfactory/good/poor). Extremely widely cited (over 10,000 citations), a reviewer will expect to see it.
 
+Note: cannot get this paper, look for other ones 
+
+**STATUS: still open.** Moriasi et al. (2007) not yet found. This is the standard NSE/PBIAS/RSR threshold reference and worth continuing to search for; if it stays inaccessible, an alternative is the follow-up Moriasi et al. (2015) update ("Hydrologic and water quality models: Performance measures and evaluation criteria", *Transactions of the ASABE*, 58(6), 1763-1785), which restates the same threshold tables and may be easier to obtain.
+
 **1.4 logNSE / log-transformed efficiency for low-flow evaluation**
 - Search terms: `log-transformed Nash-Sutcliffe efficiency low flow evaluation hydrological model`, `Krause Boyle Base weighted efficiency criteria hydrology 2005`
 - Candidate: Krause, P., Boyle, D. P., & Base, F. (2005). Comparison of different efficiency criteria for hydrological model assessment. *Advances in Geosciences*, 5, 89-97. (Not yet verified against Crossref; check DOI when found.)
 - Needed because the manuscript treats logNSE as "the most relevant performance indicator for this study" (Section 3.1) without citing why log-transformation is appropriate for low-flow assessment.
+
+Note: Done
+
+**STATUS: integrated.** Added as `Krause2005` in `references.bib`, cited in Section 2.2.5 alongside Gupta2009. See `LITERATURE_REVIEW_LOG.md` entry 5.
 
 ---
 
@@ -36,15 +53,59 @@ Section 4.2 ("Comparison to existing Finnish and Nordic studies") currently only
 - Search terms: `Sweden Norway streamflow climate change projection low flow`, `Scandinavia hydrological regime shift snow to rain climate warming`, `Fennoscandia river discharge seasonality climate change review`
 - Also worth checking for a Baltic Sea region-wide or circum-Baltic hydrological synthesis paper, since this is a BalticSeaH2 project deliverable.
 
-**2.2 Water-energy nexus / siting studies for hydrogen production specifically (not just general hydrogen demand)**
+Note:
+Papers found (titles placres here for you runderstanding:)
+
+1) How will climate change modify river flow regimes in Europe?
+2) Climate change impacts on runoff in – assessments by global climate models, dynamical downscaling and hydrological modelling
+3) Climate change impacts on the seasonality and generation processes of floods – projections and uncertainties for catchments with mixed snowmelt/rainfall regimes
+4) Has streamflow changed in the Nordic countries? – Recent trends and comparisons to hydrological projections
+5) Flood seasonality across Scandinavia—Evidence of a shifting hydrograph?
+6) Hydrological response to changing climate conditions: Spatial streamflow variability in the boreal region
+7) Streamflow trends in Europe: evidence from a dataset of near-natural catchments
+8) The potential impacts of climate and forest changes on streamflow for micro-, meso- and macro-scale catchments in Norway
+
+
+
+
+**STATUS: integrated, item complete.** All 8 papers added to `references.bib` and cited in two new paragraphs in Section 4.2 (`agujournaltemplate.tex`). See `LITERATURE_REVIEW_LOG.md` entries 6-13.**2.2 Water-energy nexus / siting studies for hydrogen production specifically (not just general hydrogen demand)**
 The Introduction cites Terlouw (2024) and Ellersdorfer (2025) for global water-hydrogen constraints, but the Discussion has no international comparison for how other regions have approached hydrogen siting relative to water. This would strengthen Section 4.1 ("Comparison to other water-availability assessment approaches").
 - Search terms: `green hydrogen siting water availability regional assessment`, `water footprint electrolysis site selection GIS`, `hydrogen production water stress index mapping`
 
+
+Note:
+Papers found (titles placres here for you runderstanding:)
+
+1) The Role of Geospatial Techniques for Renewable Hydrogen Value Chain: A Systematic Review of Current Status, Challenges and Future Developments
+2) HydroNexus: A global techno-economic framework for resolving the energy-water conflict in green hydrogen production
+3) Spatial optimization of green hydrogen production hubs and capacity allocation: A hybrid MCDA–MILP framework for Türkiye
+4) Multicriteria site suitability for solar-powered green hydrogen production plants along the Northwestern coast of Egypt
+5) GIS-based multi-criteria site analysis of electrolyzer systems for the production of green hydrogen in Germany
+6) Hydrogen production potential in Mexico: An estimation
+7) Probabilistic resilience and circular-resource assessment of solar–green hydrogen hybrid systems (SGHHS) with industrial waste water reuse across varying climatic regions of Pakistan
+
+
+**STATUS: integrated, item complete.** All 7 papers added to `references.bib` and cited in a new paragraph in Section 4.1. See `LITERATURE_REVIEW_LOG.md` entries 14-20.
 **2.3 Environmental flow requirement calculation methods**
 Section 4.3 states that environmental flow requirements have "not yet [been] subtracted from simulated Q10" and cites only the EU CIS guidance document. A methods-comparison paper would strengthen this limitation statement and could inform a future revision.
 - Search terms: `environmental flow methods comparison hydrological presumptive standard`, `Tennant method environmental flow review`, `global review environmental flow assessment methods Tharme`
 - Candidate (well known, not yet Crossref-verified): Tharme, R. E. (2003). A global perspective on environmental flow assessment: emerging trends in the development and application of environmental flow methodologies for rivers. *River Research and Applications*, 19(5-6), 397-441.
 
+Note:
+Papers found (titles placres here for you runderstanding:)
+
+1) A global perspective on environmental flow assessment: emerging trends in the development and application of environmental flow methodologies for rivers
+2) Review of approaches and methods to assess Environmental Flows across Canada and internationally
+3) Limited comparability of global and local estimates of environmental flow requirements to sustain river ecosystems
+4) Global Trends in Environmental Flow Assessment: An Overview
+5) chapter from a book: Gopal, B. R. I. J. (2013). Methodologies for the assessment of environmental flows. Environmental flows: An introduction for water resources managers, 129-182.
+6) Accounting for environmental flow requirements in global water assessments
+7) Accounting for environmental flow requirements in global water assessments
+8) Environmental Flows in Shared Watercourses: Review of Assessment Methods and Relevance in the Transboundary Setting
+9) A comparison of desktop hydrologic methods for determining environmental flows
+
+
+**STATUS: integrated, item complete.** Items 6 and 7 in the list above are the same paper (Pastor et al. 2014): a preprint (`Accounting_for_environmental_flow_requir.pdf`) and the final published HESS version (`hess-18-5041-2014.pdf`). Only the published version was cited. All 8 unique papers added to `references.bib` and cited in a new paragraph in Section 4.3. See `LITERATURE_REVIEW_LOG.md` entries 21-28.
 **2.4 Groundwater-surface water interaction representation in conceptual hydrological models**
 Section 4.3 states HYPE's conceptual groundwater store "may underestimate baseflow in coarse-material aquifers" without a supporting citation.
 - Search terms: `conceptual hydrological model groundwater baseflow representation limitation`, `semi-distributed model aquifer storage low flow simulation uncertainty`
