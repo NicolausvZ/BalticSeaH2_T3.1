@@ -144,8 +144,48 @@ Daily river discharge was simulated across 27 river catchments in southern Finla
 \subsubsection{Spatial preprocessing and catchment characterisation}
 Each catchment was decomposed into subcatchments using SYKE hierarchical delineations at \textit{taso4} level. The topological connectivity of subcatchments was established by identifying upstream–downstream relationships along the SYKE river network, enabling construction of a routed drainage network within HYPE. For each subcatchment the spatial attributes described in Section~2.1 (terrain, stream lengths, land use fractions, and soil type fractions) were derived using zonal statistics and polygon intersection with an R-tree spatial index for computational efficiency.
 
-Each unique combination of HYPE land use class and soil type occurring within the model domain was assigned a globally consistent soil–land use combination (SLC) index. This ensures that the same land use–soil combination carries the same parameter set across all catchments, enabling a single multi-catchment calibration. Discharge measurement stations were spatially located within subcatchments to link observational records to the correct model unit for calibration. A summary of catchment characteristics is provided in Table~2 (to be inserted).
-% TODO: insert Table 2 — catchment characteristics summary
+Each unique combination of HYPE land use class and soil type occurring within the model domain was assigned a globally consistent soil–land use combination (SLC) index. This ensures that the same land use–soil combination carries the same parameter set across all catchments, enabling a single multi-catchment calibration. Discharge measurement stations were spatially located within subcatchments to link observational records to the correct model unit for calibration. A summary of catchment characteristics is provided in Table~\ref{tab:catchments}.
+
+\begin{table}[p]
+\caption{Summary of physical and land-cover characteristics for the 27 study catchments, ordered alphabetically. Area, mean elevation, and mean slope are computed from subcatchment zonal statistics over the NLS 10\,m DEM. Forest, agriculture, and urban are aggregated CORINE Level-3 land cover fractions; peat soil is the GTK superficial deposits fraction. $N_{\mathrm{sub}}$ is the number of subcatchments and $N_{\mathrm{stn}}$ is the number of discharge gauging stations within the catchment (0 for the 12 production-only catchments without observations).}
+\label{tab:catchments}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+\textbf{Catchment} & \textbf{Area} & \textbf{Mean elev.} & \textbf{Mean slope} & \textbf{Forest} & \textbf{Agriculture} & \textbf{Urban} & \textbf{Peat soil} & \textbf{$N_{\mathrm{sub}}$} & \textbf{$N_{\mathrm{stn}}$} \\
+ & (km$^2$) & (m) & (\%) & (\%) & (\%) & (\%) & (\%) & & \\
+\midrule
+Aurajoki & 869.0 & 59.3 & 4.01 & 43.0 & 48.1 & 6.6 & 5.6 & 52 & 1 \\
+Halikonjoki & 309.4 & 70.8 & 4.51 & 45.1 & 51.7 & 2.3 & 0.0 & 17 & 0 \\
+Hirvijoki & 291.1 & 39.1 & 4.62 & 50.1 & 43.6 & 4.8 & 6.4 & 13 & 0 \\
+Hounijoki & 367.2 & 67.3 & 5.35 & 60.7 & 28.2 & 6.0 & 0.7 & 24 & 2 \\
+Ilolanjoki & 306.1 & 39.8 & 6.51 & 61.0 & 34.1 & 1.8 & 0.8 & 32 & 1 \\
+Juustilanjoki & 194.7 & 64.0 & 5.08 & 54.9 & 35.4 & 3.9 & 0.0 & 19 & 0 \\
+Karjaanjoki & 2045.4 & 80.9 & 6.38 & 60.5 & 25.1 & 2.7 & 0.0 & 193 & 6 \\
+Kiskonjoki & 1045.7 & 57.2 & 6.37 & 62.2 & 31.1 & 0.8 & 0.0 & 76 & 0 \\
+Koskenkylanjoki & 899.5 & 59.2 & 5.10 & 53.8 & 40.4 & 1.2 & 2.3 & 56 & 2 \\
+Laajoki & 409.3 & 42.1 & 3.74 & 68.8 & 21.6 & 0.4 & 23.3 & 24 & 0 \\
+Mustijoki & 770.4 & 74.4 & 5.11 & 53.6 & 41.9 & 2.9 & 0.0 & 50 & 2 \\
+Mynajoki & 289.8 & 43.7 & 4.14 & 62.6 & 32.4 & 2.7 & 17.0 & 17 & 0 \\
+Paimionjoki & 1094.4 & 82.8 & 3.95 & 41.6 & 53.8 & 2.5 & 0.0 & 83 & 0 \\
+Porvoonjoki & 1277.1 & 79.4 & 5.38 & 52.4 & 40.6 & 5.5 & 0.0 & 73 & 1 \\
+Sipoonjoki & 226.0 & 41.3 & 6.31 & 51.4 & 40.2 & 8.1 & 0.0 & 19 & 1 \\
+Sirppujoki & 429.4 & 25.4 & 4.09 & 54.9 & 40.0 & 3.1 & 4.7 & 26 & 1 \\
+Siuntionjoki & 484.3 & 50.1 & 6.76 & 56.0 & 31.8 & 7.0 & 0.0 & 34 & 2 \\
+Summajoki & 563.7 & 58.0 & 4.89 & 68.8 & 24.5 & 0.9 & 4.7 & 36 & 1 \\
+Taasianjoki & 527.5 & 41.5 & 4.22 & 60.9 & 37.7 & 0.7 & 0.0 & 25 & 1 \\
+Tervajoki & 109.8 & 52.3 & 5.72 & 79.5 & 17.5 & 0.0 & 0.0 & 11 & 0 \\
+Urpalanjoki & 462.9 & 58.4 & 4.79 & 71.4 & 20.5 & 1.5 & 11.0 & 34 & 1 \\
+Uskelanjoki & 566.0 & 76.6 & 4.48 & 40.7 & 54.5 & 3.8 & 0.0 & 30 & 1 \\
+Vaalimaanjoki & 241.4 & 43.3 & 5.09 & 78.0 & 17.7 & 1.0 & 5.1 & 14 & 0 \\
+Vantaanjoki & 1681.8 & 75.1 & 5.13 & 49.0 & 31.8 & 16.6 & 3.6 & 103 & 6 \\
+Vehkajoki & 381.9 & 41.0 & 5.69 & 71.7 & 21.2 & 1.9 & 0.0 & 37 & 0 \\
+Vilajoki & 256.0 & 61.0 & 5.55 & 80.9 & 12.3 & 0.4 & 0.0 & 23 & 0 \\
+Vironjoki & 359.3 & 49.7 & 5.45 & 74.0 & 22.1 & 0.5 & 0.0 & 37 & 1 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
 
 \subsubsection{HYPE model configuration}
 A separate but consistently structured HYPE model instance was assembled for each of the 27 catchments. HYPE represents snow accumulation and melt, evapotranspiration, soil moisture, groundwater storage, and routing through rivers and lakes at a daily timestep. The following input files were generated programmatically for each instance:
@@ -158,8 +198,61 @@ A separate but consistently structured HYPE model instance was assembled for eac
     \item \textit{Pobs.txt} / \textit{Tobs.txt} — daily areal precipitation and temperature forcing for each subcatchment, assigned from the nearest valid FMI weather station.
 \end{itemize}
 
-HYPE was run continuously from 2016-01-01 to 2025-12-31 for all 27 catchments (10 years). Within this record, 2016 served as a warm-up year allowing model state variables to reach dynamic equilibrium. Automatic calibration used 2017--2022 observations (Section~2.2.4; this window was verified directly against the PEST control files during a 2026-08-25 pipeline audit, correcting an earlier draft of this manuscript that had assumed 2020--2022), and 2023--2025 was reserved entirely for out-of-sample validation (Section~3.2). Key process representations and their governing parameters are summarised in Table~3 (to be inserted).
-% TODO: insert Table 3 — key HYPE parameters and calibration ranges
+HYPE was run continuously from 2016-01-01 to 2025-12-31 for all 27 catchments (10 years). Within this record, 2016 served as a warm-up year allowing model state variables to reach dynamic equilibrium. Automatic calibration used 2017--2022 observations (Section~2.2.4; this window was verified directly against the PEST control files during a 2026-08-25 pipeline audit, correcting an earlier draft of this manuscript that had assumed 2020--2022), and 2023--2025 was reserved entirely for out-of-sample validation (Section~3.2). Key process representations and their governing parameters are summarised in Table~\ref{tab:hypeparams}.
+
+\begin{table}[p]
+\caption{Key HYPE model parameters and their calibration ranges in the aggregate PEST run. $N_{\mathrm{adj}}/N_{\mathrm{cls}}$ gives the number of class variants PEST adjusted out of the total number of land use or soil class variants defined for that parameter across the 27-catchment domain; parameters with $N_{\mathrm{adj}}=0$ were held at a fixed literature or default value rather than calibrated. Prior range is the lower/upper PEST bound (a single value where all variants share the same fixed value); calibrated value is the value(s) after the aggregate calibration run, given as a range where variants converged to different values. Land use and soil class dependency follows the SLC scheme described in Section~2.1; parameter descriptions follow standard HYPE documentation \cite{Lindstrom2010} and should be verified against the project's own model configuration before final submission.}
+\label{tab:hypeparams}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrr}
+\toprule
+\textbf{Parameter} & \textbf{Description} & \textbf{Unit} & \textbf{$N_{\mathrm{adj}}/N_{\mathrm{cls}}$} & \textbf{Prior range} & \textbf{Calibrated value} \\
+\midrule
+\multicolumn{6}{l}{\textit{General parameters (no class dependency)}} \\
+\midrule
+ttpi & Threshold temperature for precipitation phase (rain/snow) & $^\circ$C & 1/1 & 0 -- 2 & 1.43 \\
+lp & Soil moisture threshold (fraction of field capacity) above which AET is potential & -- & 1/1 & 0.8 -- 1.0 & 0.949 \\
+cevpam & Amplitude of the seasonal correction to potential evapotranspiration & -- & 0/1 & 0.5 (fixed) & 0.5 \\
+cevpph & Phase (timing) of the seasonal correction to potential evapotranspiration & day & 0/1 & 45 (fixed) & 45 \\
+rrcs3 & Slope-dependent addition to the lower groundwater recession coefficient & -- & 0/1 & 0.0002 (fixed) & 0.0002 \\
+damp & Damping of subbasin outflow response (river/lake routing) & -- & 1/1 & 0.01 -- 0.95 & 0.95 \\
+rivvel & Mean river flow celerity for channel translation time & m\,s$^{-1}$ & 1/1 & 0.3 -- 1.0 & 0.433 \\
+tcalt & Temperature lapse rate with elevation & $^\circ$C/100\,m & 0/1 & 0.6 (fixed) & 0.6 \\
+qmean & Initial characteristic discharge scaling the general rating curve & -- & 0/1 & 25 (fixed) & 25 \\
+epotdist & Vertical distribution of potential evapotranspiration demand with soil depth & m$^{-1}$ & 0/1 & 3 (fixed) & 3 \\
+gldepi & Initial water depth of general (internal) lakes at simulation start & m & 1/1 & 1 -- 10 & 3.0 \\
+gratp & Exponent of the general lake outflow rating curve & -- & 1/1 & 2.0 -- 2.5 & 2.0 \\
+gratk & Coefficient of the general lake outflow rating curve & -- & 1/1 & 0.05 -- 2.0 & 0.651 \\
+sdnsnew & Density of newly fallen snow (fraction of water equivalent) & -- & 0/1 & 0.1 -- 0.19 (fixed) & 0.145 \\
+snowdensdt & Rate of snowpack density increase (compaction) over time & day$^{-1}$ & 0/1 & 0.0014 (fixed) & 0.0014 \\
+\midrule
+\multicolumn{6}{l}{\textit{Land use-dependent parameters (up to 8 classes)}} \\
+\midrule
+ttmp & Threshold air temperature for snowmelt onset & $^\circ$C & 6/8 & $-$2 -- 2 & $-$2 -- 2 \\
+cmlt & Snowmelt degree-day coefficient & mm\,$^\circ$C$^{-1}$\,day$^{-1}$ & 6/8 & 0.2 -- 8.0 & 0.2 -- 4.24 \\
+cevp & Potential evapotranspiration coefficient & mm\,$^\circ$C$^{-1}$\,day$^{-1}$ & 6/8 & 0.1 -- 0.2 & 0.1 -- 0.2 \\
+srrcs & Surface runoff recession coefficient & day$^{-1}$ & 6/8 & 0.1 -- 0.2 & 0.1 -- 0.2 \\
+frost & Soil frost depth parameter (infiltration reduction when frozen) & -- & 0/8 & 2 (fixed) & 2 \\
+\midrule
+\multicolumn{6}{l}{\textit{Soil type-dependent parameters (up to 7 classes)}} \\
+\midrule
+rrcs1 & Recession coefficient of the upper (fast) groundwater store & day$^{-1}$ & 6/7 & 0.05 -- 1.0 & 0.05 -- 1.0 \\
+rrcs2 & Recession coefficient of the lower (slow) groundwater store & day$^{-1}$ & 6/7 & 0.001 -- 0.05 & 0.005 -- 0.041 \\
+trrcs & Recession coefficient for tile drain flow & day$^{-1}$ & 0/7 & 0.1 -- 0.3 (fixed) & 0.2 \\
+mperc1 & Maximum percolation rate, upper to middle soil layer & mm\,day$^{-1}$ & 0/7 & 30 -- 100 (fixed) & 65 \\
+mperc2 & Maximum percolation rate, middle to lower soil layer & mm\,day$^{-1}$ & 0/7 & 30 -- 100 (fixed) & 65 \\
+sfrost & Soil-type frost coefficient & -- & 0/7 & 1 (fixed) & 1 \\
+macrate & Fraction of infiltration routed via macropore (bypass) flow & -- & 6/7 & 0.1 -- 0.3 & 0.1 -- 0.3 \\
+mactrinf & Infiltration rate threshold activating macropore flow & mm\,day$^{-1}$ & 6/7 & 10 -- 50 & 24.7 -- 32.6 \\
+mactrsm & Soil moisture threshold (relative to porosity) activating macropore flow & -- & 0/7 & 0.5 -- 0.85 (fixed) & 0.675 \\
+srrate & Fraction of rainfall/snowmelt routed directly to surface runoff & -- & 6/7 & 0.1 -- 0.2 & 0.1 -- 0.2 \\
+wcwp & Wilting point water content & mm\,mm$^{-1}$ & 6/7 & 0.04 -- 0.1 & 0.050 -- 0.1 \\
+wcfc & Field capacity water content, above wilting point & mm\,mm$^{-1}$ & 6/7 & 0.1 -- 0.5 & 0.1 -- 0.5 \\
+wcep & Effective porosity water content, above field capacity & mm\,mm$^{-1}$ & 6/7 & 0.01 -- 0.35 & 0.01 -- 0.35 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
 
 \subsubsection{Automatic parameter calibration with PEST}
 Model parameters were calibrated automatically using PEST (Parameter ESTimation; \citeNP{Doherty2015}), a model-independent parameter estimation tool based on the Gauss–Marquardt–Levenberg algorithm. PEST adjusts parameter values iteratively to minimise the sum of weighted squared residuals between simulated and observed daily discharges.
