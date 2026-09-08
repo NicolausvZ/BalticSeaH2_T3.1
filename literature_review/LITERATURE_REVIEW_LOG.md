@@ -415,6 +415,212 @@ The user flagged that some references added so far come from low-quality or "gar
 - **Where cited:** Section 4.3, environmental flow paragraph, inserted as a catchment-scale example of the method-dependent divergence Messager et al. (2024) document at the global scale
 - **Why this paper:** this paper surfaced while searching for a Moriasi et al. (2007) substitute (worklist item 1.3) and was off-topic for that need, but it directly strengthens the existing EFR discussion with a concrete case study, so it was reassigned here rather than discarded. *Environmental Earth Sciences* (Springer) is a legitimate, Scopus/Web of Science-indexed journal, though of more modest standing than the field's top specialty titles; used here as one supporting example among several stronger sources rather than as a sole citation.
 
+---
+
+## 🔴 CRITICAL — seminal sources still needed (unresolved after four search batches)
+
+Two primary methodological citations remain unresolved despite four rounds of searching. Both are directly invoked by name in the manuscript's own language and a reviewer at *Water Resources Research* will very likely flag their absence. These are the single highest-priority items on the entire worklist.
+
+- **Nash & Sutcliffe (1970)**, "River flow forecasting through conceptual models part I: A discussion of principles," *Journal of Hydrology*, 10(3), 282-290. This is the paper that defines the Nash-Sutcliffe Efficiency (NSE), the primary goodness-of-fit metric used throughout Sections 2, 3, and Table 2 of this manuscript. Four batches of candidate papers found by the user (real-time forecasting studies, landslide/rain-garden/Manning-roughness papers, SWAT application papers) have all turned out to be topically unrelated: they use NSE as one evaluation metric among several, but none of them is the founding paper or even discusses where NSE comes from. See worklist item 1.2 for updated, more targeted search strategies (exact-title quoted search, library discovery layer, ResearchGate, textbook fallback).
+- **Moriasi et al. (2007)**, "Model evaluation guidelines for systematic quantification of accuracy in watershed simulations," *Transactions of the ASABE*, 50(3), 885-900. This is the standard reference for the NSE/PBIAS performance classification ("satisfactory," "good") used in the opening sentence of Section 3.1. Not found despite three search batches. See worklist item 1.3 for updated strategies, including the more accessible 2015 update and the ASABE society's own portal.
+
+**What has been done instead, this batch:** rather than leave the manuscript's evaluation methodology under-cited while these two papers remain unfound, five additional, high-quality, directly relevant methodological papers were integrated (entries 36-40 below) that substantiate specific aspects of the calibration/validation approach: statistical rigor of fixed GOF thresholds, multi-objective calibration against water balance components, split-sample validation practice, parameter equifinality, and input data resolution effects. These strengthen the methods section considerably and partially substitute for what Moriasi and Nash & Sutcliffe would provide, but they are not replacements. The two founding papers should still be pursued.
+
+---
+
+## Batch 4: Worklist items 1.2/1.3 (partial), 2.5, 4.1, 4.2, 4.3 (38 PDFs supplied by user)
+
+This batch also introduced the user's explicit request for stricter quality control ("make use of seminal papers, high quality papers and journals that are reputable"). Every candidate below was checked for (a) whether its actual content, not just its title, supports the claim it would be attached to, and (b) journal/publisher reputation, before being added. Several candidates were excluded specifically on these grounds; see the "Papers read but not cited" subsections below and in-line notes.
+
+### 36. Ritter & Muñoz-Carpena (2013) — Performance evaluation of hydrological models: Statistical significance for reducing subjectivity in goodness-of-fit assessments
+
+- **File:** `Biblio/1-s2.0-S0022169412010608-main.pdf`
+- **Full citation:** Ritter, A., & Muñoz-Carpena, R. (2013). Performance evaluation of hydrological models: Statistical significance for reducing subjectivity in goodness-of-fit assessments. *Journal of Hydrology*, 480, 33-45. https://doi.org/10.1016/j.jhydrol.2012.12.004
+- **BibTeX key:** `RitterMunozCarpena2013`
+- **Source page(s):** p. 1 (abstract, block bootstrapping for statistical significance of GOF metrics)
+- **Claim used:** fixed goodness-of-fit thresholds do not account for sample size or residual autocorrelation, and confidence-interval-based significance testing via block bootstrapping is a less subjective alternative
+- **Where cited:** Section 2.2.5, model evaluation metrics, immediately following the FDC diagnostics sentence
+- **Why this paper:** a highly-cited (1000+ citations), methodologically rigorous *Journal of Hydrology* paper that directly engages with the exact critique a reviewer might raise about fixed NSE/PBIAS thresholds; used here to acknowledge the limitation of the fixed-threshold convention while the primary source for that convention (Moriasi et al. 2007) remains unfound. Worklist items 1.2/1.3 (partial, does not replace Moriasi).
+
+### 37. Pfannerstill, Bieger, Guse, Bosch, Fohrer & Arnold (2017) — How to Constrain Multi-Objective Calibrations of the SWAT Model Using Water Balance Components
+
+- **File:** `Biblio/J American Water Resour Assoc - 2017 - Pfannerstill - How to Constrain Multi‐Objective Calibrations of the SWAT Model Using.pdf`
+- **Full citation:** Pfannerstill, M., Bieger, K., Guse, B., Bosch, D. D., Fohrer, N., & Arnold, J. G. (2017). How to Constrain Multi-Objective Calibrations of the SWAT Model Using Water Balance Components. *JAWRA Journal of the American Water Resources Association*, 53, 532-546. https://doi.org/10.1111/1752-1688.12524
+- **BibTeX key:** `Pfannerstill2017`
+- **Source page(s):** p. 1 (abstract, discharge-only calibration does not guarantee realistic water balance)
+- **Claim used:** a good discharge simulation is not necessarily evidence of a realistic simulation of hydrological processes within the catchment; constraining calibration against water balance components (surface runoff, groundwater flow, evapotranspiration) in addition to discharge produces a more robust calibration
+- **Where cited:** Section 2.2.5, immediately after the Ritter & Muñoz-Carpena citation
+- **Why this paper:** same lead author as the already-cited `Pfannerstill2014` groundwater paper, and directly names a limitation (discharge-only calibration) that applies to this study's own PEST calibration, which had no independent water balance observations to constrain against. Worklist item 1.3 (does not replace Moriasi, but strengthens the methods discussion around it).
+
+### 38. Arsenault, Brissette & Martel (2018) — The hazards of split-sample validation in hydrological model calibration
+
+- **File:** `Biblio/1-s2.0-S0022169418307145-main.pdf`
+- **Full citation:** Arsenault, R., Brissette, F., & Martel, J.-L. (2018). The hazards of split-sample validation in hydrological model calibration. *Journal of Hydrology*, 566, 346-362. https://doi.org/10.1016/j.jhydrol.2018.09.027
+- **BibTeX key:** `Arsenault2018`
+- **Source page(s):** p. 1 (abstract, split-sample calibration/validation practice)
+- **Claim used:** split-sample validation, calibrating on one period and validating on an independent withheld period, is standard practice for assessing whether calibrated parameters generalise beyond the fitting period
+- **Where cited:** Section 2.2.4, sentence introducing the warm-up/calibration/validation period split
+- **Why this paper:** directly names and examines the exact validation methodology used in this study (calibrate on 2017-2022, validate on 2023-2025); a *Journal of Hydrology* paper from an established Canadian hydrology research group, highly relevant despite not being found via the original Moriasi/Nash-Sutcliffe search terms.
+
+### 39. Abbaspour (2021/2022) — The fallacy in the use of the "best-fit" solution in hydrologic modeling
+
+- **File:** `Biblio/1-s2.0-S0048969721047884-main.pdf`
+- **Full citation:** Abbaspour, K. C. (2022). The fallacy in the use of the "best-fit" solution in hydrologic modeling. *Science of The Total Environment*, 802, 149713. https://doi.org/10.1016/j.scitotenv.2021.149713 (article available online 2021, formally issued in the 2022 volume)
+- **BibTeX key:** `Abbaspour2021`
+- **Source page(s):** p. 1 (abstract, non-uniqueness of the best objective function value and its parameter set)
+- **Claim used:** the single best-fit parameter set from an automated calibration is not significantly better than the next-best values, whose parameter sets can differ substantially, so treating one calibrated realisation as definitive is misleading
+- **Where cited:** Section 4.3, new sentence following the "Key uncertainties" paragraph, on equifinality in the PEST-calibrated parameter set
+- **Why this paper:** a discussion piece by a leading SWAT/hydrological uncertainty researcher (Eawag/Texas A&M) in a well-regarded Elsevier journal, directly relevant because this study uses a single PEST-optimised parameter set without an ensemble or uncertainty bound around it.
+
+### 40. Geza & McCray (2008) — Effects of soil data resolution on SWAT model stream flow and water quality predictions
+
+- **File:** `Biblio/1-s2.0-S0301479707000990-main.pdf`
+- **Full citation:** Geza, M., & McCray, J. E. (2008). Effects of soil data resolution on SWAT model stream flow and water quality predictions. *Journal of Environmental Management*, 88, 393-406. https://doi.org/10.1016/j.jenvman.2007.03.016
+- **BibTeX key:** `Geza2008`
+- **Source page(s):** p. 1 (abstract, STATSGO vs SSURGO soil database resolution comparison)
+- **Claim used:** switching between coarse and fine-resolution soil databases changed the number of hydrological response units substantially and altered simulated streamflow accordingly
+- **Where cited:** Section 4.3, same new sentence block, applied to the GTK 1:200,000-scale superficial deposits map used to derive HYPE soil classes in this study
+- **Why this paper:** directly on-topic for a specific, previously uncited input-data-resolution uncertainty in this study's own soil classification pipeline.
+
+### 41. Sanchez Nieminen & Laitinen (2025) — Understanding local opposition to renewable energy projects in the Nordic countries: A systematic literature review
+
+- **File:** `Biblio/1-s2.0-S2214629625000763-main.pdf`
+- **Full citation:** Sanchez Nieminen, G., & Laitinen, E. (2025). Understanding local opposition to renewable energy projects in the Nordic countries: A systematic literature review. *Energy Research & Social Science*, 128, 103995. https://doi.org/10.1016/j.erss.2025.103995
+- **BibTeX key:** `SanchezNieminen2025`
+- **Source page(s):** p. 1 (abstract, 60 peer-reviewed studies 2014-2024, drivers of local conflict)
+- **Claim used:** local opposition to Nordic renewable energy projects is driven by environmental disruption, distrust in regulatory processes, inadequate compensation, and threats to cultural heritage; equitable, culturally sensitive engagement is recommended to avoid delays
+- **Where cited:** Section 4.5, "Social dimensions and distributional impacts," alongside the existing Laukka et al. (2021) MAR citation
+- **Why this paper:** *Energy Research & Social Science* is the leading specialty journal in this subfield (Elsevier, high impact factor); this is the strongest available source for worklist item 2.5 and by far the best fit found. Notably co-authored by a VTT (Technical Research Centre of Finland) researcher, the same institute delivering this manuscript's underlying water assessment.
+
+### 42. Qin, Zhai & Quillinan (2025) — Comparative Life Cycle Water Use Assessment of Diverse Hydrogen Production Pathways
+
+- **File:** `Biblio/es5c14837.pdf`
+- **Full citation:** Qin, D., Zhai, H., & Quillinan, S. (2025). Comparative Life Cycle Water Use Assessment of Diverse Hydrogen Production Pathways. *Environmental Science & Technology*, 59, 25237-25250. https://doi.org/10.1021/acs.est.5c14837
+- **BibTeX key:** `Qin2025`
+- **Source page(s):** pp. 1-2 (introduction, pathway comparison and treatment-loss underestimation)
+- **Claim used:** wind-powered electrolysis has the lowest life cycle water use of any hydrogen production pathway; electricity source materially changes the water footprint; unrecoverable concentrate losses from non-traditional feedwater treatment (brackish water, wastewater) are often left out of water use estimates
+- **Where cited:** Introduction, electrolyser water consumption paragraph, second half
+- **Why this paper:** *Environmental Science & Technology* is a top-tier ACS journal (impact factor consistently above 10) and this is the most comprehensive, most rigorous life cycle water use comparison found across production pathways. Strongest possible source for this claim.
+
+### 43. Santos Sánchez, Nonato, Silva, dos Reis Nogueira, Rebello, Medeiros & Hunt (2026) — Water Consumption in Hydrogen Production Through Electrolysis: Overview, State-of-the-Art, and Future Trends
+
+- **File:** `Biblio/WIREs Energy   Environment - 2026 - Sánchez - Water Consumption in Hydrogen Production Through Electrolysis  Overview .pdf`
+- **Full citation:** Santos Sánchez, A., Nonato, G. V., Silva, A. L., dos Reis Nogueira, I. B., Rebello, C. M., Medeiros, D. L., & Hunt, J. D. (2026). Water Consumption in Hydrogen Production Through Electrolysis: Overview, State-of-the-Art, and Future Trends. *WIREs Energy and Environment*, 15, e70035. https://doi.org/10.1002/wene.70035
+- **BibTeX key:** `SantosSanchez2026`
+- **Source page(s):** p. 1 (abstract, 17.5 L/kg average consumption, 51%/49% process/cooling split)
+- **Claim used:** PEM electrolysis, the more water-efficient of the two commercial technologies, consumes an average of 17.5 L of water per kg of hydrogen, with 51% used directly in electrolysis and 49% allocated to cooling
+- **Where cited:** Introduction, electrolyser water consumption paragraph, replacing the previous single "close to 9 litres per kilogram" figure with this more precise, explicitly sourced breakdown
+- **Why this paper:** *WIREs Energy and Environment* is a well-regarded Wiley review journal (open access); this is a dedicated, up-to-date overview specifically on electrolysis water consumption, giving the exact figure the Introduction needed a citation for.
+
+### 44. Dillon et al. (2019) — Sixty years of global progress in managed aquifer recharge
+
+- **File:** `Biblio/s10040-018-1841-z.pdf`
+- **Full citation:** Dillon, P., Stuyfzand, P., Grischek, T., et al. (30 co-authors) (2019). Sixty years of global progress in managed aquifer recharge. *Hydrogeology Journal*, 27, 1-30. https://doi.org/10.1007/s10040-018-1841-z
+- **BibTeX key:** `Dillon2019`
+- **Source page(s):** p. 1 (abstract, global MAR practice synthesis)
+- **Claim used:** intentional groundwater replenishment (MAR) is a well-established, if unevenly regulated, tool for balancing seasonal and inter-annual water supply variability, based on 60 years of accumulated global experience
+- **Where cited:** Introduction, MAR paragraph, opening sentence of the expanded global-context material
+- **Why this paper:** the seminal MAR review in the field, authored collectively by the International Association of Hydrogeologists' MAR commission (30 co-authors representing national MAR programmes worldwide) and published in *Hydrogeology Journal*, the IAH's own journal. This is the single strongest possible citation for worklist item 4.2.
+
+### 45. Kløve, Kvitsand, Pitkänen, Gunnarsdottir, Gaut, Gardarsson, Rossi & Miettinen (2017) — Overview of groundwater sources and water-supply systems, and associated microbial pollution, in Finland, Norway and Iceland
+
+- **File:** `Biblio/s10040-017-1552-x.pdf`
+- **Full citation:** Kløve, B., Kvitsand, H. M. L., Pitkänen, T., Gunnarsdottir, M. J., Gaut, S., Gardarsson, S. M., Rossi, P. M., & Miettinen, I. (2017). Overview of groundwater sources and water-supply systems, and associated microbial pollution, in Finland, Norway and Iceland. *Hydrogeology Journal*, 25, 1033-1044. https://doi.org/10.1007/s10040-017-1552-x
+- **BibTeX key:** `Klove2017`
+- **Source page(s):** p. 1 (abstract, seasonal recharge timing)
+- **Claim used:** groundwater recharge in Finland, Norway, and Iceland is typically highest in autumn, winter, or following snowmelt
+- **Where cited:** Introduction, MAR paragraph, linking Nordic groundwater seasonality to the surface water low-flow seasonality identified in this study
+- **Why this paper:** directly Finland-specific (one of only three countries covered) and published in *Hydrogeology Journal*; the seasonal recharge timing finding connects naturally to this study's own seasonal Q10 framing, a link the previous version of this paragraph did not make.
+
+### 46. Sprenger, Hartog, Hernández, Vilanova, Grützmacher, Scheibler & Hannappel (2017) — Inventory of managed aquifer recharge sites in Europe: historical development, current situation and perspectives
+
+- **File:** `Biblio/s10040-017-1554-8.pdf`
+- **Full citation:** Sprenger, C., Hartog, N., Hernández, M., Vilanova, E., Grützmacher, G., Scheibler, F., & Hannappel, S. (2017). Inventory of managed aquifer recharge sites in Europe: historical development, current situation and perspectives. *Hydrogeology Journal*, 25, 1909-1922. https://doi.org/10.1007/s10040-017-1554-8
+- **BibTeX key:** `Sprenger2017`
+- **Source page(s):** p. 1 (abstract, 224 MAR sites across 23 European countries)
+- **Claim used:** a systematic European inventory identifies 224 active MAR sites across 23 countries, supplying substantial volumes of drinking water
+- **Where cited:** Introduction, MAR paragraph, giving European-scale context between the global (Dillon et al.) and Finnish (Kurki et al.) scales already present
+- **Why this paper:** fills the missing continental-scale link in the existing global-to-Finland citation chain; *Hydrogeology Journal* again.
+
+### 47. Barthel, Stangefelt, Giese, Nygren, Seftigen & Chen (2021) — Current understanding of groundwater recharge and groundwater drought in Sweden compared to countries with similar geology and climate
+
+- **File:** `Biblio/Current understanding of groundwater recharge and groundwater drought in Sweden compared to countries with similar geology and climate.pdf`
+- **Full citation:** Barthel, R., Stangefelt, M., Giese, M., Nygren, M., Seftigen, K., & Chen, D. (2021). Current understanding of groundwater recharge and groundwater drought in Sweden compared to countries with similar geology and climate. *Geografiska Annaler: Series A, Physical Geography*, 103, 323-345. https://doi.org/10.1080/04353676.2021.1969130
+- **BibTeX key:** `Barthel2021`
+- **Source page(s):** p. 1 (abstract, groundwater drought independent of surface water drought)
+- **Claim used:** groundwater drought can develop and persist independently of surface water drought, particularly in unconfined aquifers with limited storage, in Sweden and geologically/climatically similar countries (which includes Finland)
+- **Where cited:** Introduction, MAR paragraph, cautioning against assuming groundwater is a drought-proof substitute for constrained surface water
+- **Why this paper:** *Geografiska Annaler* is a well-established (founded 1919), reputable Taylor & Francis physical geography journal; the paper is directly relevant to Nordic/Fennoscandian geology and is also a candidate the user should consider for worklist item 0.1 (as an alternative or supplement to the MDPI-published `veijalainen2019severe` drought citation), flagged separately in `SEARCH_WORKLIST.md`.
+
+### 48. Seidl, Page & Wheeler (2026) — Reviewing regulatory settings and their impacts on managed aquifer recharge implementation: evidence from six countries
+
+- **File:** `Biblio/1-s2.0-S1877343526000278-main.pdf`
+- **Full citation:** Seidl, C., Page, D., & Wheeler, S. A. (2026). Reviewing regulatory settings and their impacts on managed aquifer recharge implementation: evidence from six countries. *Current Opinion in Environmental Sustainability*, 78, 101631. https://doi.org/10.1016/j.cosust.2026.101631
+- **BibTeX key:** `Seidl2026`
+- **Source page(s):** p. 1 (abstract, common regulatory barriers across six countries)
+- **Claim used:** unclear water rights, absent MAR-specific legislation, and complex permitting are common barriers to MAR implementation internationally, not a distinctly Finnish problem
+- **Where cited:** Introduction, MAR paragraph, alongside the existing Laukka et al. (2021) Finnish MAR governance citation
+- **Why this paper:** *Current Opinion in Environmental Sustainability* is a well-regarded Elsevier "Current Opinion" series journal; this internationalises the governance-challenge claim that was previously supported only by a single Finnish case study.
+
+### 49. IPCC (2023) — Climate Change 2023: Synthesis Report (AR6)
+
+- **File:** `Biblio/IPCC_AR6_SYR_LongerReport.pdf` (two further duplicate copies of the same report, `IPCC_AR6_SYR_LongerReport (1).pdf` and `ARuaneIPCC6thAssessSynthesisAccepted.pdf`, were identified as the same document and not separately catalogued)
+- **Full citation:** IPCC (2023). Climate Change 2023: Synthesis Report. Contribution of Working Groups I, II and III to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change [Core Writing Team, H. Lee and J. Romero (eds.)]. IPCC, Geneva, Switzerland, pp. 35-115. https://doi.org/10.59327/IPCC/AR6-9789291691647
+- **BibTeX key:** `IPCC_AR6_SYR2023`
+- **Source page(s):** front matter (SSP scenario framework, core writing team)
+- **Claim used:** SSP2-4.5 is one of the core scenarios assessed in the IPCC Sixth Assessment Report and represents an intermediate greenhouse gas emissions trajectory
+- **Where cited:** Section 2.2.7 (Scenario analysis), climate change scenario description, replacing the prior `% TODO` marker for a general IPCC framing citation
+- **Why this paper:** the official IPCC assessment report is the gold-standard citation for situating a specific emissions pathway (SSP2-4.5) within the broader international climate assessment framework, exactly as worklist item 4.3 requested. Not journal-peer-reviewed in the conventional sense, but subject to an extensive multi-stage government and expert review process that is widely regarded as at least as rigorous.
+
+### 50. IPCC (2022) — Climate Change 2022: Impacts, Adaptation and Vulnerability. Summary for Policymakers (AR6 WGII)
+
+- **File:** `Biblio/IPCC_AR6_WGII_SummaryForPolicymakers.pdf`
+- **Full citation:** IPCC (2022). Climate Change 2022: Impacts, Adaptation and Vulnerability. Summary for Policymakers. Contribution of Working Group II to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change [Pörtner, H.-O. et al. (eds.)]. Cambridge University Press, Cambridge, UK and New York, USA. https://doi.org/10.1017/9781009325844.001
+- **BibTeX key:** `IPCC_AR6_WGII_SPM2022`
+- **Source page(s):** front matter (SPM scope: impacts, adaptation, vulnerability)
+- **Claim used:** freshwater availability is among the climate-sensitive systems for which impacts scale substantially with emissions pathway, implying higher-emission scenarios than SSP2-4.5 would produce more severe summer low-flow reductions than reported in this study
+- **Where cited:** Section 2.2.7, immediately after the AR6 SYR citation, framing the single-pathway limitation
+- **Why this paper:** official IPCC WGII assessment; the chapter-level DOI (`.001` suffix) was verified against Crossref to confirm it resolves specifically to the Summary for Policymakers rather than the full report.
+
+### 51. Diez-Sierra et al. (2022) — The Worldwide C3S CORDEX Grand Ensemble: A Major Contribution to Assess Regional Climate Change in the IPCC AR6 Atlas
+
+- **File:** `Biblio/bams-BAMS-D-22-0111.1.pdf`
+- **Full citation:** Diez-Sierra, J., Iturbide, M., Gutiérrez, J. M., et al. (2022). The Worldwide C3S CORDEX Grand Ensemble: A Major Contribution to Assess Regional Climate Change in the IPCC AR6 Atlas. *Bulletin of the American Meteorological Society*, 103, E2804-E2826. https://doi.org/10.1175/BAMS-D-22-0111.1
+- **BibTeX key:** `DiezSierra2022`
+- **Source page(s):** p. 1 (abstract, CORDEX ensemble underpinning the IPCC AR6 Atlas)
+- **Claim used:** the multi-model regional climate ensemble (CORDEX) underpinning the IPCC AR6 Atlas provides the regional climate change patterns for Northern Europe against which this study's FMI-derived delta-change factors can be situated
+- **Where cited:** Section 2.2.7, same sentence block as the IPCC SYR citation
+- **Why this paper:** *Bulletin of the American Meteorological Society* is a top-tier AMS journal; this paper is the primary reference for the regional climate modelling infrastructure behind the IPCC AR6 Atlas, giving a peer-reviewed methodological anchor alongside the IPCC's own institutional reports.
+
+---
+
+## Papers read but excluded this batch (quality control and topical fit)
+
+Following the user's explicit instruction to prioritise seminal, high-quality, reputable sources, the following candidates were read in full and excluded. This section exists so the reasoning is auditable; none of these are cited in `references.bib` or the manuscript.
+
+**Excluded as topically irrelevant to the claim searched for (title matched search terms, content did not):**
+- Seven "conceptual model" real-time forecasting papers found while searching for the Nash & Sutcliffe (1970) NSE origin paper (worklist item 1.2): Kitanidis & Bras (1980, *Water Resources Research*, two parts), Zhang et al. (2018, *Stochastic Environmental Research and Risk Assessment*), Turan & Yurdusev (2015, *Water Resources Management*), Xiong & O'Connor (2002, *Hydrological Sciences Journal*), Napolitano et al. (2010, *Journal of Hydrology*), and Dibike & Solomatine (2001, *Physics and Chemistry of the Earth*). These are legitimate, in some cases seminal, papers in real-time hydrological forecasting and data assimilation (the Kitanidis & Bras papers in particular are classics in that subfield), but none of them define or discuss the origin of NSE, and this manuscript does not perform real-time/operational forecasting, so none had a natural home elsewhere either. Not cited.
+- Krishnan et al. (2024, *International Journal of Hydrogen Energy*), "Prospective LCA of alkaline and PEM electrolyser systems," and two papers by Koj, Zapp, Wieland, Görner & Kuckshinrichs (2024, *Energy, Sustainability and Society*; 2025, *Journal of Industrial Ecology*), all found under worklist item 4.1 (electrolyser water consumption). All three are legitimate LCA papers in reputable journals, but on inspection none of them actually discuss water consumption; they assess greenhouse gas emissions, cost, and other environmental impact categories for alkaline/PEM electrolysers. Citing them for a water-consumption claim would have been a title-match rather than a content-match, which the user's quality-control instruction specifically asked to guard against. Not cited.
+- Wang et al. (2024, *Applied Energy*), "Comparative experimental study of alkaline and proton exchange membrane water electrolysis for green hydrogen production." A reputable, high-impact journal, but the paper is about dynamic response and cold-start performance, not water consumption. Same reasoning as above. Not cited.
+- Rumayor et al. (2022, *Journal of Cleaner Production*), "Prospective life cycle assessment of hydrogen production by waste photoreforming." Legitimate journal, but the production pathway (photoreforming) is outside the PEM/alkaline electrolysis scope of the Introduction's water-consumption paragraph. Not cited.
+
+**Excluded on publication-type or quality grounds (per the reference quality policy):**
+- Cheng & Kristoffersen, "Beyond Community Acceptance: Examining Energy Justice in Northern Norway's Green Hydrogen Transition" (SSRN preprint, DOI 10.2139/ssrn.6582674). Topically an excellent fit for worklist item 2.5 (arguably better than the paper that was used), but confirmed via Crossref to exist only as an unpublished SSRN preprint with no peer-reviewed version yet. Flagged in `SEARCH_WORKLIST.md` for the user to watch for publication; not cited while unpublished.
+- Alfasfos, "Towards a Resilient Hydrogen Economy: Climate Impact, Safety, Cybersecurity, and the Foundations for Public Trust" (PhD dissertation, Acta Universitatis Lappeenrantaensis). A Crossref search for published constituent papers found only cybersecurity/safety conference papers by the same author, not on the water/siting/public-trust theme needed here. Thesis not cited per the quality policy (peer-reviewed version preferred when it exists; here the closest published counterparts are off-topic).
+- Aaltonen, Jääskä & Kujala, "Approaches to social license to operate (SLO) in emerging nuclear projects" (University of Oulu research report, not peer-reviewed, nuclear-specific). Wrong sector (nuclear, not hydrogen or general renewables) and not peer-reviewed. Not cited.
+- Danilova, "Permitting Procedures for Renewable Energy Projects in the European Union" (MSc thesis, TU Wien, 2024). Master's-level thesis, not peer-reviewed; the weakest publication type encountered this session. Not cited.
+- Heikkinen, "Fast, Cheap and Popular – Can You Have All Three? Comparing Reverse Auctions for Renewable Energy in Finland and Australia" (PhD thesis, University of Technology Sydney). About renewable energy procurement/auction market design, not social acceptance of siting; weak topical fit even setting aside publication type. Not cited.
+- de Witt, Roets & Watson (2025, *Hydrogeology Journal*), "Review: Implementation challenges of managed aquifer recharge in developing countries." Legitimate journal, but the paper's scope (developing-country implementation barriers: financing, capacity, piloting-phase struggles) has weak relevance to Finland's mature, well-regulated MAR context. Not cited, to keep the MAR paragraph focused.
+- Seidl, Page & Wheeler (2024, *Water Security*), "Using managed aquifer recharge to address land subsidence: Insights from a global literature review." Land subsidence from groundwater over-extraction is not a relevant risk in Finland's till/bedrock geological setting. Not cited.
+- Zhang, Xu & Kanyerere (2020, *Physics and Chemistry of the Earth*) and Sinshaw, Dahlke, Viers & Safeeq (2026, *Environmental Reviews*), both general global MAR reviews. Both are legitimate, reasonably-regarded journals, but their content substantially overlaps with the more authoritative and more widely cited Dillon et al. (2019) review already used; kept the stronger single source rather than stacking three overlapping global reviews. Not cited.
+- Taylor, Aureli, Allen, Banks, Villholth & Stigter, "Groundwater, aquifers and climate change" (UNESCO-IHP/IAH book chapter). Authoritative institutional body, but a book chapter rather than a peer-reviewed journal article, and its content overlaps with Dillon et al. (2019). Not cited.
+- Iturbide et al. (2022, *Scientific Data*), "Implementation of FAIR principles in the IPCC: the WGI AR6 Atlas repository." A legitimate Nature-family peer-reviewed paper, but it describes data infrastructure and repository design (FAIR data principles) rather than regional climate projections themselves; tangential to the claim needed here. Not cited.
+- IPCC AR6 WGI Chapter 1, "Framing, Context, and Methods." Official IPCC chapter, but its content is general methodological framing for the whole WGI report rather than material specific to regional projections or the SSP2-4.5 pathway; the Synthesis Report and WGII SPM citations already used cover the framing need more directly. Not cited, to avoid redundant IPCC citations.
+
+**Excluded as inappropriate for scientific citation (serious quality flag):**
+- Crok, M., & May, A. (Eds.). *The Frozen Climate Views of the IPCC: An Analysis of AR6* (self-published via Clintel.org and "Andy May Petrophysicist LLC"). This is **not a legitimate scientific source**. Clintel is a climate-change-contrarian advocacy organisation, and this publication is a polemical critique disputing mainstream IPCC climate science; it is not peer-reviewed, not published by an academic or scientific press, and directly contradicts the physical basis (including SSP-based warming projections) that this manuscript's own climate change scenario relies on. Citing it in an AGU journal submission would be a serious credibility problem, not a minor quality issue. Flagged here explicitly so it is never mistaken for a usable source in a future pass. **Do not cite.**
+
+
 ### Papers read but not cited (this batch)
 
 The following papers, supplied for worklist items 1.2, 1.3, and 2.4, were read and judged not to fit any current claim in the manuscript, or to be redundant with a stronger source already cited. They remain in `Biblio/` in case a future revision finds a use for them, but are not in `references.bib`.
